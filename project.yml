@@ -1,4 +1,4 @@
-# project.yml – XcodeGen Konfiguration für iMail secure
+# project.yml – XcodeGen Konfiguration für iMail Secure
 # Installiere XcodeGen: brew install xcodegen
 # Erstelle Projekt:     xcodegen generate --spec project.yml
 

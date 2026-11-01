@@ -9,10 +9,10 @@
   <string>io.imailsecure.app</string>
 
   <key>CFBundleName</key>
-  <string>iMail secure</string>
+  <string>iMail Secure</string>
 
   <key>CFBundleDisplayName</key>
-  <string>iMail secure</string>
+  <string>iMail Secure</string>
 
   <key>CFBundleVersion</key>
   <string>1</string>
@@ -77,15 +77,15 @@
 
   <!-- Kamera – nicht benötigt; trotzdem deklarieren falls künftig -->
   <!-- <key>NSCameraUsageDescription</key>
-  <string>iMail secure benötigt die Kamera nicht.</string> -->
+  <string>iMail Secure benötigt die Kamera nicht.</string> -->
 
   <!-- Face ID / Touch ID – optional für künftige Biometrie -->
   <key>NSFaceIDUsageDescription</key>
-  <string>iMail secure kann Face ID verwenden, um deine E-Mails zu schützen.</string>
+  <string>iMail Secure kann Face ID verwenden, um deine E-Mails zu schützen.</string>
 
   <!-- Kontakte – Berechtigung erst aktivieren wenn Autovervollständigung implementiert ist -->
   <!-- <key>NSContactsUsageDescription</key>
-  <string>iMail secure kann deine Kontakte nutzen, um E-Mail-Adressen beim Schreiben vorzuschlagen. Deine Kontakte werden niemals an Dritte übermittelt.</string> -->
+  <string>iMail Secure kann deine Kontakte nutzen, um E-Mail-Adressen beim Schreiben vorzuschlagen. Deine Kontakte werden niemals an Dritte übermittelt.</string> -->
 
   <!-- Push-Benachrichtigungen: nur Background Fetch aktiv; remote-notification erst nach
        vollständiger Push-Implementierung und eigenem Push-Server aktivieren -->

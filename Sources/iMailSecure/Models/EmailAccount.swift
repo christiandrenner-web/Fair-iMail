@@ -4,7 +4,7 @@ import Foundation
 // MARK: – Verbindungssicherheit
 
 /// Erlaubte TLS-Modi für IMAP und SMTP.
-/// Klartext ist bewusst ausgeschlossen – iMail secure erlaubt niemals
+/// Klartext ist bewusst ausgeschlossen – iMail Secure erlaubt niemals
 /// unverschlüsselte Verbindungen.
 enum ConnectionSecurity: String, Codable, CaseIterable {
     /// Implizites TLS (IMAP 993, SMTP 465) – Verbindung ist sofort verschlüsselt.

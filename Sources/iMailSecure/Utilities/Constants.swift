@@ -2,7 +2,7 @@
 import Foundation
 
 enum AppConstants {
-    static let appName          = "iMail secure"
+    static let appName          = "iMail Secure"
     static let bundleID         = "io.imailsecure.app"
     static let appVersion       = "1.0.0"
     static let appBuild         = "1"

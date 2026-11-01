@@ -1,4 +1,4 @@
-# CLAUDE.md — iMail secure
+# CLAUDE.md — iMail Secure
 
 @AGENTS.md
 

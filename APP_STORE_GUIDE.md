@@ -1,4 +1,4 @@
-# App Store Einreichung – iMail secure
+# App Store Einreichung – iMail Secure
 ## Schritt-für-Schritt-Checkliste
 
 ---
@@ -62,19 +62,19 @@ Empfohlen: Simulator-Screenshots + [Previewed.app](https://previewed.app) für s
 ## 5. App Store Connect
 
 1. Neuen App-Eintrag anlegen: https://appstoreconnect.apple.com
-2. Name: **iMail secure**
+2. Name: **iMail Secure**
 3. Primary Language: **German**
 4. Bundle ID: `io.imailsecure.app`
 5. SKU: `imailsecure-ios-1`
 
 ### Metadaten (DE)
 ```
-Name:           iMail secure
+Name:           iMail Secure
 Untertitel:     Datenschutz-E-Mail-Client
 Kategorie:      Produktivität
 
 Beschreibung:
-iMail secure ist ein datenschutzfreundlicher E-Mail-Client für iOS, 
+iMail Secure ist ein datenschutzfreundlicher E-Mail-Client für iOS, 
 der vollständige IMAP/SMTP-Unterstützung mit Lesebestätigungen 
 nach RFC 8098 (MDN) bietet – ohne Tracking, ohne Werbung, 
 ohne Datenweitergabe an Dritte.

@@ -34,7 +34,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Datenschutz")
                 } footer: {
-                    Text("iMail secure überträgt keine Daten an Dritte und enthält kein Tracking. Das Laden externer Bilder ist bewusst nicht abschaltbar – es findet nicht statt.")
+                    Text("iMail Secure überträgt keine Daten an Dritte und enthält kein Tracking. Das Laden externer Bilder ist bewusst nicht abschaltbar – es findet nicht statt.")
                 }
 
                 // Nachrichtenoptionen
@@ -43,7 +43,7 @@ struct SettingsView: View {
                 }
 
                 // Info
-                Section("Über iMail secure") {
+                Section("Über iMail Secure") {
                     LabeledContent("Version", value: AppConstants.appVersion)
                     LabeledContent("Lizenz", value: "GPL-3.0 mit App-Store-Ausnahme")
                     if let source = URL(string: AppConstants.sourceCodeURL) {

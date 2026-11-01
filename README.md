@@ -1,4 +1,4 @@
-# iMail secure
+# iMail Secure
 
 Datenschutzfreundlicher E-Mail-Client für iOS 18+  
 Lizenz: GPL-3.0 (Vereinbarkeit mit dem App Store: siehe [LICENSING.md](LICENSING.md))

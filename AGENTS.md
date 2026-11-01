@@ -1,4 +1,4 @@
-# AGENTS.md — iMail secure
+# AGENTS.md — iMail Secure
 
 Verbindliche Regeln für **jeden** Assistenten (OpenCode, Claude Code/Desktop, …), der in
 diesem Repository arbeitet. Diese Datei ist die Quelle der Wahrheit für Arbeitsweise und

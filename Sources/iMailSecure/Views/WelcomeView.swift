@@ -15,7 +15,7 @@ struct WelcomeView: View {
                 .symbolEffect(.pulse)
 
             VStack(spacing: 8) {
-                Text("iMail secure")
+                Text("iMail Secure")
                     .font(.largeTitle.bold())
                 Text("Datenschutzfreundlicher E-Mail-Client")
                     .font(.subheadline)

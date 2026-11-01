@@ -1,5 +1,5 @@
 // CertificatePinner.swift
-// Trust On First Use (TOFU) Zertifikat-Pinning für iMail secure.
+// Trust On First Use (TOFU) Zertifikat-Pinning für iMail Secure.
 //
 // Sicherheitsmodell:
 //   Beim ersten Verbindungsaufbau zu einem Server wird der SHA-256-Fingerabdruck

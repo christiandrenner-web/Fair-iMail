@@ -132,7 +132,7 @@ struct MessageDetailView: View {
             }
             Button("Abbrechen", role: .cancel) { pendingExternalURL = nil }
         } message: { url in
-            Text("\(url.trackingStripped.absoluteString)\n\nDamit verlässt du iMail secure. Die Zielseite kann deine IP-Adresse und den Zeitpunkt sehen.")
+            Text("\(url.trackingStripped.absoluteString)\n\nDamit verlässt du iMail Secure. Die Zielseite kann deine IP-Adresse und den Zeitpunkt sehen.")
         }
         .onChange(of: message.id) {
             showHTML = false

@@ -1,4 +1,4 @@
-# AUDIT_NOTES.md — iMail secure
+# AUDIT_NOTES.md — iMail Secure
 **Erstellt:** 2026-10-31  
 **Auditor:** Claude (Anthropic) – pedantischer IT-Security-Auditor, Orientierung an FairEmail (Marcel Bockhorst)  
 **Projektpfad:** `/Users/christianrenner/XCODE/Fair-iMail/iMailSecure.xcodeproj`  

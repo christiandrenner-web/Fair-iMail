@@ -1,5 +1,5 @@
 // iMailSecureApp.swift
-// iMail secure – Datenschutzfreundlicher E-Mail-Client für iOS 18+
+// iMail Secure – Datenschutzfreundlicher E-Mail-Client für iOS 18+
 // Lizenz: GPL-3.0
 
 import SwiftUI
@@ -54,7 +54,7 @@ struct iMailSecureApp: App {
                     Image(systemName: "lock.shield.fill")
                         .font(.system(size: 48))
                         .foregroundStyle(.secondary)
-                    Text("iMail secure")
+                    Text("iMail Secure")
                         .font(.title2.bold())
                         .foregroundStyle(.secondary)
                 }
