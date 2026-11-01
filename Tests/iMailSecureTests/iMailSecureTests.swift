@@ -86,6 +86,8 @@ final class MDNProcessorTests: XCTestCase {
             subject: "Read: My Subject",
             date: Date(),
             body: """
+            Content-Type: message/disposition-notification
+
             Original-Message-ID: <original-001@example.com>
             Disposition: automatic-action/MDN-sent-automatically; displayed
             """
@@ -95,6 +97,26 @@ final class MDNProcessorTests: XCTestCase {
         XCTAssertNotNil(result)
         XCTAssertEqual(result?.dispositionAction, "displayed")
         XCTAssertEqual(result?.originalMessageID, "<original-001@example.com>")
+    }
+
+    /// D6-Regression: Ein Betreff wie „Read: …" darf allein keine MDN auslösen.
+    /// Ohne Content-Type-Marker ist die Nachricht eine normale Mail.
+    func testSubjectHeuristicIsNotTrusted() {
+        let msg = EmailMessage(
+            id: "<fake-001@test.local>",
+            uid: 100,
+            accountID: UUID(),
+            from: EmailAddress(address: "attacker@example.com"),
+            to: [EmailAddress(address: "sender@example.com")],
+            subject: "Read: Wichtige Rechnung",
+            date: Date(),
+            body: """
+            Original-Message-ID: <original-002@example.com>
+            Disposition: automatic-action/MDN-sent-automatically; displayed
+            """
+        )
+
+        XCTAssertNil(MDNProcessor.processMDN(message: msg))
     }
 
     func testNonMDNMessage() {

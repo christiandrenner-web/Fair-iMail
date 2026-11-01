@@ -58,6 +58,16 @@ final class SMTPManager {
         if !extraHeaders.isEmpty { email.additionalHeaders = extraHeaders }
 
         let server = SMTPServer(host: account.smtpHost, port: account.smtpPort)
+
+        // N2: TOFU-Fingerabdruck-Pinning auch für den Versandpfad.
+        // Greift bei implicit TLS (Port 465); bei STARTTLS (587/25) übernimmt die
+        // Zertifikatsprüfung der TLS-Schicht in SwiftMail (fail-closed).
+        // Muss VOR dem Verbindungsaufbau laufen, sonst ist der Handshake bereits durch.
+        try await CertificatePinner.shared.verifyAndPin(
+            host: account.smtpHost,
+            port: account.smtpPort
+        )
+
         // N1/N2 – TLS-Modus vorbereitet.
         // Sobald SwiftMail eine TLSConfiguration-Übergabe anbietet:
         //   var tlsConfig = TLSConfiguration.makeClientConfiguration()
