@@ -6,7 +6,7 @@
 ## 1. Apple Developer Account
 - [ ] Apple Developer Program beitreten ($99/Jahr): https://developer.apple.com/programs/
 - [ ] Bundle ID registrieren: `io.imailsecure.app` (App IDs → Register)
-- [ ] Push-Zertifikat erstellen (für Phase 3 – Benachrichtigungen)
+- [ ] Kein Push-Zertifikat nötig: Benachrichtigungen sind nicht implementiert und derzeit nicht geplant
 
 ---
 
@@ -66,6 +66,9 @@ Empfohlen: Simulator-Screenshots + [Previewed.app](https://previewed.app) für s
 3. Primary Language: **German**
 4. Bundle ID: `io.imailsecure.app`
 5. SKU: `imailsecure-ios-1`
+6. **Lizenzvereinbarung (EULA):** eigene EULA hinterlegen — sonst gilt Apples
+   Standard-EULA und die Nicht-kommerziell-Klausel der PolyForm-Lizenz greift
+   gegenüber App-Store-Nutzern nicht (siehe `LICENSING.md`, Abschnitt 3.1)
 
 ### Metadaten (DE)
 ```
@@ -84,15 +87,16 @@ Funktionen:
 • Lesebestätigungen (MDN/RFC 8098)
 • Empfangsbestätigungen
 • Passwörter ausschließlich im iOS-Keychain
-• Kein Tracking, keine Werbung
-• Open Source (GPL-3.0)
+• HTML nur auf Knopfdruck, externe Inhalte blockiert
+• Kein Tracking, keine Werbung, keine Telemetrie
+• Quellcode einsehbar (PolyForm Noncommercial 1.0.0)
 
-Keywords: E-Mail, Mail, Datenschutz, IMAP, SMTP, MDN, Lesebestätigung, 
-          Open Source, sicher, privat
+Keywords: E-Mail, Mail, Datenschutz, IMAP, SMTP, MDN, Lesebestätigung,
+          sicher, privat, Tracking-Schutz
 
-Support-URL:    https://fairimail.io/support
-Marketing-URL:  https://fairimail.io
-Datenschutz:    https://fairimail.io/privacy
+Support-URL:    https://christiandrenner-web.github.io/imailsecure-site/support.html
+Marketing-URL:  https://christiandrenner-web.github.io/imailsecure-site/
+Datenschutz:    https://christiandrenner-web.github.io/imailsecure-site/privacy.html
 ```
 
 ---
@@ -144,7 +148,10 @@ Apple prüft die App in der Regel innerhalb von 24–48 Stunden.
 
 ## 9. Nach der Veröffentlichung
 
-- [ ] GitHub-Repository öffentlich schalten (GPL-3.0 verpflichtet dazu)
+- [ ] Quellcode veröffentlichen, falls gewünscht (die PolyForm-Lizenz
+      verpflichtet **nicht** dazu — ohne Veröffentlichung ist der Code nur
+      nicht einsehbar, die Aussage „nachprüfbar" wäre dann aber unbelegt)
 - [ ] `CHANGELOG.md` pflegen
-- [ ] Crashlytics / Sentry (datenschutzkonform) optional einbinden
+- [ ] **Kein** Crash-Reporting-SDK einbinden (Crashlytics/Sentry verstoßen
+      gegen Leitsatz 1 in `AGENTS.md`)
 - [ ] Regelmäßige Updates: Apple erwartet aktive Wartung

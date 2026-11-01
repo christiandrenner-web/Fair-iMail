@@ -1,7 +1,7 @@
 # Contributor License Agreement (CLA)
 
 **Projekt:** iMail Secure
-**Rechteinhaber:** NuCo (nachfolgend „Projektinhaber")
+**Rechteinhaber:** Christian Renner, Steigerstr. 101b, 06493 Harzgerode (nachfolgend „Projektinhaber")
 **Stand:** 2026-11-01
 
 *Diese Vereinbarung ist kein Rechtsgutachten. Vor dem ersten externen Beitrag
@@ -12,16 +12,18 @@ Beiträge nur nach ausdrücklicher Bestätigung dieses Textes angenommen.*
 
 ## Warum es diese Vereinbarung gibt
 
-iMail Secure wird unter der GNU GPLv3 veröffentlicht, zusätzlich mit einer
-App-Store-Ausnahme (`LICENSE-EXCEPTION`). Wer einen Beitrag leistet, ist
-urheberrechtlich Mitinhaber genau dieses Beitrags. Ohne Zustimmung darf der
-Projektinhaber diesen Beitrag nicht unter Apples Bedingungen verbreiten — und
-müsste die App auf Beschwerde des Beitragenden aus dem App Store nehmen (so
-geschehen bei VLC im Jahr 2011).
+iMail Secure ist **source-available**: Der Quellcode ist einsehbar und
+nachprüfbar, aber die Lizenz (`LICENSE`, PolyForm Noncommercial 1.0.0) erlaubt
+keine kommerzielle Nutzung. Der Projektinhaber selbst darf die App natürlich
+kommerziell vertreiben — als Rechteinhaber ist er an seine eigene Lizenz nicht
+gebunden.
 
-Diese Vereinbarung überträgt **keine Rechte weg**. Du bleibst Urheber deines
-Beitrags. Du räumst dem Projektinhaber nur die Rechte ein, die für die
-Verbreitung des Projekts nötig sind.
+Sobald jemand anderes Code beisteuert, ist dieser Beitrag urheberrechtlich
+Mitinhaber seines eigenen Codes. Ohne Zustimmung dürfte der Projektinhaber
+diesen Beitrag weder kommerziell verwerten noch unter anderen Bedingungen
+lizenzieren. Diese Vereinbarung schafft die dafür nötige Grundlage.
+
+Sie überträgt **keine Rechte weg**. Du bleibst Urheber deines Beitrags.
 
 ## 1. Begriffe
 
@@ -37,13 +39,14 @@ unwiderrufliche, übertragbare und unterlizenzierbare** Lizenz an deinem Beitrag
 ein, diesen zu vervielfältigen, zu bearbeiten, zu verbreiten, öffentlich
 zugänglich zu machen und Unterlizenzen zu vergeben — insbesondere:
 
-1. unter der **GNU GPLv3** (oder einer späteren Version), und
-2. unter Bedingungen, die die **Verbreitung über den Apple App Store**
-   einschließlich TestFlight ermöglichen, wie in `LICENSE-EXCEPTION`
-   beschrieben.
+1. unter der **PolyForm Noncommercial License 1.0.0** oder einer Nachfolge­version,
+2. unter **anderen Bedingungen**, einschließlich entgeltlicher und
+   kommerzieller Lizenzen sowie der Verbreitung über den Apple App Store.
 
 Diese Lizenz gilt auch für Bearbeitungen deines Beitrags durch den
-Projektinhaber und andere Beitragende.
+Projektinhaber und andere Beitragende. Du räumst ausdrücklich das Recht ein,
+deinen Beitrag mit anderem Code zu kombinieren und ihn unter einer anderen
+Lizenz zu verbreiten, als du selbst sie für deine eigenen Kopien wählst.
 
 ## 3. Patentlizenz
 
@@ -62,8 +65,8 @@ Du bestätigst, dass
    kompatible Lizenz),
 3. du berechtigt bist, diese Vereinbarung zu schließen — insbesondere, wenn du
    im Rahmen eines Arbeitsverhältnisses beiträgst,
-4. dein Beitrag keine Lizenzbedingungen enthält, die der GPLv3 oder der
-   App-Store-Ausnahme widersprechen.
+4. dein Beitrag keine Lizenzbedingungen enthält, die dieser Vereinbarung oder
+   der Projektlizenz widersprechen.
 
 ## 5. Keine Pflichten des Projektinhabers
 
@@ -97,6 +100,4 @@ Commit:
 
    > I have read and agree to the iMail Secure CLA (CLA.md).
 
-Ohne diese Bestätigung wird ein Beitrag nicht gemergt. Das ist keine
-Misstrauensbekundung, sondern die einzige Möglichkeit, die App gleichzeitig
-quelloffen und im App Store verfügbar zu halten.
+Ohne diese Bestätigung wird ein Beitrag nicht gemergt.

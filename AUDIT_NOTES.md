@@ -322,10 +322,16 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
   entfernt, Datenschutzlabel ist damit „Keine Daten erfasst". **Fachlich gegenprüfen.**
 - **README:** „Offline-fähig (Core Data)" entfernt — `CoreDataService` hat keinen Aufrufer,
   die Aussage war falsch.
-- **L1 entschieden (Option A):** `LICENSE-EXCEPTION` (Zusatzgenehmigung nach §7 GPLv3 für
-  Apple App Store/TestFlight) und `CLA.md` angelegt; `LICENSING.md`, `README.md` und
-  `AGENTS.md` angepasst. Vor Veröffentlichung: juristische Prüfung + bürgerlicher Name
-  in beiden Dateien.
+- **L1 entschieden (Option B: source-available, nicht-kommerziell):** GPLv3 + App-Store-Ausnahme
+  (Option A) wieder verworfen, weil sie bei jeder Weitergabe eine Veröffentlichung erzwungen
+  und kommerzielle Forks erlaubt hätte. `LICENSE` ist jetzt **PolyForm Noncommercial 1.0.0**;
+  `LICENSE-EXCEPTION` gelöscht; `CLA.md` neu gefasst (erlaubt kommerzielle Verwertung und
+  Relizenzierung durch den Rechteinhaber). `LICENSING.md`, `README.md`, `AGENTS.md`,
+  `APP_STORE_GUIDE.md` und die Lizenzangabe in `SettingsView` angepasst.
+  **Wichtig:** Das ist kein Open Source; die Bezeichnung darf nicht verwendet werden. Im
+  App Store ist eine eigene EULA nötig, sonst gilt Apples Standard-EULA.
+  `APP_STORE_GUIDE.md` enthielt außerdem „Crashlytics/Sentry einbinden" — das widerspricht
+  Leitsatz 1 und wurde entfernt.
 - **Website:** separates, öffentliches Repo `~/XCODE/imailsecure-site` (index, privacy,
   support, lokales CSS, `.nojekyll`). Keine externen Ressourcen, keine Cookies, keine
   Analytics; GitHub-Pages-Hosting ist in der Datenschutzerklärung offengelegt.

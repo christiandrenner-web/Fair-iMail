@@ -87,11 +87,19 @@ xcodegen generate
 | S5 | OAuth 2.0 (Google/Outlook) vs. nur App-Passwörter | offen |
 | S6 | Entwürfe lokal speichern (verschlüsselt) | offen |
 | C1 | PGP/S/MIME: Drittbibliothek ja/nein | offen |
-| L1 | Lizenz: GPLv3 + App-Store-Ausnahme + CLA | ✅ entschieden (Option A, 2026-11-01) |
+| L1 | Lizenz: source-available, nicht-kommerziell | ✅ entschieden (Option B, 2026-11-01) |
 
 ## Lizenz
 
-**GPL-3.0 mit App-Store-Ausnahme** (`LICENSE`, `LICENSE-EXCEPTION`) und CLA für
-Beiträge (`CLA.md`). Fremde Beiträge ohne CLA nicht mergen. Vor der
-Veröffentlichung: juristische Prüfung und bürgerlichen Namen des Rechteinhabers
-eintragen.
+**PolyForm Noncommercial 1.0.0** (`LICENSE`): Quellcode einsehbar, keine
+kommerzielle Nutzung durch Dritte. Das ist **kein Open Source** — weder in der
+Doku noch in der App so nennen. Beiträge nur mit `CLA.md` mergen. Der
+Rechteinhaber (Christian Renner) darf selbst kommerziell vertreiben.
+
+Pflichten daraus:
+
+- Bei Veröffentlichung des Codes die Lizenz mitliefern (PolyForm § Notices).
+- In App Store Connect eine eigene EULA hinterlegen, sonst gilt Apples
+  Standard-EULA und die Nicht-kommerziell-Klausel greift nicht.
+- Fremden Code ohne CLA nicht übernehmen — er wäre nicht kommerziell
+  verwertbar.

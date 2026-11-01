@@ -1,6 +1,8 @@
 # LICENSING.md — Lizenz, App Store und Monetarisierung
 
-**Stand:** 2026-11-01 · **Status:** entschieden — **Option A** (GPLv3 + App-Store-Ausnahme + CLA)
+**Stand:** 2026-11-01 · **Status:** entschieden — **Option B: source-available,
+nicht-kommerziell** (PolyForm Noncommercial 1.0.0)
+
 *Keine Rechtsberatung — das ist eine technische und organisatorische Einschätzung.
 Vor einer kommerziellen Veröffentlichung sollte ein Anwalt für IT-Recht drüberschauen.*
 
@@ -10,142 +12,133 @@ Vor einer kommerziellen Veröffentlichung sollte ein Anwalt für IT-Recht drübe
 
 | Frage | Antwort |
 |---|---|
-| Verbietet Apple Open Source? | **Nein.** Die App Review Guidelines kennen keine Lizenzbedingung. |
-| Ist GPLv3 mit dem App Store vereinbar? | **Nur eingeschränkt.** Die Apple-ToS kollidieren mit GPLv3 §3 (DRM) und §10 (keine Zusatzbeschränkungen). |
-| Prüft Apple die Lizenz beim Upload? | **Nein.** Entfernt wird auf Beschwerde — nicht automatisch. |
-| Darf man mit GPL Geld verdienen? | **Ja.** GPL verbietet keine Preise. FairEmail ist GPLv3 und kostet im Play Store Geld. |
-| Bist du betroffen? | **Nur, wenn fremder Code im Projekt landet.** Als alleiniger Urheber darfst du dein eigenes Werk unter beiden Bedingungen anbieten. |
+| Welche Lizenz? | **PolyForm Noncommercial 1.0.0** (`LICENSE`) |
+| Ist das „Open Source"? | **Nein.** Nicht OSI-zertifiziert — die Bezeichnung darf nicht verwendet werden. |
+| Ist der Quellcode einsehbar? | Ja, sobald veröffentlicht. Einsehbar ≠ freie Verwertung. |
+| Dürfen andere die App kommerziell nutzen oder verkaufen? | **Nein.** |
+| Darfst du selbst Geld damit verdienen? | **Ja** — als Rechteinhaber bindet dich deine eigene Lizenz nicht. |
+| Ist das App-Store-tauglich? | **Ja**, ohne Zusatzgenehmigung. Der GPL-Konflikt entfällt komplett. |
+| Fremde Beiträge? | Nur mit `CLA.md`, sonst nicht mergebar. |
 
 ---
 
-## 1. Wo genau der Konflikt liegt
+## 1. Was die Lizenz erlaubt und verbietet
 
-Nicht in „offener Code ist unsicher", sondern in zwei konkreten Klauseln:
+**Erlaubt** (für Privatpersonen, nicht-kommerziell):
 
-**GPLv3 §3 (Anti-Tivoization / DRM)**
-Wer das Werk verbreitet, darf niemandem das Recht nehmen, technische Schutzmaßnahmen zu
-umgehen. Apple liefert jede App mit FairPlay-DRM aus und verbietet das Umgehen.
+- die App benutzen,
+- den Quellcode lesen und prüfen — das ist der Zweck der Übung,
+- ihn verändern und eigene Versionen bauen,
+- Kopien weitergeben, solange Lizenztext und Copyright-Hinweis mitkommen.
 
-**GPLv3 §10 (keine zusätzlichen Beschränkungen)**
-„You may not impose any further restrictions on the recipients' exercise of the rights
-granted herein." Apples Nutzungsbedingungen beschränken u. a. auf autorisierte Geräte und
-verlangen die Zustimmung zu Apples ToS — beides Zusatzbeschränkungen.
+**Verboten:**
 
-Dazu kommt: Der Nutzer kann eine App-Store-App nicht durch eine selbst kompilierte Version
-ersetzen. Genau davor schützt GPLv3 §6 (Installationsinformationen) — auf iOS nicht erfüllbar.
+- jede kommerzielle Nutzung durch Lizenznehmer, also Verkauf, Bezahl-Angebote,
+  Werbe-Finanzierung oder Einsatz in einem Unternehmen zu Geschäftszwecken,
+- Weiterverbreitung ohne Lizenztext.
 
-**Präzedenzfälle**
-- 2010: GNU Go aus dem App Store entfernt (FSF-Beschwerde).
-- 2011: VLC entfernt, nachdem ein **Mitentwickler** Beschwerde eingelegt hatte. VideoLAN
-  löste es durch Relizenzierung von libVLC unter LGPLv2.1+.
-
-In beiden Fällen war nicht Apple der Auslöser, sondern ein Rechteinhaber.
+**Nicht betroffen:** Du als Rechteinhaber. Du kannst die App im App Store
+verkaufen, Spenden annehmen oder In-App-Käufe anbieten. Du lizenzierst, du
+nimmst die Lizenz nicht in Anspruch.
 
 ---
 
-## 2. Warum dein Fall anders liegt
+## 2. Warum nicht GPL
 
-Du bist (Stand heute) **alleiniger Urheber** — das Repo ist lokal, es gibt keine
-veröffentlichte Version, keine Fremdbeiträge. Ein Urheber darf sein eigenes Werk
-gleichzeitig:
+Die vorherige Entscheidung war GPLv3 + App-Store-Ausnahme. Sie ist verworfen,
+weil sie genau das erzwungen hätte, was vermieden werden soll:
 
-1. der Allgemeinheit unter **GPLv3** anbieten (Quellcode auf GitHub o. ä.), und
-2. selbst als **App-Store-Binary unter Apples Bedingungen** verbreiten.
+| Punkt | GPLv3 |
+|---|---|
+| Quellcode bei jeder Weitergabe | **Pflicht** — beim App-Store-Vertrieb also öffentlich |
+| Kommerzielle Forks durch Dritte | **erlaubt** (müssen GPL bleiben) |
+| Konflikt mit Apples DRM/ToS | vorhanden, braucht §7-Zusatzgenehmigung |
+| Aussage „Code bleibt geschlossen" | nicht möglich |
 
-Das ist keine Doppellizenzierung, sondern schlicht das Urheberrecht an der eigenen Arbeit.
-Es gibt niemanden, der sich beschweren könnte — außer dir selbst.
-
-**Die Bedingung:** Das gilt nur, solange **alle** Rechteinhaber zustimmen. Sobald ein
-fremder Pull Request ohne Rechteübertragung gemergt wird, hat dieser Beitragende seinen Code
-unter GPLv3 beigesteuert. Dann wäre die App-Store-Distribution dieses Codes eine
-GPL-Verletzung — und er könnte die Entfernung verlangen (wie bei VLC).
-
-**Konsequenz:** Wenn das Projekt offen für Beiträge werden soll → **CLA** (Contributor
-License Agreement) oder zumindest eine ausdrückliche Erklärung pro PR, dass der Beitrag
-auch unter Apples Bedingungen lizenziert werden darf.
+Kurz: GPL und „Code geheim halten" schließen sich aus. Wer die GPL wählt,
+wählt die Veröffentlichung. Wenn das nicht gewollt ist, muss die Lizenz
+wechseln — nicht die Formulierung.
 
 ---
 
-## 3. Optionen im Vergleich
+## 3. Zwei Haken, die man kennen muss
 
-### A) GPLv3 + App-Store-Ausnahme (§7) + CLA — **Empfehlung**
-GPLv3 erlaubt in §7 „additional permissions". Du ergänzt eine Erlaubnis, das Werk auch unter
-den Bedingungen des Apple App Store zu verbreiten. Quellcode bleibt offen, App Store bleibt
-möglich, Copyleft bleibt erhalten.
+### 3.1 App Store: eigene EULA hinterlegen
 
-- Aufwand: eine Textdatei (`LICENSE-EXCEPTION`), ein CLA für Beitragende
-- Risiko: gering; die Formulierung sollte juristisch geprüft werden
-- Vorteil: passt zu einem Datenschutz-Projekt — nachvollziehbar und offen
+Apple wendet ohne eigenes EULA den **Apple Standard End User License
+Agreement** an. Der erlaubt Nutzung auf Apple-Geräten ohne die
+„nicht-kommerziell"-Beschränkung. Damit deine Lizenz im App Store tatsächlich
+gilt, muss in **App Store Connect → App-Informationen → Lizenzvereinbarung**
+eine eigene EULA hinterlegt werden (Lizenztext einfügen oder auf `LICENSE`
+verlinken).
 
-### B) Doppellizenz (GPLv3 + kommerzielle Lizenz)
-Du vergibst die App-Store-Version unter einer eigenen/proprietären Lizenz und den Quellcode
-unter GPL. Funktioniert nur mit vollständigen Rechten (CLA).
+Ohne diesen Schritt ist die Lizenz gegenüber App-Store-Nutzern faktisch
+wirkungslos — der Code bleibt trotzdem dein Eigentum, aber die
+Nutzungsbeschränkung greift nicht.
 
-- Vorteil: maximale Freiheit bei der Monetarisierung
-- Nachteil: mehr Verwaltung; „Open Core"-Modelle werden von der Community oft kritisch gesehen
+### 3.2 Geschäftliche Nutzung ist mitverboten
 
-### C) Permissive Lizenz (MIT / Apache-2.0)
-Keine Copyleft-Pflichten, App Store völlig unproblematisch.
+PolyForm Noncommercial verbietet „commercial purposes". Ein Angestellter, der
+damit Arbeits-E-Mails liest, nutzt die App kommerziell — und dürfte das nach
+dieser Lizenz nicht.
 
-- Vorteil: einfachste Variante, keine Rechtsprüfung nötig
-- Nachteil: jeder darf deine App klonen und kommerziell verwerten, ohne etwas zurückzugeben
-- Für ein Datenschutz-Projekt mit Anspruch „nachprüfbar" schwächer als GPL
+Zwei saubere Wege:
 
-### D) GPLv3 bleiben, aber nicht in den App Store
-Verteilung über EU-Sideloading (AltStore, Setapp), TestFlight oder eigene Website.
-TestFlight unterliegt allerdings ebenfalls Apples Bedingungen — also auch nicht sauber.
+- **So lassen und daraus ein Geschäftsmodell machen:** privat kostenlos oder
+  günstig, Firmen brauchen eine kostenpflichtige Lizenz (Dual Licensing). Für
+  einen E-Mail-Client ist das ein legitimer Weg.
+- **Weichere Lizenz:** PolyForm Small Business 1.0.0 erlaubt Nutzung in
+  Unternehmen unter 100 Mitarbeitenden und unter 1 Mio. USD Umsatz. Dann ist
+  der Alltag der meisten Nutzer abgedeckt, Großkonzerne brauchen weiterhin eine
+  Lizenz.
+
+Die Entscheidung ist ein Dateitausch (`LICENSE`) plus Anpassung von CLA und
+Doku — jederzeit möglich, solange niemand eine Kopie erhalten hat.
 
 ---
 
-## 4. Monetarisierung
+## 4. Was das für die Außendarstellung bedeutet
 
-- **GPL verbietet keine Preise.** Du darfst Geld verlangen; du musst nur den Quellcode
-  mitliefern bzw. zugänglich machen.
-- **FairEmail als Beweis:** GPLv3, kostenlos auf GitHub/F-Droid, Bezahlversion im Play Store.
-  Funktioniert, weil Google Play kein DRM wie FairPlay erzwingt.
-- **App Store:** Bezahl-Apps und In-App-Käufe sind möglich (Apple: 15 % bzw. 30 %).
-  Bei Option A oder B ist das kein Lizenzproblem.
-- **Nicht möglich:** „Open Source als Werbung, aber Code geheim halten". Wenn du den Code
-  nicht veröffentlichen willst, ist es schlicht keine GPL-App — dann Option C oder komplett
-  geschlossen.
+„Open Source" und „quelloffen" sind **belegt** und dürfen hier nicht stehen.
+Zulässig und ehrlich:
+
+- „Der Quellcode ist einsehbar und nachprüfbar."
+- „Source-available, nicht-kommerziell."
+- „Kein Open Source, aber überprüfbar."
+
+Das ist für eine Datenschutz-App immer noch ein starkes Argument: Nutzer und
+Sicherheitsforscher können nachlesen, dass keine Telemetrie existiert — sie
+dürfen den Code nur nicht kommerziell verwerten.
 
 ---
 
 ## 5. Abhängigkeiten (geprüft)
 
-| Bibliothek | Lizenz | App-Store-tauglich |
+| Bibliothek | Lizenz | Kompatibel |
 |---|---|---|
-| SwiftMail (Cocoanetics) | BSD-3-Clause | ✅ |
-| swift-log (Apple) | Apache-2.0 | ✅ |
+| SwiftMail (Cocoanetics) | BSD-3-Clause | ✅ erlaubt kommerzielle Nutzung |
+| swift-log (Apple) | Apache-2.0 | ✅ erlaubt kommerzielle Nutzung |
 
-Es gibt **keine** Copyleft-Abhängigkeit, die dich zu GPL zwingt. Die Lizenzwahl ist frei.
+Beide sind permissiv und verlangen nur die Beibehaltung der Copyright- und
+Lizenzhinweise. Es gibt keine Copyleft-Abhängigkeit, die eine
+Veröffentlichung erzwingt.
 
 ---
 
-## 6. Umsetzung (entschieden: Option A)
+## 6. Entfernt / ersetzt am 2026-11-01
 
-1. ✅ `LICENSE` — GPL-3.0-Volltext liegt im Repo.
-2. ✅ Entscheidung L1: **Option A**.
-3. ✅ `LICENSE-EXCEPTION` — Zusatzgenehmigung nach §7 für den Apple App Store.
-4. ✅ `CLA.md` — Beitragende räumen die App-Store-Verbreitung mit ein.
-5. ✅ `README.md` und `AGENTS.md` an die Entscheidung angepasst.
+- `LICENSE` — GPL-3.0-Volltext ersetzt durch PolyForm Noncommercial 1.0.0.
+- `LICENSE-EXCEPTION` — **gelöscht**. Die §7-Zusatzgenehmigung war nur für den
+  GPL-Konflikt nötig; der existiert nicht mehr.
+- `CLA.md` — neu gefasst: Beitragende räumen auch kommerzielle Verwertung und
+  Relizenzierung ein (Voraussetzung für Dual Licensing).
+- `README.md`, `AGENTS.md`, `SettingsView.swift` — Lizenzangaben angepasst.
 
-### Was das praktisch bedeutet
+## 7. Offen
 
-- Der Quellcode bleibt **GPLv3**. Wer die App weiterverbreitet, muss die Quellen
-  zugänglich machen — auch für eine App-Store-Version.
-- Die Zusatzgenehmigung erlaubt **nur** den zusätzlichen Vertriebsweg, sie macht
-  aus der GPL keine permissive Lizenz.
-- Fremde Beiträge nur mit CLA mergen. Ohne CLA ist der Beitrag GPL-only und
-  blockiert die App-Store-Verbreitung.
-- Vor der ersten Veröffentlichung: `LICENSE-EXCEPTION` und `CLA.md` anwaltlich
-  prüfen lassen und in beiden Dateien den **bürgerlichen Namen** des
-  Rechteinhabers eintragen (aktuell steht dort „NuCo").
-
-### Offener Punkt, der leicht übersehen wird
-
-Die GPL verlangt bei Weitergabe **Quellcode-Zugang**. Eine App-Store-Version
-ohne öffentlich erreichbare Quellen wäre also auch mit dieser Ausnahme nicht
-sauber. Das App-Repo kann bis zur Veröffentlichung privat bleiben; spätestens
-zur Einreichung muss der Quellcode zugänglich sein (öffentliches Repo oder
-Release-Archiv).
+1. **Kontaktadresse** für Impressum und Support (Freemailer-Postfach).
+2. **Eigene EULA** in App Store Connect hinterlegen (siehe 3.1).
+3. **Entscheidung Small Business vs. Noncommercial** (siehe 3.2).
+4. **Marke „iMail Secure"** — der wirksamste Schutz gegen Klone ist nicht der
+   Quellcode, sondern die Marke. Eine DPMA-Anmeldung für eine Klasse kostet
+   rund 290 €. GPL hin oder her: Wer den Namen nutzt, verletzt Markenrecht.

@@ -45,7 +45,10 @@ struct SettingsView: View {
                 // Info
                 Section("Über iMail Secure") {
                     LabeledContent("Version", value: AppConstants.appVersion)
-                    LabeledContent("Lizenz", value: "GPL-3.0 mit App-Store-Ausnahme")
+                    LabeledContent("Lizenz", value: "PolyForm Noncommercial 1.0.0")
+                    Text("Quellcode einsehbar, keine kommerzielle Nutzung durch Dritte.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                     if let source = URL(string: AppConstants.sourceCodeURL) {
                         Link("Quellcode", destination: source)
                     }

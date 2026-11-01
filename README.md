@@ -1,7 +1,7 @@
 # iMail Secure
 
 Datenschutzfreundlicher E-Mail-Client für iOS 18+  
-Lizenz: GPL-3.0 (Vereinbarkeit mit dem App Store: siehe [LICENSING.md](LICENSING.md))
+Lizenz: PolyForm Noncommercial 1.0.0 — Quellcode einsehbar, keine kommerzielle Nutzung durch Dritte (siehe [LICENSING.md](LICENSING.md))
 
 ---
 
@@ -27,8 +27,7 @@ Fair-iMail/
 ├── CLAUDE.md                 Claude-spezifische Hinweise (verweist auf AGENTS.md)
 ├── AUDIT_NOTES.md            Security-Audit N1…C1 mit Status
 ├── LICENSING.md              Lizenz-/App-Store-Analyse
-├── LICENSE                   GPL-3.0-Volltext
-├── LICENSE-EXCEPTION         Zusatzgenehmigung für den Apple App Store (§7 GPLv3)
+├── LICENSE                   PolyForm Noncommercial 1.0.0 (Volltext)
 ├── CLA.md                    Contributor License Agreement
 ├── Sources/iMailSecure/
 │   ├── App/                  iMailSecureApp.swift, ContentView.swift
@@ -106,20 +105,25 @@ Verbindlich dokumentiert in [AGENTS.md](AGENTS.md). Kurzfassung:
 - [ ] Icons in Assets.xcassets (1024×1024)
 - [ ] Screenshots für alle unterstützten Geräte
 - [ ] TestFlight-Beta vor Einreichung
-- [ ] Lizenzentscheidung L1 getroffen (siehe [LICENSING.md](LICENSING.md))
+- [x] Lizenzentscheidung L1 getroffen: PolyForm Noncommercial 1.0.0
+- [ ] Eigene EULA in App Store Connect hinterlegen (sonst gilt Apples Standard-EULA)
 
 ---
 
 ## Lizenz
 
-**GPL-3.0 mit App-Store-Ausnahme** (entschieden am 2026-11-01, Option A):
+## Lizenz
 
-- Der Quellcode steht unter der [GNU GPLv3](LICENSE).
-- [LICENSE-EXCEPTION](LICENSE-EXCEPTION) erlaubt zusätzlich die Verbreitung über
-  den Apple App Store (Zusatzgenehmigung nach §7 GPLv3).
+**PolyForm Noncommercial 1.0.0** (entschieden am 2026-11-01, Option B):
+
+- Der Quellcode ist **einsehbar und nachprüfbar**, aber **keine kommerzielle
+  Nutzung durch Dritte** — weder Verkauf noch Bezahl-Angebote noch
+  geschäftlicher Einsatz durch Lizenznehmer.
+- Das ist **kein Open Source** und darf auch nicht so genannt werden.
+- Der Rechteinhaber selbst darf die App kommerziell vertreiben; die eigene
+  Lizenz bindet ihn nicht.
 - Beiträge werden nur unter der [CLA](CLA.md) angenommen, damit die
-  App-Store-Verbreitung nicht durch einzelne Beitragende blockiert werden kann.
+  kommerzielle Verwertung nicht durch einzelne Beitragende blockiert wird.
 
-Der Code bleibt quelloffen; die Zusatzgenehmigung öffnet einen zusätzlichen
-Vertriebsweg, sie macht die Lizenz nicht permissiv. Details und die Abwägung
-gegenüber den Alternativen stehen in [LICENSING.md](LICENSING.md).
+Warum nicht GPL, was das im App Store bedeutet (eigene EULA!) und welche
+Alternative es gibt, steht in [LICENSING.md](LICENSING.md).
