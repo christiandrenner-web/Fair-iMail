@@ -1,17 +1,19 @@
 # iMail secure
 
 Datenschutzfreundlicher E-Mail-Client für iOS 18+  
-Lizenz: GPL-3.0
+Lizenz: GPL-3.0 (Vereinbarkeit mit dem App Store: siehe [LICENSING.md](LICENSING.md))
 
 ---
 
 ## Features
 
-- Vollständige IMAP/SMTP-Unterstützung (SwiftMail)
+- Vollständige IMAP/SMTP-Unterstützung (SwiftMail), ausschließlich TLS ≥ 1.2
+- TOFU-Zertifikat-Pinning (SHA-256) für IMAP und SMTP
 - Lesebestätigungen nach RFC 8098 (MDN)
 - Empfangsbestätigungen (Return-Receipt-To)
-- Passwörter ausschließlich im iOS-Keychain
-- Kein Tracking, keine Werbung, keine Drittanbieter
+- Passwörter ausschließlich im iOS-Keychain (`ThisDeviceOnly`)
+- Tracking-Parameter-Entfernung in Links, Bestätigung vor externem Öffnen
+- Kein Tracking, keine Werbung, keine Drittanbieter-SDKs, keine Telemetrie
 - Offline-fähig (Core Data)
 - iOS 18+, SwiftUI
 
@@ -21,15 +23,20 @@ Lizenz: GPL-3.0
 
 ```
 Fair-iMail/
+├── AGENTS.md                 Datenschutz-Leitsätze + Arbeitsregeln (verbindlich)
+├── CLAUDE.md                 Claude-spezifische Hinweise (verweist auf AGENTS.md)
+├── AUDIT_NOTES.md            Security-Audit N1…C1 mit Status
+├── LICENSING.md              Lizenz-/App-Store-Analyse
 ├── Sources/iMailSecure/
 │   ├── App/                  iMailSecureApp.swift, ContentView.swift
 │   ├── Models/               EmailAccount, EmailMessage, EmailDraft, MDNNotification
-│   ├── Managers/             AccountStore, MailStore, MailSyncEngine, SMTPManager, KeychainManager
+│   ├── Managers/             AccountStore, MailStore, MailSyncEngine, SMTPManager,
+│   │                         KeychainManager, CertificatePinner
 │   ├── Services/             EmailHeaderBuilder, MDNProcessor, CoreDataService
 │   └── Views/                InboxView, MessageDetailView, ComposeView, SettingsView, …
 ├── Tests/iMailSecureTests/   Unit Tests
-├── iMailSecure.xcodeproj
-└── Package.swift
+├── project.yml               XcodeGen-Quelle (verbindlich)
+└── Package.swift             SwiftPM-Definition (gleiche Pins wie project.yml)
 ```
 
 ---
@@ -38,46 +45,70 @@ Fair-iMail/
 
 ### Voraussetzungen
 
-- Xcode 16+
+- macOS mit Xcode 16 oder neuer (getestet mit Xcode 27.1, Swift 6.4)
 - iOS 18 SDK
-- Swift 5.9+
+- [XcodeGen](https://github.com/yonaskolb/XcodeGen): `brew install xcodegen`
 
 ### Projekt öffnen
 
 ```bash
-git clone https://github.com/yourusername/iMailSecure.git
-cd iMailSecure
-open Package.swift
+cd ~/XCODE/Fair-iMail
+xcodegen generate
+open iMailSecure.xcodeproj
 ```
 
-Xcode löst die SwiftMail- und swift-log-Dependencies automatisch auf.
+`iMailSecure.xcodeproj` ist **generiert**. Änderungen an Targets, Dateien oder Paketen
+gehören in `project.yml`, danach `xcodegen generate` erneut ausführen.
+
+### Bauen und testen
+
+```bash
+xcodebuild -scheme iMailSecure \
+  -destination 'platform=iOS Simulator,name=iPad Pro 13-inch (M5)' build
+
+xcodebuild -scheme iMailSecure \
+  -destination 'platform=iOS Simulator,name=iPad Pro 13-inch (M5)' test
+```
 
 ---
 
-## SwiftMail-Integration
+## Datenschutz-Leitsätze
 
-Die `MailSyncEngine` und der `SMTPManager` enthalten Platzhalter-Blöcke,  
-die aktiviert werden, sobald SwiftMail 1.0 final verfügbar ist.  
-Suche nach `// ── SwiftMail-Integration ──` in den Dateien und ersetze  
-den Demo-Block durch die echten SwiftMail-Aufrufe.
+Verbindlich dokumentiert in [AGENTS.md](AGENTS.md). Kurzfassung:
+
+1. Keine Telemetrie, keine Analytics-, Crash- oder Werbe-SDKs
+2. Kein Klartext, kein TLS-Downgrade — fail-closed
+3. Remote-Inhalte standardmäßig blockiert
+4. Keine Mail-Inhalte in Logs
+5. Secrets nur im Keychain (`ThisDeviceOnly`), Kontodaten mit Dateischutz
+6. Keine Daten an Dritte, keine Keyserver-Abfragen ohne Nutzeraktion
+7. Tracking-Parameter entfernen, Ziele im Klartext bestätigen
+8. Anhänge: Pfad-Sanitizing, eigener UUID-Ordner, FileProtection, Cleanup
+9. Fehler nicht verschlucken
+10. Schalter müssen wirken — UI-Toggle ohne Konsument ist ein Bug
 
 ---
 
 ## App Store Checklist
 
-- [x] Datenschutzerklärung (Privacy Policy URL in AccountSetupView hinterlegt)
+- [x] Datenschutz-Manifest (`PrivacyInfo.xcprivacy`, `NSPrivacyTracking = false`)
 - [x] Passwörter nur im Keychain (kein UserDefaults, kein NSLog)
 - [x] Keine externen Tracker
-- [x] `NSFaceIDUsageDescription` in Info.plist eintragen (falls Biometrie später)
-- [ ] `NSAppTransportSecurity` in Info.plist konfigurieren (IMAP/SMTP benötigt TLS)
-- [ ] Code Signing: Apple Developer Account ($99/Jahr)
-- [ ] Provisioning Profile und Bundle ID setzen: `io.imailsecure.app`
-- [ ] Icons in Assets.xcassets hinterlegen (1024×1024 für App Store)
-- [ ] Screenshots für alle unterstützten Geräte anfertigen
-- [ ] TestFlight Beta-Test vor Einreichung
+- [x] `NSAllowsArbitraryLoads = false` (ATS aktiv)
+- [ ] **Datenschutzerklärung erreichbar** — `fairimail.io` ist derzeit nicht registriert
+      bzw. ohne DNS. Ohne erreichbare Privacy-URL keine Freigabe.
+- [ ] Support-Adresse funktionsfähig (`support@fairimail.io`)
+- [ ] Code Signing: Apple Developer Account
+- [ ] Provisioning Profile und Bundle ID: `io.imailsecure.app`
+- [ ] Icons in Assets.xcassets (1024×1024)
+- [ ] Screenshots für alle unterstützten Geräte
+- [ ] TestFlight-Beta vor Einreichung
+- [ ] Lizenzentscheidung L1 getroffen (siehe [LICENSING.md](LICENSING.md))
 
 ---
 
 ## Lizenz
 
-GPL-3.0 – Quellcode muss bei Weitergabe offengelegt werden.
+GPL-3.0 — Quellcode muss bei Weitergabe offengelegt werden.
+Die App-Store-Vereinbarkeit ist in [LICENSING.md](LICENSING.md) analysiert; die
+Entscheidung steht noch aus. Es fehlt außerdem eine `LICENSE`-Datei mit dem Volltext.

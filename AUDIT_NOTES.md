@@ -254,7 +254,7 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
 | Nr. | Status | Notiz |
 |---|---|---|
 | N1 | ✅ erledigt | `useTLS: true` in IMAPServer – Port 993 → implicitTLS, Port 143 → STARTTLS required (fail-closed) |
-| N2 | ✅ erledigt | CertificatePinner.swift (TOFU): SHA-256 Leaf-Fingerabdruck, Keychain ThisDeviceOnly; Ports 993/465; STARTTLS-Ports durch BoringSSL fullVerification |
+| N2 | ✅ erledigt | CertificatePinner.swift (TOFU): SHA-256 Leaf-Fingerabdruck, Keychain ThisDeviceOnly; Ports 993/465; STARTTLS-Ports durch BoringSSL fullVerification. **2026-11-01:** Pinning auch im SMTP-Versandpfad (`SMTPManager.sendEmail`) vor `connect()`; `resetPin` über echten Button in `AccountDetailView` erreichbar |
 | N3 | ✅ erledigt | pbxproj auf Revision 29a1df6c gepinnt |
 | N4 | ✅ erledigt | Betreff + Host nur noch in #if DEBUG; Release-Logs ohne Inhalte |
 | N5 | ✅ erledigt | armv7→arm64, remote-notification entfernt, NSContactsUsageDescription auskommentiert |
@@ -264,7 +264,7 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
 | D3 | ✅ erledigt | URL.trackingStripped mit 15 Tracking-Parametern; URL.domainMismatch für Link-Prüfung |
 | D4 | ✅ erledigt | Pfad-Sanitizer, UUID-Unterordner, .completeFileProtection, Cleanup nach Share-Sheet-Dismiss |
 | D5 | ✅ erledigt | Absender-Badge: Warnung wenn Anzeigename-Domain ≠ Absender-Domain |
-| D6 | ✅ erledigt | Subject-Heuristik entfernt; nur noch Content-Type-Marker im Body akzeptiert |
+| D6 | ✅ erledigt | Subject-Heuristik entfernt; nur noch Content-Type-Marker im Body akzeptiert. **2026-11-01:** Test korrigiert + Regressionstest „Betreff allein löst keine MDN aus" ergänzt |
 | S1 | ✅ erledigt | AfterFirstUnlockThisDeviceOnly, kSecAttrSynchronizable=false, atomares Update-oder-Anlegen |
 | S2 | ✅ erledigt | Datei mit .completeFileProtection + isExcludedFromBackup; Migration von UserDefaults |
 | S3 | ✅ erledigt | shouldMigrate VOR loadPersistentStores; kein fatalError; .completeFileProtection auf Store |
@@ -272,7 +272,29 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
 | S5 | 🔴 offen | OAuth 2.0 – Entscheid ausstehend |
 | S6 | 🔴 offen | Entwürfe werden nicht gespeichert |
 | C1 | 🔴 offen | PGP/S/MIME – Entscheid Krypto-Bibliothek ausstehend |
+| L1 | 🔴 offen | Lizenz/App Store: GPLv3 + Ausnahme, Doppellizenz oder permissiv — siehe `LICENSING.md` |
 
 ---
 
-*Letzte Aktualisierung: 2026-10-31 durch Claude (Anthropic)*
+## Änderungen 2026-11-01 (OpenCode)
+
+- **Git-Repo angelegt** (`main`, erster Commit des Ist-Stands). Vorher gab es keine Versionshistorie.
+- **N2:** Zertifikat-Pinning greift jetzt auch beim SMTP-Versand (`SMTPManager.sendEmail`),
+  nicht nur beim IMAP-Sync. Der zuvor ungepinnte Versandpfad war eine offene Lücke.
+- **`resetPin` an die UI gebunden:** `AccountDetailView` zeigt gespeicherte Fingerabdrücke
+  (IMAP/SMTP) und bietet „Zertifikat zurücksetzen" mit Bestätigungsdialog. Vorher war die
+  Funktion toter Code — nach einer Zertifikatserneuerung wäre das Konto nicht mehr nutzbar.
+- **`project.yml`:** SwiftMail auf dieselbe Revision wie `Package.swift` gepinnt
+  (`29a1df6c…`); ein `xcodegen generate` hebt den Pin nicht mehr auf.
+- **Deployment-Target auf iOS 18.0 gesenkt** (`project.yml`, `Package.swift`), Build und Tests
+  grün auf dem iOS-Simulator.
+- **Tests:** `testValidMDN` war veraltet (prüfte noch die entfernte Subject-Heuristik) und
+  schlug fehl. Fixture korrigiert, Regressionstest für D6 ergänzt — 11 Tests, 0 Fehler.
+- **Doku:** `AGENTS.md` (verbindliche Leitsätze), `CLAUDE.md`, `LICENSING.md`; README
+  aktualisiert (Setup, Struktur, App-Store-Checkliste).
+- **Offen und blockierend:** `fairimail.io` ist nicht registriert (RDAP 404, kein DNS) —
+  Privacy-URL und Support-Adresse sind tot. Vor App-Store-Einreichung zwingend zu klären.
+
+---
+
+*Letzte Aktualisierung: 2026-11-01 (OpenCode) — siehe Änderungsprotokoll oben*
