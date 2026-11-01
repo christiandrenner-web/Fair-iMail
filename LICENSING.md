@@ -1,6 +1,6 @@
 # LICENSING.md — Lizenz, App Store und Monetarisierung
 
-**Stand:** 2026-11-01 · **Status:** offene Entscheidung **L1**
+**Stand:** 2026-11-01 · **Status:** entschieden — **Option A** (GPLv3 + App-Store-Ausnahme + CLA)
 *Keine Rechtsberatung — das ist eine technische und organisatorische Einschätzung.
 Vor einer kommerziellen Veröffentlichung sollte ein Anwalt für IT-Recht drüberschauen.*
 
@@ -122,12 +122,30 @@ Es gibt **keine** Copyleft-Abhängigkeit, die dich zu GPL zwingt. Die Lizenzwahl
 
 ---
 
-## 6. Was jetzt konkret fehlt
+## 6. Umsetzung (entschieden: Option A)
 
-1. `LICENSE`-Datei im Repo — der GPL-3.0-Volltext. Aktuell steht die Lizenz nur im README.
-2. Entscheidung L1 treffen (A/B/C/D).
-3. Bei A oder B: `LICENSE-EXCEPTION` + CLA-Datei anlegen.
-4. `README.md`-Lizenzabschnitt an die Entscheidung anpassen.
+1. ✅ `LICENSE` — GPL-3.0-Volltext liegt im Repo.
+2. ✅ Entscheidung L1: **Option A**.
+3. ✅ `LICENSE-EXCEPTION` — Zusatzgenehmigung nach §7 für den Apple App Store.
+4. ✅ `CLA.md` — Beitragende räumen die App-Store-Verbreitung mit ein.
+5. ✅ `README.md` und `AGENTS.md` an die Entscheidung angepasst.
 
-**Empfehlung:** Option **A** — GPLv3 bleibt, App-Store-Ausnahme ergänzen, CLA für Beiträge.
-Damit ist die App Store-fähig, bleibt quelloffen und passt zum Datenschutzanspruch.
+### Was das praktisch bedeutet
+
+- Der Quellcode bleibt **GPLv3**. Wer die App weiterverbreitet, muss die Quellen
+  zugänglich machen — auch für eine App-Store-Version.
+- Die Zusatzgenehmigung erlaubt **nur** den zusätzlichen Vertriebsweg, sie macht
+  aus der GPL keine permissive Lizenz.
+- Fremde Beiträge nur mit CLA mergen. Ohne CLA ist der Beitrag GPL-only und
+  blockiert die App-Store-Verbreitung.
+- Vor der ersten Veröffentlichung: `LICENSE-EXCEPTION` und `CLA.md` anwaltlich
+  prüfen lassen und in beiden Dateien den **bürgerlichen Namen** des
+  Rechteinhabers eintragen (aktuell steht dort „NuCo").
+
+### Offener Punkt, der leicht übersehen wird
+
+Die GPL verlangt bei Weitergabe **Quellcode-Zugang**. Eine App-Store-Version
+ohne öffentlich erreichbare Quellen wäre also auch mit dieser Ausnahme nicht
+sauber. Das App-Repo kann bis zur Veröffentlichung privat bleiben; spätestens
+zur Einreichung muss der Quellcode zugänglich sein (öffentliches Repo oder
+Release-Archiv).

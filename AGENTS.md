@@ -82,13 +82,16 @@ xcodegen generate
 
 | ID | Thema | Status |
 |---|---|---|
-| D2 | HTML-Anzeige: `WKWebView` mit blockierten Remote-Inhalten vs. reines Text-Rendering | offen |
+| D2 | HTML-Anzeige: Text als Standard, HTML erst auf Knopfdruck in gesperrter WKWebView | ✅ Stufe 1+2 erledigt (2026-11-01) |
+| D2b | Externe Inhalte pro Mail/Absender freigeben (Stufe 3) | offen |
 | S5 | OAuth 2.0 (Google/Outlook) vs. nur App-Passwörter | offen |
 | S6 | Entwürfe lokal speichern (verschlüsselt) | offen |
 | C1 | PGP/S/MIME: Drittbibliothek ja/nein | offen |
-| L1 | Lizenz: GPL-3.0 vs. App-Store-taugliche Variante | siehe `LICENSING.md` |
+| L1 | Lizenz: GPLv3 + App-Store-Ausnahme + CLA | ✅ entschieden (Option A, 2026-11-01) |
 
 ## Lizenz
 
-Aktuell GPL-3.0 laut `README.md`. Die Vereinbarkeit mit dem Apple App Store ist **offen**
-und in `LICENSING.md` dokumentiert. Vor dem ersten App-Store-Upload muss L1 entschieden sein.
+**GPL-3.0 mit App-Store-Ausnahme** (`LICENSE`, `LICENSE-EXCEPTION`) und CLA für
+Beiträge (`CLA.md`). Fremde Beiträge ohne CLA nicht mergen. Vor der
+Veröffentlichung: juristische Prüfung und bürgerlichen Namen des Rechteinhabers
+eintragen.

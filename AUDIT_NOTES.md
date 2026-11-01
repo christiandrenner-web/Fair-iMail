@@ -101,6 +101,13 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
 - `loadRemoteImages` und `confirmExternalLinks` in `SettingsView` → kein Konsument im Code.
 - **Fix:** Standard = blockiert; `WKWebView` mit nicht-persistentem Datenspeicher + Content-Rule-Liste (block `http(s)://` in `<img>`, `<link>`, `srcset`, CSS); pro Mail-Button „Externe Inhalte laden"; Absender-Freigabeliste.
 - **Betroffene Dateien:** `SettingsView.swift`, `MessageDetailView.swift` (neuer WebView-Wrapper)
+- **Status 2026-11-01:** Stufe 1+2 umgesetzt — Text ist Standard, „HTML anzeigen" rendert in
+  `HTMLMessageView` mit deaktiviertem JavaScript, nicht-persistentem Datenspeicher und einer
+  Content-Rule-Liste, die jede `http(s)`-Anfrage blockiert (fail-closed bei Kompilierfehler).
+  `HTMLSanitizer` entfernt Skripte, `on*`-Handler, `<base>`, Formulare, Meta-Refresh und
+  Remote-Ressourcen. Links werden abgefangen und erst nach Bestätigung extern geöffnet.
+  Die beiden wirkungslosen Schalter wurden entfernt (Leitsatz 10).
+  Stufe 3 (Freigabe pro Mail/Absender) bleibt offen.
 
 ### D3 (H) Keine Link-Behandlung
 - Keine Tracking-Parameter-Entfernung (`utm_*`, `fbclid`, `gclid`, `mc_eid`, `yclid`, `ref`, …).
@@ -260,7 +267,7 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
 | N5 | ✅ erledigt | armv7→arm64, remote-notification entfernt, NSContactsUsageDescription auskommentiert |
 | N6 | ✅ erledigt | demoMessages() und Aufruf entfernt |
 | D1 | ✅ erledigt | Robuster Sanitizer: script/style-Block-Entfernung, Entity-Dekodierung, Block-Zeilenumbrüche |
-| D2 | 🔴 offen | loadRemoteImages-Setting noch nicht verkabelt (wartet auf WKWebView-Integration) |
+| D2 | ✅ Stufe 1+2 | Text ist Standard, HTML nur auf Knopfdruck. `HTMLMessageView` (WKWebView): JS aus, non-persistenter Store, Content-Rule-Liste blockt jede http(s)-Anfrage, jede Navigation außer der initialen wird abgebrochen, Links nur nach Bestätigung. `HTMLSanitizer` als zweite Schicht. Inerte Toggles `loadRemoteImages`/`confirmExternalLinks` entfernt. **Offen:** Stufe 3 (externe Inhalte pro Mail/Absender freigeben) |
 | D3 | ✅ erledigt | URL.trackingStripped mit 15 Tracking-Parametern; URL.domainMismatch für Link-Prüfung |
 | D4 | ✅ erledigt | Pfad-Sanitizer, UUID-Unterordner, .completeFileProtection, Cleanup nach Share-Sheet-Dismiss |
 | D5 | ✅ erledigt | Absender-Badge: Warnung wenn Anzeigename-Domain ≠ Absender-Domain |
@@ -294,6 +301,35 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
   aktualisiert (Setup, Struktur, App-Store-Checkliste).
 - **Offen und blockierend:** `fairimail.io` ist nicht registriert (RDAP 404, kein DNS) —
   Privacy-URL und Support-Adresse sind tot. Vor App-Store-Einreichung zwingend zu klären.
+
+### Nachtrag 2026-11-01 (OpenCode) — D2 und Lizenz
+
+- **D2 Stufe 1+2 umgesetzt:** `EmailMessage.htmlBody` hält die HTML-Fassung, angezeigt wird
+  aber weiterhin `body` (Text). Neuer `HTMLSanitizer` (regexbasiert, ohne WebKit, unit-getestet)
+  und `HTMLMessageView` (WKWebView: JS aus, `.nonPersistent()`, Content-Rule-Liste blockt
+  `^https?://`, Navigation nach dem initialen Load abgebrochen, `target="_blank"` nie erlaubt).
+  Schlägt die Regel-Liste fehl, wird **nicht** gerendert (fail-closed, sichtbarer Hinweis).
+- **Tote Schalter entfernt:** `loadRemoteImages` und `confirmExternalLinks` waren ohne
+  Konsument. Sie sind aus `SettingsView` und `Constants.UserDefaultsKeys` verschwunden;
+  stattdessen zeigt die Einstellungsseite den tatsächlichen Zustand. Links werden immer
+  bestätigt (Leitsatz 7).
+- **Tests:** 12 neue Tests in `HTMLSanitizerTests.swift` (Skripte, Event-Handler, `<base>`,
+  Remote-Bilder, `cid:`/`data:`-Ausnahmen, `<iframe>`/`<form>`, `javascript:`, Meta-Refresh,
+  CSS-`@import`/`url()`, Doku-Wrapper, Content-Rule-JSON). Gesamt **23 Tests, 0 Fehler**.
+- **Privacy-Manifest korrigiert:** `NSPrivacyCollectedDataTypes` enthielt `EmailAddress`.
+  Nach Apples Definition („Daten verlassen das Gerät und sind für den Entwickler zugänglich")
+  ist das falsch — die App spricht nur mit dem selbst konfigurierten Mailserver. Eintrag
+  entfernt, Datenschutzlabel ist damit „Keine Daten erfasst". **Fachlich gegenprüfen.**
+- **README:** „Offline-fähig (Core Data)" entfernt — `CoreDataService` hat keinen Aufrufer,
+  die Aussage war falsch.
+- **L1 entschieden (Option A):** `LICENSE-EXCEPTION` (Zusatzgenehmigung nach §7 GPLv3 für
+  Apple App Store/TestFlight) und `CLA.md` angelegt; `LICENSING.md`, `README.md` und
+  `AGENTS.md` angepasst. Vor Veröffentlichung: juristische Prüfung + bürgerlicher Name
+  in beiden Dateien.
+- **Website:** separates, öffentliches Repo `~/XCODE/imailsecure-site` (index, privacy,
+  support, lokales CSS, `.nojekyll`). Keine externen Ressourcen, keine Cookies, keine
+  Analytics; GitHub-Pages-Hosting ist in der Datenschutzerklärung offengelegt.
+  Veröffentlicht wird erst nach Einsetzen der markierten Platzhalter.
 
 ---
 

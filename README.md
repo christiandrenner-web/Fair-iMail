@@ -14,7 +14,7 @@ Lizenz: GPL-3.0 (Vereinbarkeit mit dem App Store: siehe [LICENSING.md](LICENSING
 - Passwörter ausschließlich im iOS-Keychain (`ThisDeviceOnly`)
 - Tracking-Parameter-Entfernung in Links, Bestätigung vor externem Öffnen
 - Kein Tracking, keine Werbung, keine Drittanbieter-SDKs, keine Telemetrie
-- Offline-fähig (Core Data)
+- HTML nur auf Knopfdruck: Text ist Standard, HTML wird ohne Netzwerkzugriff gerendert
 - iOS 18+, SwiftUI
 
 ---
@@ -27,6 +27,9 @@ Fair-iMail/
 ├── CLAUDE.md                 Claude-spezifische Hinweise (verweist auf AGENTS.md)
 ├── AUDIT_NOTES.md            Security-Audit N1…C1 mit Status
 ├── LICENSING.md              Lizenz-/App-Store-Analyse
+├── LICENSE                   GPL-3.0-Volltext
+├── LICENSE-EXCEPTION         Zusatzgenehmigung für den Apple App Store (§7 GPLv3)
+├── CLA.md                    Contributor License Agreement
 ├── Sources/iMailSecure/
 │   ├── App/                  iMailSecureApp.swift, ContentView.swift
 │   ├── Models/               EmailAccount, EmailMessage, EmailDraft, MDNNotification
@@ -109,6 +112,14 @@ Verbindlich dokumentiert in [AGENTS.md](AGENTS.md). Kurzfassung:
 
 ## Lizenz
 
-GPL-3.0 — Quellcode muss bei Weitergabe offengelegt werden.
-Die App-Store-Vereinbarkeit ist in [LICENSING.md](LICENSING.md) analysiert; die
-Entscheidung steht noch aus. Es fehlt außerdem eine `LICENSE`-Datei mit dem Volltext.
+**GPL-3.0 mit App-Store-Ausnahme** (entschieden am 2026-11-01, Option A):
+
+- Der Quellcode steht unter der [GNU GPLv3](LICENSE).
+- [LICENSE-EXCEPTION](LICENSE-EXCEPTION) erlaubt zusätzlich die Verbreitung über
+  den Apple App Store (Zusatzgenehmigung nach §7 GPLv3).
+- Beiträge werden nur unter der [CLA](CLA.md) angenommen, damit die
+  App-Store-Verbreitung nicht durch einzelne Beitragende blockiert werden kann.
+
+Der Code bleibt quelloffen; die Zusatzgenehmigung öffnet einen zusätzlichen
+Vertriebsweg, sie macht die Lizenz nicht permissiv. Details und die Abwägung
+gegenüber den Alternativen stehen in [LICENSING.md](LICENSING.md).
