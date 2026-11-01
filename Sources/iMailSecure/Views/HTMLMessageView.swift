@@ -1,8 +1,8 @@
 // HTMLMessageView.swift
 //
-// D2, Stufe 2: HTML-Anzeige in einer WKWebView, die ohne Netzwerk arbeitet.
+// D2, Stufe 2+3: HTML-Anzeige in einer WKWebView.
 //
-// Sicherheitsmodell:
+// Sicherheitsmodell (Stufe 2, `allowRemote == false`):
 //   • JavaScript ist deaktiviert.
 //   • Nicht-persistenter Datenspeicher (nichts bleibt zwischen Mails/Starts).
 //   • Content-Rule-Liste blockiert jede http(s)-Anfrage (Bilder, CSS, Fonts …).
@@ -10,6 +10,10 @@
 //   • Link-Klicks werden an SwiftUI gemeldet und erst nach Bestätigung
 //     extern geöffnet.
 //   • Das HTML wurde vorher durch HTMLSanitizer geschickt.
+//
+// Stufe 3 (`allowRemote == true`) fällt nur die Content-Rule-Liste weg; alles
+// andere bleibt. Der Nutzer hat dem Laden externer Inhalte für diese Mail oder
+// diesen Absender ausdrücklich zugestimmt (siehe RemoteContentPolicy).
 //
 // Schlägt das Kompilieren der Regel-Liste fehl, wird bewusst *nicht*
 // gerendert (fail-closed) und `failed` auf true gesetzt.
@@ -20,12 +24,15 @@ import WebKit
 struct HTMLMessageView: UIViewRepresentable {
 
     let html: String
+    /// Stufe 3: externe Inhalte für diese Mail/Absender freigegeben.
+    var allowRemote: Bool = false
     @Binding var contentHeight: CGFloat
     @Binding var failed: Bool
     let onExternalLink: (URL) -> Void
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(contentHeight: $contentHeight, failed: $failed, onExternalLink: onExternalLink)
+        Coordinator(contentHeight: $contentHeight, failed: $failed,
+                    allowRemote: allowRemote, onExternalLink: onExternalLink)
     }
 
     func makeUIView(context: Context) -> WKWebView {
@@ -47,7 +54,7 @@ struct HTMLMessageView: UIViewRepresentable {
         webView.scrollView.contentInsetAdjustmentBehavior = .never
 
         context.coordinator.attach(to: webView)
-        context.coordinator.load(HTMLSanitizer.sanitize(html))
+        context.coordinator.load(HTMLSanitizer.sanitize(html, allowRemoteResources: allowRemote))
         return webView
     }
 
@@ -65,6 +72,9 @@ struct HTMLMessageView: UIViewRepresentable {
     /// Blockiert jede ausgehende http(s)-Anfrage. Absichtlich ohne
     /// Ausnahmen: Bilder aus der Mail selbst kommen über cid: und werden
     /// nicht vom Netzwerk geladen.
+    ///
+    /// Wird nur in Stufe 2 installiert. In Stufe 3 (`allowRemote`) verzichtet
+    /// die App bewusst auf die Regel-Liste.
     static let contentBlockerJSON = """
     [{
       "trigger": {
@@ -76,11 +86,14 @@ struct HTMLMessageView: UIViewRepresentable {
     }]
     """
 
+    static let contentBlockerIdentifier = "io.imailsecure.block-remote"
+
     // MARK: – Coordinator
 
     final class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
         private let contentHeight: Binding<CGFloat>
         private let failed: Binding<Bool>
+        private let allowRemote: Bool
         private let onExternalLink: (URL) -> Void
 
         private weak var webView: WKWebView?
@@ -89,9 +102,10 @@ struct HTMLMessageView: UIViewRepresentable {
         private var didAllowInitialLoad = false
 
         init(contentHeight: Binding<CGFloat>, failed: Binding<Bool>,
-             onExternalLink: @escaping (URL) -> Void) {
+             allowRemote: Bool, onExternalLink: @escaping (URL) -> Void) {
             self.contentHeight = contentHeight
             self.failed = failed
+            self.allowRemote = allowRemote
             self.onExternalLink = onExternalLink
         }
 
@@ -116,12 +130,18 @@ struct HTMLMessageView: UIViewRepresentable {
         }
 
         /// Kompiliert zuerst die Regel-Liste und lädt erst danach das HTML.
+        /// In Stufe 3 entfällt die Regel-Liste — der Nutzer hat zugestimmt.
         func load(_ html: String) {
             guard !isInstallingRules, let webView else { return }
             isInstallingRules = true
 
+            guard !allowRemote else {
+                webView.loadHTMLString(html, baseURL: nil)
+                return
+            }
+
             WKContentRuleListStore.default().compileContentRuleList(
-                forIdentifier: "io.imailsecure.block-remote",
+                forIdentifier: HTMLMessageView.contentBlockerIdentifier,
                 encodedContentRuleList: HTMLMessageView.contentBlockerJSON
             ) { [weak self, weak webView] list, _ in
                 DispatchQueue.main.async {

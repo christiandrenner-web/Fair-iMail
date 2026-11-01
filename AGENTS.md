@@ -83,7 +83,7 @@ xcodegen generate
 | ID | Thema | Status |
 |---|---|---|
 | D2 | HTML-Anzeige: Text als Standard, HTML erst auf Knopfdruck in gesperrter WKWebView | ✅ Stufe 1+2 erledigt (2026-11-01) |
-| D2b | Externe Inhalte pro Mail/Absender freigeben (Stufe 3) | offen |
+| D2b | Externe Inhalte pro Mail/Absender freigeben (Stufe 3) | ✅ erledigt (2026-11-01) |
 | S5 | OAuth 2.0 (Google/Outlook) vs. nur App-Passwörter | offen |
 | S6 | Entwürfe lokal speichern (verschlüsselt) | offen |
 | C1 | PGP/S/MIME: Drittbibliothek ja/nein | offen |

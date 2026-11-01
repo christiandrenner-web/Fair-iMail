@@ -18,9 +18,17 @@ enum HTMLSanitizer {
     // MARK: – Öffentliche API
 
     /// Bereinigt ein HTML-Fragment für die Anzeige in einer WKWebView.
-    /// Das Ergebnis enthält niemals ausführbaren Code und keinen Verweis
-    /// auf eine Remote-Ressource.
-    static func sanitize(_ html: String) -> String {
+    ///
+    /// Das Ergebnis enthält **niemals** ausführbaren Code. Mit
+    /// `allowRemoteResources: false` (Standard) enthält es außerdem keinen
+    /// Verweis auf eine Remote-Ressource.
+    ///
+    /// `allowRemoteResources: true` ist die dritte Stufe von D2: Der Nutzer
+    /// hat für genau diese Mail oder diesen Absender zugestimmt, dass Bilder
+    /// und Stylesheets geladen werden dürfen. Alles andere — Skripte,
+    /// Formulare, Meta-Refresh, Event-Handler, `javascript:` — bleibt auch
+    /// dann entfernt.
+    static func sanitize(_ html: String, allowRemoteResources: Bool = false) -> String {
         var s = html
 
         // 1. Elemente entfernen, deren Inhalt oder Semantik gefährlich ist.
@@ -49,10 +57,20 @@ enum HTMLSanitizer {
                 return match.full
             })
 
-        // 5. Ressourcen, die einen Netzwerk-Request auslösen würden.
+        // 5. <a ping> löst beim Klick einen POST aus und trägt nichts zur
+        //    Darstellung bei — auch bei freigegebenen externen Inhalten weg.
+        s = replacing(#"\s+ping\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)"#, in: s, with: "")
+
+        if allowRemoteResources {
+            // Stufe 3: Remote-Ressourcen bleiben. `srcset` ist dann sinnvoll,
+            // aber nur mit demselben Vertrauensvorschuss wie `src`.
+            return wrap(s)
+        }
+
+        // 6. Ressourcen, die einen Netzwerk-Request auslösen würden.
         s = stripRemoteResources(s)
 
-        // 6. CSS: @import und url(...) entfernen (auch im style-Attribut).
+        // 7. CSS: @import und url(...) entfernen (auch im style-Attribut).
         s = replacing(#"@import[^;]*;?"#, in: s, with: "")
         s = replacing(#"url\s*\(\s*[^)]*\)"#, in: s, with: "none")
 

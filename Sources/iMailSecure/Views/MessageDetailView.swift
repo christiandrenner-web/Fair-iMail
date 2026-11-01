@@ -24,11 +24,15 @@ struct MessageDetailView: View {
     @State private var shareItems: [Any]   = []
     @State private var pendingTmpDir: URL? = nil   // wird nach Share-Sheet-Dismiss gelöscht
 
-    // D2 – HTML-Anzeige (Stufe 1: Text, Stufe 2: HTML auf Knopfdruck)
+    // D2 – HTML-Anzeige (Stufe 1: Text, Stufe 2: HTML auf Knopfdruck,
+    // Stufe 3: externe Inhalte pro Mail/Absender freigegeben)
     @State private var showHTML            = false
     @State private var htmlContentHeight: CGFloat = 320
     @State private var htmlRenderFailed    = false
     @State private var pendingExternalURL: URL? = nil
+    @State private var remoteAllowedForMessage = false
+    @State private var showRemoteContentDialog = false
+    @ObservedObject private var remotePolicy = RemoteContentPolicy.shared
 
     var body: some View {
         ScrollView {
@@ -134,23 +138,56 @@ struct MessageDetailView: View {
         } message: { url in
             Text("\(url.trackingStripped.absoluteString)\n\nDamit verlässt du iMail Secure. Die Zielseite kann deine IP-Adresse und den Zeitpunkt sehen.")
         }
+        // D2 Stufe 3 – externe Inhalte nur nach ausdrücklicher Entscheidung
+        .confirmationDialog(
+            "Externe Inhalte laden?",
+            isPresented: $showRemoteContentDialog,
+            titleVisibility: .visible
+        ) {
+            Button("Nur für diese Mail") {
+                remoteAllowedForMessage = true
+            }
+            Button("Immer für \(senderAddress)") {
+                remotePolicy.allowAlways(sender: senderAddress)
+                remoteAllowedForMessage = true
+            }
+            Button("Abbrechen", role: .cancel) { }
+        } message: {
+            Text("Bilder und Stylesheets werden dann von Servern des Absenders geladen. Dabei überträgst du deine IP-Adresse, und der Absender kann erkennen, dass du die Mail geöffnet hast (Tracking-Pixel).")
+        }
         .onChange(of: message.id) {
             showHTML = false
             htmlRenderFailed = false
             htmlContentHeight = 320
+            remoteAllowedForMessage = false
         }
     }
 
     // MARK: – Nachrichtentext (D2)
+
+    private var senderAddress: String { message.from.address }
+
+    private var senderIsTrusted: Bool {
+        remotePolicy.isTrusted(sender: senderAddress)
+    }
+
+    /// Wahr, sobald externe Inhalte für diese Mail **oder** diesen Absender
+    /// freigegeben sind.
+    private var remoteContentAllowed: Bool {
+        remoteAllowedForMessage || senderIsTrusted
+    }
 
     @ViewBuilder
     private var messageBodySection: some View {
         if showHTML, let html = message.htmlBody, !htmlRenderFailed {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 6) {
-                    Image(systemName: "shield.lefthalf.filled")
-                        .foregroundStyle(.green)
-                    Text("HTML-Ansicht · externe Inhalte blockiert")
+                    Image(systemName: remoteContentAllowed
+                          ? "exclamationmark.shield.fill" : "shield.lefthalf.filled")
+                        .foregroundStyle(remoteContentAllowed ? .orange : .green)
+                    Text(remoteContentAllowed
+                         ? "HTML-Ansicht · externe Inhalte geladen"
+                         : "HTML-Ansicht · externe Inhalte blockiert")
                         .font(.caption2.bold())
                         .foregroundStyle(.secondary)
                     Spacer()
@@ -160,13 +197,59 @@ struct MessageDetailView: View {
 
                 HTMLMessageView(
                     html: html,
+                    allowRemote: remoteContentAllowed,
                     contentHeight: $htmlContentHeight,
                     failed: $htmlRenderFailed,
                     onExternalLink: { url in pendingExternalURL = url }
                 )
+                // Wechsel zwischen blockiert/freigegeben erzeugt eine neue
+                // WKWebView — sonst bliebe die alte Content-Rule-Liste aktiv.
+                .id(remoteContentAllowed)
                 .frame(height: max(160, min(htmlContentHeight, 20_000)))
                 .background(Color(uiColor: .secondarySystemBackground))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                if remoteContentAllowed {
+                    if senderIsTrusted {
+                        Button {
+                            remotePolicy.revoke(sender: senderAddress)
+                            remoteAllowedForMessage = false
+                        } label: {
+                            Label("Freigabe für \(senderAddress) widerrufen",
+                                  systemImage: "shield.slash")
+                                .font(.caption.bold())
+                        }
+                        .buttonStyle(.bordered)
+
+                        Text("Dieser Absender ist dauerhaft freigegeben. Widerruf wirkt sofort und für alle künftigen Mails.")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    } else {
+                        Button {
+                            remoteAllowedForMessage = false
+                        } label: {
+                            Label("Externe Inhalte blockieren", systemImage: "shield.slash")
+                                .font(.caption.bold())
+                        }
+                        .buttonStyle(.bordered)
+
+                        Text("Freigabe gilt nur für diese Mail und endet beim Schließen.")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
+                } else {
+                    Button {
+                        showRemoteContentDialog = true
+                    } label: {
+                        Label("Externe Inhalte laden", systemImage: "arrow.down.circle")
+                            .font(.caption.bold())
+                    }
+                    .buttonStyle(.bordered)
+
+                    Text("Bilder und Stylesheets sind blockiert. Beim Laden erfährt der Absender deine IP-Adresse und dass du die Mail geöffnet hast.")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
             }
         } else {
             VStack(alignment: .leading, spacing: 10) {

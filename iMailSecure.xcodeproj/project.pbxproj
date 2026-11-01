@@ -27,6 +27,7 @@
 		8D9A77B54821476F9885C3E8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8BB8112A4323D969E0CF3 /* Extensions.swift */; };
 		900DF1873B8F041BD0B875CD /* MailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68421DC7E19C712CDF9D6CC4 /* MailStore.swift */; };
 		933D8BC4D3B6DD9DE8F09EE9 /* HTMLMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E67BF3EA4EABA3614B71902 /* HTMLMessageView.swift */; };
+		A13FCA2ECB96B13767E2166A /* RemoteContentPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E698286EB31D572E39F34C /* RemoteContentPolicyTests.swift */; };
 		AE02C28FB0E6E38EE1D91875 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C8649627657E92D885637B /* InboxView.swift */; };
 		AE0FA60FCE3E7396AC68E9C3 /* SwiftMail in Frameworks */ = {isa = PBXBuildFile; productRef = 7DC2CC0015881D91846F3825 /* SwiftMail */; };
 		AEECAEB25B799FA2A091FAD1 /* MDNProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCCF27DAA6FF3ED6F1E8D2E /* MDNProcessor.swift */; };
@@ -36,6 +37,7 @@
 		D2928577F7084BFE2B4CB015 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F369C939BDCC5B68C917A71 /* ContentView.swift */; };
 		D5E023E35C2C2580297CBFD0 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D00E34566BA61E1261B4A62 /* MainTabView.swift */; };
 		D667AA31582E215FFC839F0E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1000213EBB341715D99A48 /* SettingsView.swift */; };
+		D77D7B27B5CB2915F5009710 /* RemoteContentPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3030A47F52FCF758BB1E7CF7 /* RemoteContentPolicy.swift */; };
 		DC212E02290DF2B0EB91E756 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D84802D3FFAA1D2C0EFA22 /* Constants.swift */; };
 		DEB79A4C8BD8DEEA4EB8EAA9 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 6611D3EBF3D8A5515807955D /* Logging */; };
 		DFD383654C2689A5ACF84584 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3B6F372A04E86A5199F7290 /* Assets.xcassets */; };
@@ -73,12 +75,14 @@
 		21D84802D3FFAA1D2C0EFA22 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2737E211A07A5B863E029C72 /* iMailSecureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMailSecureTests.swift; sourceTree = "<group>"; };
 		2B1000213EBB341715D99A48 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3030A47F52FCF758BB1E7CF7 /* RemoteContentPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteContentPolicy.swift; sourceTree = "<group>"; };
 		33C2084D4F653F0F44CA89A4 /* AccountSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSetupView.swift; sourceTree = "<group>"; };
 		38608E68D49A2DD52D36060A /* iMailSecureTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = iMailSecureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40C8649627657E92D885637B /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		58C5249BE4D91B58F7D61840 /* EmailDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailDraft.swift; sourceTree = "<group>"; };
 		68421DC7E19C712CDF9D6CC4 /* MailStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailStore.swift; sourceTree = "<group>"; };
 		72B045697D23DA5F18ACAFB5 /* InboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewModel.swift; sourceTree = "<group>"; };
+		72E698286EB31D572E39F34C /* RemoteContentPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteContentPolicyTests.swift; sourceTree = "<group>"; };
 		7E67BF3EA4EABA3614B71902 /* HTMLMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLMessageView.swift; sourceTree = "<group>"; };
 		7EC8813452319DB26F8DD0D8 /* HTMLSanitizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLSanitizer.swift; sourceTree = "<group>"; };
 		84F86CC2892ADFB9513C8569 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -204,6 +208,7 @@
 			children = (
 				027201199E05689DC5B68B0B /* HTMLSanitizerTests.swift */,
 				2737E211A07A5B863E029C72 /* iMailSecureTests.swift */,
+				72E698286EB31D572E39F34C /* RemoteContentPolicyTests.swift */,
 			);
 			name = iMailSecureTests;
 			path = Tests/iMailSecureTests;
@@ -256,6 +261,7 @@
 				E9C6D6909E13736F5FE7F8DB /* KeychainManager.swift */,
 				68421DC7E19C712CDF9D6CC4 /* MailStore.swift */,
 				BD1DB573997EBAEC0171080E /* MailSyncEngine.swift */,
+				3030A47F52FCF758BB1E7CF7 /* RemoteContentPolicy.swift */,
 				B5CD97B1BD76C748321FB7A5 /* SMTPManager.swift */,
 			);
 			path = Managers;
@@ -364,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D684D4F797B75CE25998FC9 /* HTMLSanitizerTests.swift in Sources */,
+				A13FCA2ECB96B13767E2166A /* RemoteContentPolicyTests.swift in Sources */,
 				8B086A3F1057C546524F34E9 /* iMailSecureTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,6 +406,7 @@
 				2F0BF190B26461B6E8AD98C8 /* MessageDetailView.swift in Sources */,
 				ED9C69DCAD661614A1DC1D0B /* MessageRowView.swift in Sources */,
 				ED1E95EE3903E3BD59B9A9A1 /* RFC2822Formatter.swift in Sources */,
+				D77D7B27B5CB2915F5009710 /* RemoteContentPolicy.swift in Sources */,
 				EEB1962A132FCA50BE1B4A9B /* SMTPManager.swift in Sources */,
 				D667AA31582E215FFC839F0E /* SettingsView.swift in Sources */,
 				798F2CC747378DDB3BC92D8F /* WelcomeView.swift in Sources */,

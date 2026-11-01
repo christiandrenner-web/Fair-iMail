@@ -4,7 +4,9 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var accountStore: AccountStore
     @State private var showAddAccount = false
+    @State private var showRevokeAllConfirmation = false
     @AppStorage("defaultRequestMDN") private var defaultRequestMDN = false
+    @ObservedObject private var remotePolicy = RemoteContentPolicy.shared
 
     var body: some View {
         NavigationStack {
@@ -34,7 +36,39 @@ struct SettingsView: View {
                 } header: {
                     Text("Datenschutz")
                 } footer: {
-                    Text("iMail Secure überträgt keine Daten an Dritte und enthält kein Tracking. Das Laden externer Bilder ist bewusst nicht abschaltbar – es findet nicht statt.")
+                    Text("iMail Secure überträgt keine Daten an Dritte und enthält kein Tracking. Externe Bilder und Stylesheets werden blockiert, bis du sie für eine Mail oder einen Absender ausdrücklich freigibst.")
+                }
+
+                // D2 Stufe 3 – Freigaben widerrufen
+                Section {
+                    if remotePolicy.sortedTrustedSenders.isEmpty {
+                        Text("Keine Absender freigegeben.")
+                            .foregroundStyle(.secondary)
+                    } else {
+                        ForEach(remotePolicy.sortedTrustedSenders, id: \.self) { sender in
+                            HStack {
+                                Image(systemName: "photo")
+                                    .foregroundStyle(.orange)
+                                Text(sender)
+                                    .font(.subheadline)
+                            }
+                        }
+                        .onDelete { indexSet in
+                            for index in indexSet {
+                                remotePolicy.revoke(sender: remotePolicy.sortedTrustedSenders[index])
+                            }
+                        }
+
+                        Button(role: .destructive) {
+                            showRevokeAllConfirmation = true
+                        } label: {
+                            Label("Alle Freigaben widerrufen", systemImage: "shield.slash")
+                        }
+                    }
+                } header: {
+                    Text("Externe Inhalte")
+                } footer: {
+                    Text("Absender, für die Bilder und Stylesheets dauerhaft geladen werden. Wische einen Eintrag nach links, um die Freigabe zu widerrufen.")
                 }
 
                 // Nachrichtenoptionen
@@ -60,6 +94,18 @@ struct SettingsView: View {
             .navigationTitle("Einstellungen")
             .sheet(isPresented: $showAddAccount) {
                 AccountSetupView()
+            }
+            .confirmationDialog(
+                "Alle Freigaben widerrufen?",
+                isPresented: $showRevokeAllConfirmation,
+                titleVisibility: .visible
+            ) {
+                Button("Alle widerrufen", role: .destructive) {
+                    remotePolicy.revokeAll()
+                }
+                Button("Abbrechen", role: .cancel) { }
+            } message: {
+                Text("Externe Bilder und Stylesheets werden danach wieder für alle Absender blockiert.")
             }
         }
     }

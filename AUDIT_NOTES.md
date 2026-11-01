@@ -107,7 +107,15 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
   `HTMLSanitizer` entfernt Skripte, `on*`-Handler, `<base>`, Formulare, Meta-Refresh und
   Remote-Ressourcen. Links werden abgefangen und erst nach Bestätigung extern geöffnet.
   Die beiden wirkungslosen Schalter wurden entfernt (Leitsatz 10).
-  Stufe 3 (Freigabe pro Mail/Absender) bleibt offen.
+- **Status 2026-11-01, Stufe 3:** `RemoteContentPolicy` merkt sich Freigaben —
+  entweder nur für eine Message-ID (nicht persistiert) oder dauerhaft für eine
+  **Absender-Adresse** (`UserDefaults`, normalisiert). Bewusst nicht pro Domain: ein
+  kompromittierter Absender würde sonst die ganze Domain freischalten. Freigabe erfolgt
+  über einen Dialog in der Mail („Nur für diese Mail" / „Immer für <Adresse>"), Widerruf
+  einzeln oder komplett in den Einstellungen. In Stufe 3 entfällt nur die
+  Content-Rule-Liste; JavaScript bleibt aus, Skripte/Formulare/Event-Handler/`ping`
+  bleiben entfernt. Der Wechsel blockiert↔freigegeben erzeugt über `.id(...)` eine neue
+  `WKWebView`, damit keine alte Regel-Liste aktiv bleibt.
 
 ### D3 (H) Keine Link-Behandlung
 - Keine Tracking-Parameter-Entfernung (`utm_*`, `fbclid`, `gclid`, `mc_eid`, `yclid`, `ref`, …).
@@ -267,7 +275,7 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
 | N5 | ✅ erledigt | armv7→arm64, remote-notification entfernt, NSContactsUsageDescription auskommentiert |
 | N6 | ✅ erledigt | demoMessages() und Aufruf entfernt |
 | D1 | ✅ erledigt | Robuster Sanitizer: script/style-Block-Entfernung, Entity-Dekodierung, Block-Zeilenumbrüche |
-| D2 | ✅ Stufe 1+2 | Text ist Standard, HTML nur auf Knopfdruck. `HTMLMessageView` (WKWebView): JS aus, non-persistenter Store, Content-Rule-Liste blockt jede http(s)-Anfrage, jede Navigation außer der initialen wird abgebrochen, Links nur nach Bestätigung. `HTMLSanitizer` als zweite Schicht. Inerte Toggles `loadRemoteImages`/`confirmExternalLinks` entfernt. **Offen:** Stufe 3 (externe Inhalte pro Mail/Absender freigeben) |
+| D2 | ✅ vollständig | Text ist Standard, HTML nur auf Knopfdruck. `HTMLMessageView` (WKWebView): JS aus, non-persistenter Store, Content-Rule-Liste blockt jede http(s)-Anfrage, jede Navigation außer der initialen wird abgebrochen, Links nur nach Bestätigung. `HTMLSanitizer` als zweite Schicht. Inerte Toggles `loadRemoteImages`/`confirmExternalLinks` entfernt. **Stufe 3:** `RemoteContentPolicy`, Freigabe pro Mail oder Absender, Widerruf in den Einstellungen |
 | D3 | ✅ erledigt | URL.trackingStripped mit 15 Tracking-Parametern; URL.domainMismatch für Link-Prüfung |
 | D4 | ✅ erledigt | Pfad-Sanitizer, UUID-Unterordner, .completeFileProtection, Cleanup nach Share-Sheet-Dismiss |
 | D5 | ✅ erledigt | Absender-Badge: Warnung wenn Anzeigename-Domain ≠ Absender-Domain |
@@ -332,6 +340,15 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
   App Store ist eine eigene EULA nötig, sonst gilt Apples Standard-EULA.
   `APP_STORE_GUIDE.md` enthielt außerdem „Crashlytics/Sentry einbinden" — das widerspricht
   Leitsatz 1 und wurde entfernt.
+- **D2 Stufe 3 umgesetzt (2026-11-01):** `RemoteContentPolicy` (Freigabe pro Message-ID
+  oder pro Absender-Adresse, persistiert in `UserDefaults`, widerrufbar). `HTMLSanitizer
+  .sanitize(_:allowRemoteResources:)` behält bei Freigabe Remote-Ressourcen, entfernt aber
+  weiterhin Skripte, Event-Handler, Formulare, Meta-Refresh, `javascript:` und `ping`.
+  `HTMLMessageView` erhält `allowRemote` und installiert dann keine Content-Rule-Liste;
+  `.id(remoteContentAllowed)` erzwingt eine neue WebView beim Umschalten. In
+  `MessageDetailView` Dialog „Nur für diese Mail“ / „Immer für <Adresse>“ und ein
+  Blockieren-Knopf; in `SettingsView` eine Widerrufsliste (Swipe + „Alle widerrufen“).
+  **43 Tests, 0 Fehler** (19 neue: 10 `RemoteContentPolicyTests`, 9 Sanitizer-Stufe-3).
 - **Website:** separates, öffentliches Repo `~/XCODE/imailsecure-site` (index, privacy,
   support, lokales CSS, `.nojekyll`). Keine externen Ressourcen, keine Cookies, keine
   Analytics; GitHub-Pages-Hosting ist in der Datenschutzerklärung offengelegt.

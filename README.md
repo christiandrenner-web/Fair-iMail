@@ -15,6 +15,7 @@ Lizenz: PolyForm Noncommercial 1.0.0 — Quellcode einsehbar, keine kommerzielle
 - Tracking-Parameter-Entfernung in Links, Bestätigung vor externem Öffnen
 - Kein Tracking, keine Werbung, keine Drittanbieter-SDKs, keine Telemetrie
 - HTML nur auf Knopfdruck: Text ist Standard, HTML wird ohne Netzwerkzugriff gerendert
+- Externe Inhalte blockiert — Freigabe nur pro Mail oder pro Absender-Adresse, jederzeit widerrufbar
 - iOS 18+, SwiftUI
 
 ---
