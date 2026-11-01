@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+
+  <!-- ─── App Identity ─────────────────────────────────────────── -->
+  <key>CFBundleIdentifier</key>
+  <string>io.imailsecure.app</string>
+
+  <key>CFBundleName</key>
+  <string>iMail secure</string>
+
+  <key>CFBundleDisplayName</key>
+  <string>iMail secure</string>
+
+  <key>CFBundleVersion</key>
+  <string>1</string>
+
+  <key>CFBundleShortVersionString</key>
+  <string>1.0.0</string>
+
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+
+  <key>CFBundleExecutable</key>
+  <string>$(EXECUTABLE_NAME)</string>
+
+  <key>CFBundleDevelopmentRegion</key>
+  <string>de</string>
+
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>6.0</string>
+
+  <!-- ─── Supported Platforms ──────────────────────────────────── -->
+  <key>LSRequiresIPhoneOS</key>
+  <true/>
+
+  <key>UIRequiredDeviceCapabilities</key>
+  <array>
+    <string>arm64</string>
+  </array>
+
+  <key>UISupportedInterfaceOrientations</key>
+  <array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+  </array>
+
+  <key>UISupportedInterfaceOrientations~ipad</key>
+  <array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+  </array>
+
+  <!-- ─── SwiftUI Scene ─────────────────────────────────────────── -->
+  <key>UIApplicationSceneManifest</key>
+  <dict>
+    <key>UIApplicationSupportsMultipleScenes</key>
+    <true/>
+    <key>UISceneConfigurations</key>
+    <dict/>
+  </dict>
+
+  <!-- ─── App Transport Security ───────────────────────────────── -->
+  <!-- IMAP/SMTP benötigen TLS; unsichere Verbindungen sind verboten -->
+  <key>NSAppTransportSecurity</key>
+  <dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <false/>
+  </dict>
+
+  <!-- ─── Privacy Usage Descriptions (App Store Pflicht) ──────── -->
+
+  <!-- Kamera – nicht benötigt; trotzdem deklarieren falls künftig -->
+  <!-- <key>NSCameraUsageDescription</key>
+  <string>iMail secure benötigt die Kamera nicht.</string> -->
+
+  <!-- Face ID / Touch ID – optional für künftige Biometrie -->
+  <key>NSFaceIDUsageDescription</key>
+  <string>iMail secure kann Face ID verwenden, um deine E-Mails zu schützen.</string>
+
+  <!-- Kontakte – Berechtigung erst aktivieren wenn Autovervollständigung implementiert ist -->
+  <!-- <key>NSContactsUsageDescription</key>
+  <string>iMail secure kann deine Kontakte nutzen, um E-Mail-Adressen beim Schreiben vorzuschlagen. Deine Kontakte werden niemals an Dritte übermittelt.</string> -->
+
+  <!-- Push-Benachrichtigungen: nur Background Fetch aktiv; remote-notification erst nach
+       vollständiger Push-Implementierung und eigenem Push-Server aktivieren -->
+  <key>UIBackgroundModes</key>
+  <array>
+    <string>fetch</string>
+  </array>
+
+  <!-- ─── Sonstiges ─────────────────────────────────────────────── -->
+  <key>UILaunchScreen</key>
+  <dict>
+    <key>UIColorName</key>
+    <string>LaunchBackground</string>
+    <key>UIImageName</key>
+    <string>LaunchLogo</string>
+  </dict>
+
+  <key>ITSAppUsesNonExemptEncryption</key>
+  <false/>
+
+</dict>
+</plist>

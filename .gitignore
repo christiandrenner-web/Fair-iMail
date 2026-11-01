@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+._*
+
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+*.ipa
+*.dSYM
+*.hmap
+*.xcarchive
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Packages/
+Package.resolved.orig
+
+# Graphify (generierte Graphen, jeder kann sie lokal neu bauen)
+graphify-out/
+
+# Secrets / Zertifikate (niemals einchecken)
+.env
+*.env
+*.p12
+*.cer
+*.mobileprovision
+*.key
+incoming/

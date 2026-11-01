@@ -1,0 +1,84 @@
+# project.yml – XcodeGen Konfiguration für iMail secure
+# Installiere XcodeGen: brew install xcodegen
+# Erstelle Projekt:     xcodegen generate --spec project.yml
+
+name: iMailSecure
+options:
+  bundleIdPrefix: io.imailsecure
+  deploymentTarget:
+    iOS: "26.0"
+  defaultConfig: Debug
+  xcodeVersion: "16.0"
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    PRODUCT_BUNDLE_IDENTIFIER: io.imailsecure.app
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    INFOPLIST_FILE: Sources/iMailSecure/Resources/Info.plist
+    CODE_SIGN_ENTITLEMENTS: Sources/iMailSecure/Resources/iMailSecure.entitlements
+    DEVELOPMENT_TEAM: ""   # ← Deine Team-ID eintragen
+    ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+    ENABLE_PREVIEWS: YES
+    SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+  configs:
+    Release:
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: ""
+      SWIFT_OPTIMIZATION_LEVEL: "-O"
+
+targets:
+  iMailSecure:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources/iMailSecure
+        excludes:
+          - "**/.DS_Store"
+    resources:
+      - Sources/iMailSecure/Resources
+    dependencies:
+      - package: SwiftMail
+      - package: swift-log
+        product: Logging
+    settings:
+      base:
+        PRODUCT_NAME: iMailSecure
+
+  iMailSecureTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - Tests/iMailSecureTests
+    dependencies:
+      - target: iMailSecure
+    settings:
+      base:
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/iMailSecure.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iMailSecure"
+
+packages:
+  SwiftMail:
+    url: https://github.com/Cocoanetics/SwiftMail.git
+    branch: main
+  swift-log:
+    url: https://github.com/apple/swift-log.git
+    from: "1.4.0"
+
+schemes:
+  iMailSecure:
+    build:
+      targets:
+        iMailSecure: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - iMailSecureTests
+    profile:
+      config: Release
+    archive:
+      config: Release

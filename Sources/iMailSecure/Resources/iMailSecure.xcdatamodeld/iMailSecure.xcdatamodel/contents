@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  iMailSecure.xcdatamodel/contents
+  Lege in Xcode eine neue CoreData-Modelldatei an (File → New → Data Model)
+  und kopiere diesen Inhalt hinein – ODER nutze dieses XML direkt als
+  .xcdatamodeld/iMailSecure.xcdatamodel/contents
+
+  Entitäten:
+    CDMessage   – gespeicherte E-Mail-Nachrichten
+    CDDraft     – gespeicherte Entwürfe
+    CDAttachment – Anhänge zu Nachrichten
+-->
+<model type="com.apple.IDECoreDataModeler.DataModel"
+       documentVersion="1.0"
+       lastSavedToolsVersion="22522"
+       systemVersion="23B92"
+       minimumToolsVersion="Automatic"
+       sourceLanguage="Swift"
+       userDefinedModelVersionIdentifier="">
+
+  <!-- ─── CDMessage ─────────────────────────────────────────── -->
+  <entity name="CDMessage" representedClassName="CDMessage"
+          syncable="YES" codeGenerationType="class">
+
+    <attribute name="accountID"       optional="NO"  attributeType="UUID"    usesScalarValueType="NO"/>
+    <attribute name="uid"             optional="NO"  attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    <attribute name="messageID"       optional="NO"  attributeType="String"/>
+    <attribute name="folder"          optional="NO"  attributeType="String"  defaultValueString="INBOX"/>
+    <attribute name="subject"         optional="YES" attributeType="String"/>
+    <attribute name="body"            optional="YES" attributeType="String"/>
+    <attribute name="isHTML"          optional="NO"  attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+    <attribute name="fromAddress"     optional="YES" attributeType="String"/>
+    <attribute name="fromName"        optional="YES" attributeType="String"/>
+    <attribute name="toAddresses"     optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+    <attribute name="ccAddresses"     optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+    <attribute name="date"            optional="YES" attributeType="Date"    usesScalarValueType="NO"/>
+    <attribute name="isRead"          optional="NO"  attributeType="Boolean" defaultValueString="NO"  usesScalarValueType="YES"/>
+    <attribute name="isFlagged"       optional="NO"  attributeType="Boolean" defaultValueString="NO"  usesScalarValueType="YES"/>
+    <attribute name="isMarkedDeleted" optional="NO"  attributeType="Boolean" defaultValueString="NO"  usesScalarValueType="YES"/>
+    <attribute name="mdnRequested"    optional="NO"  attributeType="Boolean" defaultValueString="NO"  usesScalarValueType="YES"/>
+    <attribute name="mdnSent"         optional="NO"  attributeType="Boolean" defaultValueString="NO"  usesScalarValueType="YES"/>
+    <attribute name="receiptReceived" optional="NO"  attributeType="Boolean" defaultValueString="NO"  usesScalarValueType="YES"/>
+    <attribute name="receiptDate"     optional="YES" attributeType="Date"    usesScalarValueType="NO"/>
+
+    <relationship name="attachments"  optional="YES" toMany="YES"
+                  deletionRule="Cascade"
+                  destinationEntity="CDAttachment"
+                  inverseName="message"
+                  inverseEntity="CDAttachment"/>
+  </entity>
+
+  <!-- ─── CDDraft ──────────────────────────────────────────── -->
+  <entity name="CDDraft" representedClassName="CDDraft"
+          syncable="YES" codeGenerationType="class">
+
+    <attribute name="id"              optional="NO"  attributeType="UUID"    usesScalarValueType="NO"/>
+    <attribute name="accountID"       optional="NO"  attributeType="UUID"    usesScalarValueType="NO"/>
+    <attribute name="toText"          optional="YES" attributeType="String"/>
+    <attribute name="ccText"          optional="YES" attributeType="String"/>
+    <attribute name="bccText"         optional="YES" attributeType="String"/>
+    <attribute name="subject"         optional="YES" attributeType="String"/>
+    <attribute name="body"            optional="YES" attributeType="String"/>
+    <attribute name="requestMDN"      optional="NO"  attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+    <attribute name="requestReceipt"  optional="NO"  attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+    <attribute name="lastModified"    optional="YES" attributeType="Date"    usesScalarValueType="NO"/>
+  </entity>
+
+  <!-- ─── CDAttachment ─────────────────────────────────────── -->
+  <entity name="CDAttachment" representedClassName="CDAttachment"
+          syncable="YES" codeGenerationType="class">
+
+    <attribute name="id"       optional="NO"  attributeType="UUID"   usesScalarValueType="NO"/>
+    <attribute name="filename" optional="YES" attributeType="String"/>
+    <attribute name="mimeType" optional="YES" attributeType="String"/>
+    <attribute name="data"     optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+
+    <relationship name="message" optional="YES" maxCount="1"
+                  deletionRule="Nullify"
+                  destinationEntity="CDMessage"
+                  inverseName="attachments"
+                  inverseEntity="CDMessage"/>
+  </entity>
+
+  <elements>
+    <element name="CDMessage"    positionX="-63"  positionY="-18"  width="128" height="374"/>
+    <element name="CDDraft"      positionX="180"  positionY="-18"  width="128" height="224"/>
+    <element name="CDAttachment" positionX="-63"  positionY="380"  width="128" height="104"/>
+  </elements>
+</model>

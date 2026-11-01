@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  iMailSecure.entitlements
+  In Xcode: Build Settings → Code Signing Entitlements → Sources/iMailSecure/Resources/iMailSecure.entitlements
+-->
+<plist version="1.0">
+<dict>
+
+  <!-- ─── Push (nur mit bezahltem Developer Account, Phase 3) ─ -->
+  <!-- aps-environment wird erst aktiviert wenn Apple Developer  -->
+  <!-- Program ($99/Jahr) vorhanden ist.                         -->
+
+  <!-- ─── Background Fetch ──────────────────────────────────── -->
+  <!-- Ermöglicht regelmäßigen Mail-Abruf im Hintergrund -->
+  <key>com.apple.developer.background-fetch</key>
+  <true/>
+
+  <!-- ─── Network Extensions (optional für VPN/Proxy) ──────── -->
+  <!-- Nur aktivieren wenn benötigt -->
+  <!-- <key>com.apple.developer.networking.networkextension</key>
+  <array>
+    <string>packet-tunnel-provider</string>
+  </array> -->
+
+</dict>
+</plist>

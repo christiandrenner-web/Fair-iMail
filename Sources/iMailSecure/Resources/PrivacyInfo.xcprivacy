@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  PrivacyInfo.xcprivacy
+  Pflichtdatei seit Apple-Anforderung ab Frühjahr 2024.
+  Muss im App-Bundle liegen und bei App-Store-Einreichung vorhanden sein.
+  Dokumentation: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files
+-->
+<plist version="1.0">
+<dict>
+
+  <!-- ─── Datenerfassung ─────────────────────────────────────── -->
+  <!-- iMail secure erfasst KEINE Nutzerdaten -->
+  <key>NSPrivacyTracking</key>
+  <false/>
+
+  <key>NSPrivacyTrackingDomains</key>
+  <array/>
+
+  <!-- ─── Zugriff auf erfasste Daten ────────────────────────── -->
+  <key>NSPrivacyCollectedDataTypes</key>
+  <array>
+    <!-- E-Mail-Adressen: nur für App-Funktionalität, kein Tracking -->
+    <dict>
+      <key>NSPrivacyCollectedDataType</key>
+      <string>NSPrivacyCollectedDataTypeEmailAddress</string>
+      <key>NSPrivacyCollectedDataTypeLinked</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypeTracking</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypePurposes</key>
+      <array>
+        <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+      </array>
+    </dict>
+  </array>
+
+  <!-- ─── Required Reason APIs ──────────────────────────────── -->
+  <key>NSPrivacyAccessedAPITypes</key>
+  <array>
+
+    <!-- UserDefaults: Einstellungen speichern -->
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>CA92.1</string> <!-- App-Einstellungen des Nutzers -->
+      </array>
+    </dict>
+
+    <!-- FileTimestamp: Core Data Dateidatum -->
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>C617.1</string> <!-- Dateien der App verwalten -->
+      </array>
+    </dict>
+
+    <!-- DiskSpace: prüfen ob genug Platz für Mail-Cache -->
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryDiskSpace</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>85F4.1</string> <!-- App-Speicherbedarf prüfen -->
+      </array>
+    </dict>
+
+  </array>
+
+</dict>
+</plist>

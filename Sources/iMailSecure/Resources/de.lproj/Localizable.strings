@@ -1,0 +1,80 @@
+/* Localizable.strings (de) – iMail secure */
+
+/* Navigation */
+"tab.inbox"       = "Posteingang";
+"tab.settings"    = "Einstellungen";
+
+/* Inbox */
+"inbox.empty"          = "Keine E-Mails";
+"inbox.empty.detail"   = "Dein Posteingang ist leer.";
+"inbox.syncing"        = "Synchronisiere…";
+"inbox.search"         = "E-Mails durchsuchen";
+
+/* Compose */
+"compose.title"        = "Neue E-Mail";
+"compose.to"           = "An";
+"compose.cc"           = "CC";
+"compose.bcc"          = "BCC";
+"compose.subject"      = "Betreff";
+"compose.body"         = "Nachricht";
+"compose.send"         = "Senden";
+"compose.save"         = "Entwurf speichern";
+"compose.cancel"       = "Abbrechen";
+"compose.mdn"          = "Lesebestätigung anfordern (MDN)";
+"compose.receipt"      = "Empfangsbestätigung anfordern";
+"compose.confirmSection" = "Bestätigungen";
+"compose.confirmFooter" = "MDN (RFC 8098): Benachrichtigung, wenn der Empfänger die E-Mail öffnet.";
+"compose.error.noRecipient" = "Bitte mindestens einen Empfänger angeben.";
+"compose.error.noSubject"   = "Bitte einen Betreff angeben.";
+"compose.success.sent"      = "E-Mail erfolgreich versendet!";
+"compose.success.draft"     = "Entwurf gespeichert";
+
+/* Message Detail */
+"detail.reply"        = "Antworten";
+"detail.forward"      = "Weiterleiten";
+"detail.delete"       = "Löschen";
+"detail.attachments"  = "Anhänge";
+"detail.mdn.received" = "Lesebestätigung erhalten";
+"detail.mdn.opened"   = "Geöffnet am %@";
+
+/* Account Setup */
+"account.add"          = "Konto hinzufügen";
+"account.save"         = "Speichern";
+"account.cancel"       = "Abbrechen";
+"account.displayName"  = "Anzeigename";
+"account.email"        = "E-Mail-Adresse";
+"account.password"     = "Passwort";
+"account.imap"         = "IMAP (Empfang)";
+"account.smtp"         = "SMTP (Versand)";
+"account.server"       = "Server";
+"account.port"         = "Port";
+"account.delete"       = "Konto entfernen";
+"account.saved"        = "Gespeichert ✓";
+
+/* Settings */
+"settings.title"               = "Einstellungen";
+"settings.accounts"            = "E-Mail-Konten";
+"settings.privacy"             = "Datenschutz";
+"settings.loadImages"          = "Externe Bilder laden";
+"settings.confirmLinks"        = "Links vor dem Öffnen bestätigen";
+"settings.defaultMDN"          = "Lesebestätigung standardmäßig anfordern";
+"settings.about"               = "Über iMail secure";
+"settings.version"             = "Version";
+"settings.license"             = "Lizenz";
+"settings.sourceCode"          = "Quellcode auf GitHub";
+"settings.privacyPolicy"       = "Datenschutzerklärung";
+"settings.privacy.footer"      = "iMail secure überträgt keine Daten an Dritte und enthält kein Tracking.";
+
+/* Welcome */
+"welcome.title"       = "iMail secure";
+"welcome.subtitle"    = "Datenschutzfreundlicher E-Mail-Client";
+"welcome.feature1"    = "Kein Tracking, keine Werbung";
+"welcome.feature2"    = "Lesebestätigungen (MDN/RFC 8098)";
+"welcome.feature3"    = "Passwörter im Keychain gespeichert";
+"welcome.feature4"    = "Open Source (GPL-3.0)";
+"welcome.cta"         = "E-Mail-Konto hinzufügen";
+
+/* Errors */
+"error.noPassword"    = "Kein Passwort für diesen Account gespeichert.";
+"error.syncFailed"    = "Synchronisation fehlgeschlagen: %@";
+"error.sendFailed"    = "Versand fehlgeschlagen: %@";
