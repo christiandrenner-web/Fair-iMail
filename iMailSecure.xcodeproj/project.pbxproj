@@ -7,279 +7,279 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13261688ED298A5F75295720 /* InboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C290F677505BB3C9233B0A4 /* InboxViewModel.swift */; };
-		14FEF9EAE1D124A441CAB205 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5544D3B532B1FD57DF6D623 /* InboxView.swift */; };
-		188A67427C74A6190E5833AA /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3ECD43278B58E975615D60 /* KeychainManager.swift */; };
-		CE1A2B3C4D5E6F7A8B9C0D1E /* CertificatePinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1A2B3C4D5E6F7A8B9C0D1F /* CertificatePinner.swift */; };
-		1AC1268C85C6894329EF0034 /* EmailAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73312F3F57E31D3F68684F1 /* EmailAccount.swift */; };
-		2221D4C793D71E6C5051DCCF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFE37CB6520BF4AE35BF2D0 /* Extensions.swift */; };
-		25682509B61129E315AAF198 /* ComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45BBBCCDFB8451CF8DD815 /* ComposeView.swift */; };
-		26C4B45623BD187F6D0F3667 /* MailSyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0BA79BDBE0E1F12CBAA26F /* MailSyncEngine.swift */; };
-		27BB3EB2F6D7B92525BD626E /* iMailSecureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC6526F324F144D0376F349 /* iMailSecureTests.swift */; };
-		313F85D921769E0285D2AECA /* SMTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02726A8B0D0C2A8DECD77032 /* SMTPManager.swift */; };
-		3C776BB36EAB4E3C8B611803 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 345CE7779D234A8D3787644F /* Assets.xcassets */; };
-		42B79820348332E2BD3025C8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B095A308A80895F892DA3329 /* SettingsView.swift */; };
-		4BEBBA9761DCA16318436C6D /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = E9FD5CCA97E193E2B2DC61D8 /* Logging */; };
-		55902AE4240355CCD74BBA35 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFAD03A763C6C93B70EED1C /* WelcomeView.swift */; };
-		6B2FD3EB0FFAAF7CB5C3E620 /* iMailSecureApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8691F8E91BEFE7C7249F9FF8 /* iMailSecureApp.swift */; };
-		734C624D0F5BA44661189B2A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE1F538CD72EA4E3D4F9D37 /* ContentView.swift */; };
-		7804A0736735B6EBC4B98D28 /* EmailHeaderBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC98F0553FDF73F39E36F8C8 /* EmailHeaderBuilder.swift */; };
-		847C759220A1BBB1A9C1A75A /* MessageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A928EBB1B985FB55EEF5DDFD /* MessageDetailView.swift */; };
-		85FD1CCCBBA76E4ACEF500A1 /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3287939F809A512D68C1037D /* ComposeViewModel.swift */; };
-		88FA73A957329C7FB66E9082 /* RFC2822Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D457CACA8282AA5A97AAC8 /* RFC2822Formatter.swift */; };
-		8C9D2C677A0E729993935D8F /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684FC3997B37B9D28B77E160 /* MessageRowView.swift */; };
-		93E59FA420C699A60A376026 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00C2D1AB24A98C7864FC669F /* Localizable.strings */; };
-		A272A160D3943788A5DA52AF /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95944A91C55A7C0464C5BB4 /* MainTabView.swift */; };
-		AD929C7C60A78D1A3A1A5087 /* MailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114B6BF22DD2EEC712C3050F /* MailStore.swift */; };
-		BEADFA266279E358CF9BE129 /* AccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978C78887412BC109B494E50 /* AccountStore.swift */; };
-		C37E6550FD63C4B1631E6866 /* AccountSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2180C35BE61957101DB3968 /* AccountSetupView.swift */; };
-		C625B0CABA985FD8F08C6A29 /* SwiftMail in Frameworks */ = {isa = PBXBuildFile; productRef = 2F0CA3D1D0E70BED8A1D9DD6 /* SwiftMail */; };
-		CAB0E47B0F0894373CFDC17D /* AccountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB08B422F71DDACD8EFFBD9 /* AccountDetailView.swift */; };
-		D10216876AE14D1D61805233 /* MDNProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706D5C41C4259F27F39F9F77 /* MDNProcessor.swift */; };
-		D93892BDB75111A1A15BA7FE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FFB1895DC594E1EA8471F2 /* Constants.swift */; };
-		E0B498067B7AA2909FA04F14 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 77CD585F34CA531A8FB48511 /* PrivacyInfo.xcprivacy */; };
-		E70E8CCFD6FAEEC1E3690CBB /* iMailSecure.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D68D2A2BEFFE74FD19CAC4B6 /* iMailSecure.xcdatamodeld */; };
-		ED00F17053F08E00D0BFB08E /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCCA98AD4526E4AA36640DD /* CoreDataService.swift */; };
-		F32A6032641EDA0FE2A0522F /* EmailMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24D734A0A29A87D8A7C8BB7 /* EmailMessage.swift */; };
-		F5B551B17BC5190FF21B72C7 /* MDNBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF0B76F7C879E03DE68BF38 /* MDNBannerView.swift */; };
-		FDE14D7E453A01F5B3F43775 /* EmailDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4068077F1878D9D5183887C9 /* EmailDraft.swift */; };
+		01FA32044E768F9BB13ECA74 /* InboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B045697D23DA5F18ACAFB5 /* InboxViewModel.swift */; };
+		0EF2E7CD59BF3C329AD59D05 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8478FB31192487F6DAF86F2C /* Localizable.strings */; };
+		11BAFE1E6EC5ED0CA37C6811 /* CertificatePinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C60797FFDD38E1B555EAAF3 /* CertificatePinner.swift */; };
+		1AE1F4C9CE619D3841D1A3EF /* EmailAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CFFDBEEC66EBAEE9AB5069 /* EmailAccount.swift */; };
+		2746658E975390FBA4CBE9A9 /* EmailDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C5249BE4D91B58F7D61840 /* EmailDraft.swift */; };
+		2F0BF190B26461B6E8AD98C8 /* MessageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B87712EA352DB0ED3EB5C3 /* MessageDetailView.swift */; };
+		33A3C802FF84B83EE0E0718A /* iMailSecure.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B32C82217E33A4037515DAA /* iMailSecure.xcdatamodeld */; };
+		34458E94A57BFC2E95447425 /* iMailSecureApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1583A351BCB421AE4464909B /* iMailSecureApp.swift */; };
+		3981C53998E226C06C9FFBF1 /* EmailHeaderBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC7759BCC272D7FF8CBB49C /* EmailHeaderBuilder.swift */; };
+		3C85F2A937FD41920069431B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C6D6909E13736F5FE7F8DB /* KeychainManager.swift */; };
+		455C4136CC74CCD270F60F4B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CDC51945EB87A0DDB24BD6D3 /* PrivacyInfo.xcprivacy */; };
+		4809ACDA1C65D9BAF410BC91 /* MailSyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1DB573997EBAEC0171080E /* MailSyncEngine.swift */; };
+		4D7E7BE2E76E5E4EEE9BEB87 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780183F8EAB78F0571A376 /* CoreDataService.swift */; };
+		798F2CC747378DDB3BC92D8F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F86CC2892ADFB9513C8569 /* WelcomeView.swift */; };
+		7D95E30C0A1B0A2720A7D688 /* AccountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD59909CF5CBF35A6B15EC3B /* AccountDetailView.swift */; };
+		8B086A3F1057C546524F34E9 /* iMailSecureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2737E211A07A5B863E029C72 /* iMailSecureTests.swift */; };
+		8D9A77B54821476F9885C3E8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8BB8112A4323D969E0CF3 /* Extensions.swift */; };
+		900DF1873B8F041BD0B875CD /* MailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68421DC7E19C712CDF9D6CC4 /* MailStore.swift */; };
+		AE02C28FB0E6E38EE1D91875 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C8649627657E92D885637B /* InboxView.swift */; };
+		AE0FA60FCE3E7396AC68E9C3 /* SwiftMail in Frameworks */ = {isa = PBXBuildFile; productRef = 7DC2CC0015881D91846F3825 /* SwiftMail */; };
+		AEECAEB25B799FA2A091FAD1 /* MDNProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCCF27DAA6FF3ED6F1E8D2E /* MDNProcessor.swift */; };
+		B4A07C9362C7F1707E030CB6 /* ComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AF1FFCDBA40290F9D5EACF /* ComposeView.swift */; };
+		BB86A65C98734A109F87E54C /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BF84D1CC2BA7EDB4B316ED /* ComposeViewModel.swift */; };
+		D014171D1F2AF5C3DC27DF87 /* AccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59455C08B21A9F5B16AAC6F /* AccountStore.swift */; };
+		D2928577F7084BFE2B4CB015 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F369C939BDCC5B68C917A71 /* ContentView.swift */; };
+		D5E023E35C2C2580297CBFD0 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D00E34566BA61E1261B4A62 /* MainTabView.swift */; };
+		D667AA31582E215FFC839F0E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1000213EBB341715D99A48 /* SettingsView.swift */; };
+		DC212E02290DF2B0EB91E756 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D84802D3FFAA1D2C0EFA22 /* Constants.swift */; };
+		DEB79A4C8BD8DEEA4EB8EAA9 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 6611D3EBF3D8A5515807955D /* Logging */; };
+		DFD383654C2689A5ACF84584 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3B6F372A04E86A5199F7290 /* Assets.xcassets */; };
+		E15A1ED32F8130A36FABEB51 /* EmailMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161F7CD991A81743DD97E8B8 /* EmailMessage.swift */; };
+		ED1E95EE3903E3BD59B9A9A1 /* RFC2822Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1741708D1D81CE758C43D358 /* RFC2822Formatter.swift */; };
+		ED9C69DCAD661614A1DC1D0B /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72766BB8E3A9F80A242AFE /* MessageRowView.swift */; };
+		EEB1962A132FCA50BE1B4A9B /* SMTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CD97B1BD76C748321FB7A5 /* SMTPManager.swift */; };
+		F078E1AC162F4A47A4A2DEDE /* MDNBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E29782D4F7CBC5425CE06B7 /* MDNBannerView.swift */; };
+		FFB0CB6FC5F17FFFE473770D /* AccountSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C2084D4F653F0F44CA89A4 /* AccountSetupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		EECD42E1C83FF84CC9B1A2E7 /* PBXContainerItemProxy */ = {
+		7A549BB43F6B0655C5E3F8B8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 53C039B8B2988DF331D140B0 /* Project object */;
+			containerPortal = BFAB5DEC8EF30D430AD37A87 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3D696590B90692F869036D2A;
+			remoteGlobalIDString = DA03BCA0FFFA65F0CB373457;
 			remoteInfo = iMailSecure;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		02726A8B0D0C2A8DECD77032 /* SMTPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMTPManager.swift; sourceTree = "<group>"; };
-		0B0BA79BDBE0E1F12CBAA26F /* MailSyncEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailSyncEngine.swift; sourceTree = "<group>"; };
-		0EB08B422F71DDACD8EFFBD9 /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
-		114B6BF22DD2EEC712C3050F /* MailStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailStore.swift; sourceTree = "<group>"; };
-		232CA6DAEA53210128668FC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		2BCCA98AD4526E4AA36640DD /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
-		31FFB1895DC594E1EA8471F2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		3287939F809A512D68C1037D /* ComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
-		32C9232F59F00EDEB96A7465 /* iMailSecure.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMailSecure.xcdatamodel; sourceTree = "<group>"; };
-		345CE7779D234A8D3787644F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3AFE37CB6520BF4AE35BF2D0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		4068077F1878D9D5183887C9 /* EmailDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailDraft.swift; sourceTree = "<group>"; };
-		4BC6526F324F144D0376F349 /* iMailSecureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMailSecureTests.swift; sourceTree = "<group>"; };
-		4DE1F538CD72EA4E3D4F9D37 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		684FC3997B37B9D28B77E160 /* MessageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRowView.swift; sourceTree = "<group>"; };
-		6C290F677505BB3C9233B0A4 /* InboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewModel.swift; sourceTree = "<group>"; };
-		706D5C41C4259F27F39F9F77 /* MDNProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDNProcessor.swift; sourceTree = "<group>"; };
-		77CD585F34CA531A8FB48511 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		8691F8E91BEFE7C7249F9FF8 /* iMailSecureApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMailSecureApp.swift; sourceTree = "<group>"; };
-		8EFAD03A763C6C93B70EED1C /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		96D856F32A49E1E675E32F48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		978C78887412BC109B494E50 /* AccountStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStore.swift; sourceTree = "<group>"; };
-		98FC5B030796332E1E2A8916 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A928EBB1B985FB55EEF5DDFD /* MessageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailView.swift; sourceTree = "<group>"; };
-		A95944A91C55A7C0464C5BB4 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
-		B095A308A80895F892DA3329 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		B4D457CACA8282AA5A97AAC8 /* RFC2822Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFC2822Formatter.swift; sourceTree = "<group>"; };
-		BC98F0553FDF73F39E36F8C8 /* EmailHeaderBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailHeaderBuilder.swift; sourceTree = "<group>"; };
-		C536713ACD0F2B97846A46D9 /* iMailSecure.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iMailSecure.entitlements; sourceTree = "<group>"; };
-		C73312F3F57E31D3F68684F1 /* EmailAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAccount.swift; sourceTree = "<group>"; };
-		CC45BBBCCDFB8451CF8DD815 /* ComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeView.swift; sourceTree = "<group>"; };
-		CFF07F1FCFA20E1FFE76358B /* iMailSecure.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iMailSecure.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D24D734A0A29A87D8A7C8BB7 /* EmailMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailMessage.swift; sourceTree = "<group>"; };
-		E5544D3B532B1FD57DF6D623 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
-		EFF0B76F7C879E03DE68BF38 /* MDNBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDNBannerView.swift; sourceTree = "<group>"; };
-		F2180C35BE61957101DB3968 /* AccountSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSetupView.swift; sourceTree = "<group>"; };
-		FA3ECD43278B58E975615D60 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
-		CE1A2B3C4D5E6F7A8B9C0D1F /* CertificatePinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePinner.swift; sourceTree = "<group>"; };
-		FB533CC6E776A0C0CC68D447 /* iMailSecureTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = iMailSecureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E29782D4F7CBC5425CE06B7 /* MDNBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDNBannerView.swift; sourceTree = "<group>"; };
+		13398DEA3BC7F97E6C754F88 /* iMailSecure.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iMailSecure.entitlements; sourceTree = "<group>"; };
+		1583A351BCB421AE4464909B /* iMailSecureApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMailSecureApp.swift; sourceTree = "<group>"; };
+		15B87712EA352DB0ED3EB5C3 /* MessageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailView.swift; sourceTree = "<group>"; };
+		161F7CD991A81743DD97E8B8 /* EmailMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailMessage.swift; sourceTree = "<group>"; };
+		1699895BE74302A3B173F6AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1741708D1D81CE758C43D358 /* RFC2822Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFC2822Formatter.swift; sourceTree = "<group>"; };
+		1AC7759BCC272D7FF8CBB49C /* EmailHeaderBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailHeaderBuilder.swift; sourceTree = "<group>"; };
+		1D00E34566BA61E1261B4A62 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		1FB4C248A951094849F79BD9 /* iMailSecure.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iMailSecure.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		21D84802D3FFAA1D2C0EFA22 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2737E211A07A5B863E029C72 /* iMailSecureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMailSecureTests.swift; sourceTree = "<group>"; };
+		2B1000213EBB341715D99A48 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		33C2084D4F653F0F44CA89A4 /* AccountSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSetupView.swift; sourceTree = "<group>"; };
+		38608E68D49A2DD52D36060A /* iMailSecureTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = iMailSecureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		40C8649627657E92D885637B /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
+		58C5249BE4D91B58F7D61840 /* EmailDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailDraft.swift; sourceTree = "<group>"; };
+		68421DC7E19C712CDF9D6CC4 /* MailStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailStore.swift; sourceTree = "<group>"; };
+		72B045697D23DA5F18ACAFB5 /* InboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewModel.swift; sourceTree = "<group>"; };
+		84F86CC2892ADFB9513C8569 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		8A72766BB8E3A9F80A242AFE /* MessageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRowView.swift; sourceTree = "<group>"; };
+		8F369C939BDCC5B68C917A71 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8F8D627CC659BF7BA1192C75 /* iMailSecure.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMailSecure.xcdatamodel; sourceTree = "<group>"; };
+		9C60797FFDD38E1B555EAAF3 /* CertificatePinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePinner.swift; sourceTree = "<group>"; };
+		9FD1D214C39203FA17C32CC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A0CFFDBEEC66EBAEE9AB5069 /* EmailAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAccount.swift; sourceTree = "<group>"; };
+		A7780183F8EAB78F0571A376 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		B5CD97B1BD76C748321FB7A5 /* SMTPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMTPManager.swift; sourceTree = "<group>"; };
+		BD1DB573997EBAEC0171080E /* MailSyncEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailSyncEngine.swift; sourceTree = "<group>"; };
+		C3AF1FFCDBA40290F9D5EACF /* ComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeView.swift; sourceTree = "<group>"; };
+		C3B6F372A04E86A5199F7290 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CDC51945EB87A0DDB24BD6D3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		CF754FA0750A77C74473E141 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D2B8BB8112A4323D969E0CF3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E59455C08B21A9F5B16AAC6F /* AccountStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStore.swift; sourceTree = "<group>"; };
+		E9C6D6909E13736F5FE7F8DB /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		F6BF84D1CC2BA7EDB4B316ED /* ComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
+		FD59909CF5CBF35A6B15EC3B /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
+		FFCCF27DAA6FF3ED6F1E8D2E /* MDNProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDNProcessor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		23C3C37F49A946C8E3DF51DF /* Frameworks */ = {
+		B3E4395D589F896A889BE315 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C625B0CABA985FD8F08C6A29 /* SwiftMail in Frameworks */,
-				4BEBBA9761DCA16318436C6D /* Logging in Frameworks */,
+				AE0FA60FCE3E7396AC68E9C3 /* SwiftMail in Frameworks */,
+				DEB79A4C8BD8DEEA4EB8EAA9 /* Logging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0990B69EE221F9865768800D /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				2BCCA98AD4526E4AA36640DD /* CoreDataService.swift */,
-				BC98F0553FDF73F39E36F8C8 /* EmailHeaderBuilder.swift */,
-				706D5C41C4259F27F39F9F77 /* MDNProcessor.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		234142F37B6D5662EC3E2CBB /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				C73312F3F57E31D3F68684F1 /* EmailAccount.swift */,
-				4068077F1878D9D5183887C9 /* EmailDraft.swift */,
-				D24D734A0A29A87D8A7C8BB7 /* EmailMessage.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		7F9E7720F1AFF71647757D36 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				0EB08B422F71DDACD8EFFBD9 /* AccountDetailView.swift */,
-				F2180C35BE61957101DB3968 /* AccountSetupView.swift */,
-				CC45BBBCCDFB8451CF8DD815 /* ComposeView.swift */,
-				E5544D3B532B1FD57DF6D623 /* InboxView.swift */,
-				A95944A91C55A7C0464C5BB4 /* MainTabView.swift */,
-				EFF0B76F7C879E03DE68BF38 /* MDNBannerView.swift */,
-				A928EBB1B985FB55EEF5DDFD /* MessageDetailView.swift */,
-				684FC3997B37B9D28B77E160 /* MessageRowView.swift */,
-				B095A308A80895F892DA3329 /* SettingsView.swift */,
-				8EFAD03A763C6C93B70EED1C /* WelcomeView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		9616B28BE698A853F5208828 /* iMailSecureTests */ = {
-			isa = PBXGroup;
-			children = (
-				4BC6526F324F144D0376F349 /* iMailSecureTests.swift */,
-			);
-			name = iMailSecureTests;
-			path = Tests/iMailSecureTests;
-			sourceTree = "<group>";
-		};
-		9849AAC4B3B1F3E111EEE706 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				345CE7779D234A8D3787644F /* Assets.xcassets */,
-				C536713ACD0F2B97846A46D9 /* iMailSecure.entitlements */,
-				96D856F32A49E1E675E32F48 /* Info.plist */,
-				77CD585F34CA531A8FB48511 /* PrivacyInfo.xcprivacy */,
-				D68D2A2BEFFE74FD19CAC4B6 /* iMailSecure.xcdatamodeld */,
-				00C2D1AB24A98C7864FC669F /* Localizable.strings */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		A6C1A126DEC327C860FFB806 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CFF07F1FCFA20E1FFE76358B /* iMailSecure.app */,
-				FB533CC6E776A0C0CC68D447 /* iMailSecureTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		AAFBB7D8BEDAABA191A10762 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				3287939F809A512D68C1037D /* ComposeViewModel.swift */,
-				6C290F677505BB3C9233B0A4 /* InboxViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		AC720E985F1D5129C30083DF /* iMailSecure */ = {
-			isa = PBXGroup;
-			children = (
-				FDA5835CC387B02D44E86071 /* {App,Views,ViewModels,Models,Managers,Services,Utilities,Resources} */,
-				CE0F13E56C136DFDF2E26A37 /* App */,
-				C273796B17EC79ABCC6CD381 /* Managers */,
-				234142F37B6D5662EC3E2CBB /* Models */,
-				9849AAC4B3B1F3E111EEE706 /* Resources */,
-				0990B69EE221F9865768800D /* Services */,
-				D73C3B7CC9EBC1B858AEF902 /* Utilities */,
-				AAFBB7D8BEDAABA191A10762 /* ViewModels */,
-				7F9E7720F1AFF71647757D36 /* Views */,
-			);
-			name = iMailSecure;
-			path = Sources/iMailSecure;
-			sourceTree = "<group>";
-		};
-		C273796B17EC79ABCC6CD381 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				978C78887412BC109B494E50 /* AccountStore.swift */,
-				CE1A2B3C4D5E6F7A8B9C0D1F /* CertificatePinner.swift */,
-				FA3ECD43278B58E975615D60 /* KeychainManager.swift */,
-				114B6BF22DD2EEC712C3050F /* MailStore.swift */,
-				0B0BA79BDBE0E1F12CBAA26F /* MailSyncEngine.swift */,
-				02726A8B0D0C2A8DECD77032 /* SMTPManager.swift */,
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		CE0F13E56C136DFDF2E26A37 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				4DE1F538CD72EA4E3D4F9D37 /* ContentView.swift */,
-				8691F8E91BEFE7C7249F9FF8 /* iMailSecureApp.swift */,
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
-		D73C3B7CC9EBC1B858AEF902 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				31FFB1895DC594E1EA8471F2 /* Constants.swift */,
-				3AFE37CB6520BF4AE35BF2D0 /* Extensions.swift */,
-				B4D457CACA8282AA5A97AAC8 /* RFC2822Formatter.swift */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
-		FB53EC0DC13A196FD32E70C3 = {
-			isa = PBXGroup;
-			children = (
-				AC720E985F1D5129C30083DF /* iMailSecure */,
-				9616B28BE698A853F5208828 /* iMailSecureTests */,
-				A6C1A126DEC327C860FFB806 /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		FDA5835CC387B02D44E86071 /* {App,Views,ViewModels,Models,Managers,Services,Utilities,Resources} */ = {
+		1F96B8A06304D5EC8590B351 /* {App,Views,ViewModels,Models,Managers,Services,Utilities,Resources} */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = "{App,Views,ViewModels,Models,Managers,Services,Utilities,Resources}";
 			sourceTree = "<group>";
 		};
+		3E45A3B6B062718083EEA217 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A0CFFDBEEC66EBAEE9AB5069 /* EmailAccount.swift */,
+				58C5249BE4D91B58F7D61840 /* EmailDraft.swift */,
+				161F7CD991A81743DD97E8B8 /* EmailMessage.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3EA3FF03A1309383437E376B /* App */ = {
+			isa = PBXGroup;
+			children = (
+				8F369C939BDCC5B68C917A71 /* ContentView.swift */,
+				1583A351BCB421AE4464909B /* iMailSecureApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		45ED7D893786C3A674DC30CF = {
+			isa = PBXGroup;
+			children = (
+				58364B49E210FFB23463C126 /* iMailSecure */,
+				B33355D7163A51260453B28F /* iMailSecureTests */,
+				6040CDAE85949B13C2E2AFC0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		58364B49E210FFB23463C126 /* iMailSecure */ = {
+			isa = PBXGroup;
+			children = (
+				1F96B8A06304D5EC8590B351 /* {App,Views,ViewModels,Models,Managers,Services,Utilities,Resources} */,
+				3EA3FF03A1309383437E376B /* App */,
+				D1E726D9EA97FB5DFC2BBEF0 /* Managers */,
+				3E45A3B6B062718083EEA217 /* Models */,
+				5F98ABBF896311C256EEFB5D /* Resources */,
+				D1035613B4F8BC418457E946 /* Services */,
+				B5D94B28AA254B57DDC13B73 /* Utilities */,
+				6AA97B9792B86A1206C1CCBF /* ViewModels */,
+				D10E5D02B980AFB9F96E9864 /* Views */,
+			);
+			name = iMailSecure;
+			path = Sources/iMailSecure;
+			sourceTree = "<group>";
+		};
+		5F98ABBF896311C256EEFB5D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C3B6F372A04E86A5199F7290 /* Assets.xcassets */,
+				13398DEA3BC7F97E6C754F88 /* iMailSecure.entitlements */,
+				1699895BE74302A3B173F6AC /* Info.plist */,
+				CDC51945EB87A0DDB24BD6D3 /* PrivacyInfo.xcprivacy */,
+				5B32C82217E33A4037515DAA /* iMailSecure.xcdatamodeld */,
+				8478FB31192487F6DAF86F2C /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6040CDAE85949B13C2E2AFC0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1FB4C248A951094849F79BD9 /* iMailSecure.app */,
+				38608E68D49A2DD52D36060A /* iMailSecureTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6AA97B9792B86A1206C1CCBF /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F6BF84D1CC2BA7EDB4B316ED /* ComposeViewModel.swift */,
+				72B045697D23DA5F18ACAFB5 /* InboxViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B33355D7163A51260453B28F /* iMailSecureTests */ = {
+			isa = PBXGroup;
+			children = (
+				2737E211A07A5B863E029C72 /* iMailSecureTests.swift */,
+			);
+			name = iMailSecureTests;
+			path = Tests/iMailSecureTests;
+			sourceTree = "<group>";
+		};
+		B5D94B28AA254B57DDC13B73 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				21D84802D3FFAA1D2C0EFA22 /* Constants.swift */,
+				D2B8BB8112A4323D969E0CF3 /* Extensions.swift */,
+				1741708D1D81CE758C43D358 /* RFC2822Formatter.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		D1035613B4F8BC418457E946 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A7780183F8EAB78F0571A376 /* CoreDataService.swift */,
+				1AC7759BCC272D7FF8CBB49C /* EmailHeaderBuilder.swift */,
+				FFCCF27DAA6FF3ED6F1E8D2E /* MDNProcessor.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D10E5D02B980AFB9F96E9864 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FD59909CF5CBF35A6B15EC3B /* AccountDetailView.swift */,
+				33C2084D4F653F0F44CA89A4 /* AccountSetupView.swift */,
+				C3AF1FFCDBA40290F9D5EACF /* ComposeView.swift */,
+				40C8649627657E92D885637B /* InboxView.swift */,
+				1D00E34566BA61E1261B4A62 /* MainTabView.swift */,
+				0E29782D4F7CBC5425CE06B7 /* MDNBannerView.swift */,
+				15B87712EA352DB0ED3EB5C3 /* MessageDetailView.swift */,
+				8A72766BB8E3A9F80A242AFE /* MessageRowView.swift */,
+				2B1000213EBB341715D99A48 /* SettingsView.swift */,
+				84F86CC2892ADFB9513C8569 /* WelcomeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D1E726D9EA97FB5DFC2BBEF0 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				E59455C08B21A9F5B16AAC6F /* AccountStore.swift */,
+				9C60797FFDD38E1B555EAAF3 /* CertificatePinner.swift */,
+				E9C6D6909E13736F5FE7F8DB /* KeychainManager.swift */,
+				68421DC7E19C712CDF9D6CC4 /* MailStore.swift */,
+				BD1DB573997EBAEC0171080E /* MailSyncEngine.swift */,
+				B5CD97B1BD76C748321FB7A5 /* SMTPManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		199F242B5BC95A032A186526 /* iMailSecureTests */ = {
+		D9001073440F6E8072DDE474 /* iMailSecureTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A26E626BF6A5D16161B95AF7 /* Build configuration list for PBXNativeTarget "iMailSecureTests" */;
+			buildConfigurationList = E9BC6176725126516CFE28B4 /* Build configuration list for PBXNativeTarget "iMailSecureTests" */;
 			buildPhases = (
-				0020A52CBB569635A76C22AA /* Sources */,
+				6C85D16B09A66360D5A20E94 /* Sources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B978E25B946C8D441A01837A /* PBXTargetDependency */,
+				754B85BD9396968234E26FFF /* PBXTargetDependency */,
 			);
 			name = iMailSecureTests;
 			packageProductDependencies = (
 			);
 			productName = iMailSecureTests;
-			productReference = FB533CC6E776A0C0CC68D447 /* iMailSecureTests.xctest */;
+			productReference = 38608E68D49A2DD52D36060A /* iMailSecureTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3D696590B90692F869036D2A /* iMailSecure */ = {
+		DA03BCA0FFFA65F0CB373457 /* iMailSecure */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 561EABE5E68F4998CDFFC170 /* Build configuration list for PBXNativeTarget "iMailSecure" */;
+			buildConfigurationList = E5B419D317EED3A3ACBDE3DA /* Build configuration list for PBXNativeTarget "iMailSecure" */;
 			buildPhases = (
-				02C04C38AB6329BC6077B633 /* Sources */,
-				2E2E0A143C47A285163312DE /* Resources */,
-				23C3C37F49A946C8E3DF51DF /* Frameworks */,
+				A21FBB69ECA21151B4459EF9 /* Sources */,
+				2B83B69B7090C41DD890D65C /* Resources */,
+				B3E4395D589F896A889BE315 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -287,31 +287,31 @@
 			);
 			name = iMailSecure;
 			packageProductDependencies = (
-				2F0CA3D1D0E70BED8A1D9DD6 /* SwiftMail */,
-				E9FD5CCA97E193E2B2DC61D8 /* Logging */,
+				7DC2CC0015881D91846F3825 /* SwiftMail */,
+				6611D3EBF3D8A5515807955D /* Logging */,
 			);
 			productName = iMailSecure;
-			productReference = CFF07F1FCFA20E1FFE76358B /* iMailSecure.app */;
+			productReference = 1FB4C248A951094849F79BD9 /* iMailSecure.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		53C039B8B2988DF331D140B0 /* Project object */ = {
+		BFAB5DEC8EF30D430AD37A87 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
-					199F242B5BC95A032A186526 = {
+					D9001073440F6E8072DDE474 = {
 						DevelopmentTeam = "";
 					};
-					3D696590B90692F869036D2A = {
+					DA03BCA0FFFA65F0CB373457 = {
 						DevelopmentTeam = "";
 					};
 				};
 			};
-			buildConfigurationList = 1FA10FAA87A83084386E85B3 /* Build configuration list for PBXProject "iMailSecure" */;
+			buildConfigurationList = 5ACE2B39EF6E9947BF4F2E26 /* Build configuration list for PBXProject "iMailSecure" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -319,98 +319,98 @@
 				de,
 				en,
 			);
-			mainGroup = FB53EC0DC13A196FD32E70C3;
+			mainGroup = 45ED7D893786C3A674DC30CF;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				D467B841E65B5A56CD0CADD8 /* XCRemoteSwiftPackageReference "SwiftMail" */,
-				6DE5FB1C2ACBE94E30ABC02F /* XCRemoteSwiftPackageReference "swift-log" */,
+				8A42FA7265861753C4DA15B5 /* XCRemoteSwiftPackageReference "SwiftMail" */,
+				3806615EB6365EC9D478AF96 /* XCRemoteSwiftPackageReference "swift-log" */,
 			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = A6C1A126DEC327C860FFB806 /* Products */;
+			productRefGroup = 6040CDAE85949B13C2E2AFC0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3D696590B90692F869036D2A /* iMailSecure */,
-				199F242B5BC95A032A186526 /* iMailSecureTests */,
+				DA03BCA0FFFA65F0CB373457 /* iMailSecure */,
+				D9001073440F6E8072DDE474 /* iMailSecureTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2E2E0A143C47A285163312DE /* Resources */ = {
+		2B83B69B7090C41DD890D65C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C776BB36EAB4E3C8B611803 /* Assets.xcassets in Resources */,
-				93E59FA420C699A60A376026 /* Localizable.strings in Resources */,
-				E0B498067B7AA2909FA04F14 /* PrivacyInfo.xcprivacy in Resources */,
+				DFD383654C2689A5ACF84584 /* Assets.xcassets in Resources */,
+				0EF2E7CD59BF3C329AD59D05 /* Localizable.strings in Resources */,
+				455C4136CC74CCD270F60F4B /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0020A52CBB569635A76C22AA /* Sources */ = {
+		6C85D16B09A66360D5A20E94 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27BB3EB2F6D7B92525BD626E /* iMailSecureTests.swift in Sources */,
+				8B086A3F1057C546524F34E9 /* iMailSecureTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		02C04C38AB6329BC6077B633 /* Sources */ = {
+		A21FBB69ECA21151B4459EF9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAB0E47B0F0894373CFDC17D /* AccountDetailView.swift in Sources */,
-				C37E6550FD63C4B1631E6866 /* AccountSetupView.swift in Sources */,
-				BEADFA266279E358CF9BE129 /* AccountStore.swift in Sources */,
-				25682509B61129E315AAF198 /* ComposeView.swift in Sources */,
-				85FD1CCCBBA76E4ACEF500A1 /* ComposeViewModel.swift in Sources */,
-				D93892BDB75111A1A15BA7FE /* Constants.swift in Sources */,
-				734C624D0F5BA44661189B2A /* ContentView.swift in Sources */,
-				ED00F17053F08E00D0BFB08E /* CoreDataService.swift in Sources */,
-				1AC1268C85C6894329EF0034 /* EmailAccount.swift in Sources */,
-				FDE14D7E453A01F5B3F43775 /* EmailDraft.swift in Sources */,
-				7804A0736735B6EBC4B98D28 /* EmailHeaderBuilder.swift in Sources */,
-				F32A6032641EDA0FE2A0522F /* EmailMessage.swift in Sources */,
-				2221D4C793D71E6C5051DCCF /* Extensions.swift in Sources */,
-				E70E8CCFD6FAEEC1E3690CBB /* iMailSecure.xcdatamodeld in Sources */,
-				6B2FD3EB0FFAAF7CB5C3E620 /* iMailSecureApp.swift in Sources */,
-				14FEF9EAE1D124A441CAB205 /* InboxView.swift in Sources */,
-				13261688ED298A5F75295720 /* InboxViewModel.swift in Sources */,
-				188A67427C74A6190E5833AA /* KeychainManager.swift in Sources */,
-				CE1A2B3C4D5E6F7A8B9C0D1E /* CertificatePinner.swift in Sources */,
-				F5B551B17BC5190FF21B72C7 /* MDNBannerView.swift in Sources */,
-				D10216876AE14D1D61805233 /* MDNProcessor.swift in Sources */,
-				AD929C7C60A78D1A3A1A5087 /* MailStore.swift in Sources */,
-				26C4B45623BD187F6D0F3667 /* MailSyncEngine.swift in Sources */,
-				A272A160D3943788A5DA52AF /* MainTabView.swift in Sources */,
-				847C759220A1BBB1A9C1A75A /* MessageDetailView.swift in Sources */,
-				8C9D2C677A0E729993935D8F /* MessageRowView.swift in Sources */,
-				88FA73A957329C7FB66E9082 /* RFC2822Formatter.swift in Sources */,
-				313F85D921769E0285D2AECA /* SMTPManager.swift in Sources */,
-				42B79820348332E2BD3025C8 /* SettingsView.swift in Sources */,
-				55902AE4240355CCD74BBA35 /* WelcomeView.swift in Sources */,
+				7D95E30C0A1B0A2720A7D688 /* AccountDetailView.swift in Sources */,
+				FFB0CB6FC5F17FFFE473770D /* AccountSetupView.swift in Sources */,
+				D014171D1F2AF5C3DC27DF87 /* AccountStore.swift in Sources */,
+				11BAFE1E6EC5ED0CA37C6811 /* CertificatePinner.swift in Sources */,
+				B4A07C9362C7F1707E030CB6 /* ComposeView.swift in Sources */,
+				BB86A65C98734A109F87E54C /* ComposeViewModel.swift in Sources */,
+				DC212E02290DF2B0EB91E756 /* Constants.swift in Sources */,
+				D2928577F7084BFE2B4CB015 /* ContentView.swift in Sources */,
+				4D7E7BE2E76E5E4EEE9BEB87 /* CoreDataService.swift in Sources */,
+				1AE1F4C9CE619D3841D1A3EF /* EmailAccount.swift in Sources */,
+				2746658E975390FBA4CBE9A9 /* EmailDraft.swift in Sources */,
+				3981C53998E226C06C9FFBF1 /* EmailHeaderBuilder.swift in Sources */,
+				E15A1ED32F8130A36FABEB51 /* EmailMessage.swift in Sources */,
+				8D9A77B54821476F9885C3E8 /* Extensions.swift in Sources */,
+				AE02C28FB0E6E38EE1D91875 /* InboxView.swift in Sources */,
+				01FA32044E768F9BB13ECA74 /* InboxViewModel.swift in Sources */,
+				3C85F2A937FD41920069431B /* KeychainManager.swift in Sources */,
+				F078E1AC162F4A47A4A2DEDE /* MDNBannerView.swift in Sources */,
+				AEECAEB25B799FA2A091FAD1 /* MDNProcessor.swift in Sources */,
+				900DF1873B8F041BD0B875CD /* MailStore.swift in Sources */,
+				4809ACDA1C65D9BAF410BC91 /* MailSyncEngine.swift in Sources */,
+				D5E023E35C2C2580297CBFD0 /* MainTabView.swift in Sources */,
+				2F0BF190B26461B6E8AD98C8 /* MessageDetailView.swift in Sources */,
+				ED9C69DCAD661614A1DC1D0B /* MessageRowView.swift in Sources */,
+				ED1E95EE3903E3BD59B9A9A1 /* RFC2822Formatter.swift in Sources */,
+				EEB1962A132FCA50BE1B4A9B /* SMTPManager.swift in Sources */,
+				D667AA31582E215FFC839F0E /* SettingsView.swift in Sources */,
+				798F2CC747378DDB3BC92D8F /* WelcomeView.swift in Sources */,
+				33A3C802FF84B83EE0E0718A /* iMailSecure.xcdatamodeld in Sources */,
+				34458E94A57BFC2E95447425 /* iMailSecureApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B978E25B946C8D441A01837A /* PBXTargetDependency */ = {
+		754B85BD9396968234E26FFF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3D696590B90692F869036D2A /* iMailSecure */;
-			targetProxy = EECD42E1C83FF84CC9B1A2E7 /* PBXContainerItemProxy */;
+			target = DA03BCA0FFFA65F0CB373457 /* iMailSecure */;
+			targetProxy = 7A549BB43F6B0655C5E3F8B8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		00C2D1AB24A98C7864FC669F /* Localizable.strings */ = {
+		8478FB31192487F6DAF86F2C /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				98FC5B030796332E1E2A8916 /* de */,
-				232CA6DAEA53210128668FC8 /* en */,
+				9FD1D214C39203FA17C32CC8 /* de */,
+				CF754FA0750A77C74473E141 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -418,38 +418,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		04D7D5DE0745B433588023C7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iMailSecure.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iMailSecure";
-			};
-			name = Debug;
-		};
-		209A42659393C65E621760C8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				INFOPLIST_FILE = Sources/iMailSecure/Resources/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_NAME = iMailSecure;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		35FA433671AD630EC40BD5A2 /* Release */ = {
+		ADA622999C6F7205F5814AD8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -465,7 +434,119 @@
 			};
 			name = Release;
 		};
-		5D63EBF949C423B6A46DF575 /* Debug */ = {
+		B285F583050E4179564ED3DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iMailSecure.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iMailSecure";
+			};
+			name = Release;
+		};
+		B7D0DD969DEDD40BDBEFBCBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iMailSecure.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iMailSecure";
+			};
+			name = Debug;
+		};
+		D7E293EDA3C497DEA54671E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Sources/iMailSecure/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_NAME = iMailSecure;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E52EFDC39D59F36B434178FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Sources/iMailSecure/Resources/iMailSecure.entitlements;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Sources/iMailSecure/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.imailsecure.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		EC9FFA8D02C0D0F57DE259A6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -523,7 +604,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Sources/iMailSecure/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -537,113 +618,32 @@
 			};
 			name = Debug;
 		};
-		7973BA4EA464A6AB07FD3FDA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iMailSecure.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iMailSecure";
-			};
-			name = Release;
-		};
-		8540ED62C5F377E609CFED17 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = Sources/iMailSecure/Resources/iMailSecure.entitlements;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = Sources/iMailSecure/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 1.0.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = io.imailsecure.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.9;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1FA10FAA87A83084386E85B3 /* Build configuration list for PBXProject "iMailSecure" */ = {
+		5ACE2B39EF6E9947BF4F2E26 /* Build configuration list for PBXProject "iMailSecure" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5D63EBF949C423B6A46DF575 /* Debug */,
-				8540ED62C5F377E609CFED17 /* Release */,
+				EC9FFA8D02C0D0F57DE259A6 /* Debug */,
+				E52EFDC39D59F36B434178FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		561EABE5E68F4998CDFFC170 /* Build configuration list for PBXNativeTarget "iMailSecure" */ = {
+		E5B419D317EED3A3ACBDE3DA /* Build configuration list for PBXNativeTarget "iMailSecure" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				209A42659393C65E621760C8 /* Debug */,
-				35FA433671AD630EC40BD5A2 /* Release */,
+				D7E293EDA3C497DEA54671E8 /* Debug */,
+				ADA622999C6F7205F5814AD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		A26E626BF6A5D16161B95AF7 /* Build configuration list for PBXNativeTarget "iMailSecureTests" */ = {
+		E9BC6176725126516CFE28B4 /* Build configuration list for PBXNativeTarget "iMailSecureTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				04D7D5DE0745B433588023C7 /* Debug */,
-				7973BA4EA464A6AB07FD3FDA /* Release */,
+				B7D0DD969DEDD40BDBEFBCBE /* Debug */,
+				B285F583050E4179564ED3DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -651,7 +651,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6DE5FB1C2ACBE94E30ABC02F /* XCRemoteSwiftPackageReference "swift-log" */ = {
+		3806615EB6365EC9D478AF96 /* XCRemoteSwiftPackageReference "swift-log" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-log.git";
 			requirement = {
@@ -659,41 +659,41 @@
 				minimumVersion = 1.4.0;
 			};
 		};
-		D467B841E65B5A56CD0CADD8 /* XCRemoteSwiftPackageReference "SwiftMail" */ = {
+		8A42FA7265861753C4DA15B5 /* XCRemoteSwiftPackageReference "SwiftMail" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Cocoanetics/SwiftMail.git";
 			requirement = {
 				kind = revision;
-				revision = "29a1df6c93cec1c64cb4489a26d16f895124683c";
+				revision = 29a1df6c93cec1c64cb4489a26d16f895124683c;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2F0CA3D1D0E70BED8A1D9DD6 /* SwiftMail */ = {
+		6611D3EBF3D8A5515807955D /* Logging */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D467B841E65B5A56CD0CADD8 /* XCRemoteSwiftPackageReference "SwiftMail" */;
-			productName = SwiftMail;
-		};
-		E9FD5CCA97E193E2B2DC61D8 /* Logging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6DE5FB1C2ACBE94E30ABC02F /* XCRemoteSwiftPackageReference "swift-log" */;
+			package = 3806615EB6365EC9D478AF96 /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
+		};
+		7DC2CC0015881D91846F3825 /* SwiftMail */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A42FA7265861753C4DA15B5 /* XCRemoteSwiftPackageReference "SwiftMail" */;
+			productName = SwiftMail;
 		};
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		D68D2A2BEFFE74FD19CAC4B6 /* iMailSecure.xcdatamodeld */ = {
+		5B32C82217E33A4037515DAA /* iMailSecure.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				32C9232F59F00EDEB96A7465 /* iMailSecure.xcdatamodel */,
+				8F8D627CC659BF7BA1192C75 /* iMailSecure.xcdatamodel */,
 			);
-			currentVersion = 32C9232F59F00EDEB96A7465 /* iMailSecure.xcdatamodel */;
+			currentVersion = 8F8D627CC659BF7BA1192C75 /* iMailSecure.xcdatamodel */;
 			path = iMailSecure.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */
 	};
-	rootObject = 53C039B8B2988DF331D140B0 /* Project object */;
+	rootObject = BFAB5DEC8EF30D430AD37A87 /* Project object */;
 }

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1600"
-   version = "1.3">
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES">
+      buildImplicitDependencies = "YES"
+      runPostActionsOnFailure = "NO">
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -14,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3D696590B90692F869036D2A"
+               BlueprintIdentifier = "DA03BCA0FFFA65F0CB373457"
                BuildableName = "iMailSecure.app"
                BlueprintName = "iMailSecure"
                ReferencedContainer = "container:iMailSecure.xcodeproj">
@@ -26,11 +27,12 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "NO">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3D696590B90692F869036D2A"
+            BlueprintIdentifier = "DA03BCA0FFFA65F0CB373457"
             BuildableName = "iMailSecure.app"
             BlueprintName = "iMailSecure"
             ReferencedContainer = "container:iMailSecure.xcodeproj">
@@ -42,13 +44,15 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "199F242B5BC95A032A186526"
+               BlueprintIdentifier = "D9001073440F6E8072DDE474"
                BuildableName = "iMailSecureTests.xctest"
                BlueprintName = "iMailSecureTests"
                ReferencedContainer = "container:iMailSecure.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -64,12 +68,14 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3D696590B90692F869036D2A"
+            BlueprintIdentifier = "DA03BCA0FFFA65F0CB373457"
             BuildableName = "iMailSecure.app"
             BlueprintName = "iMailSecure"
             ReferencedContainer = "container:iMailSecure.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -81,12 +87,14 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3D696590B90692F869036D2A"
+            BlueprintIdentifier = "DA03BCA0FFFA65F0CB373457"
             BuildableName = "iMailSecure.app"
             BlueprintName = "iMailSecure"
             ReferencedContainer = "container:iMailSecure.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

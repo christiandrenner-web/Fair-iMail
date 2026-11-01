@@ -6,7 +6,7 @@ name: iMailSecure
 options:
   bundleIdPrefix: io.imailsecure
   deploymentTarget:
-    iOS: "26.0"
+    iOS: "18.0"
   defaultConfig: Debug
   xcodeVersion: "16.0"
   generateEmptyDirectories: true
@@ -62,7 +62,9 @@ targets:
 packages:
   SwiftMail:
     url: https://github.com/Cocoanetics/SwiftMail.git
-    branch: main
+    # Gleicher Pin wie in Package.swift – verhindert, dass ein Resolve
+    # stillschweigend auf einen neueren main-Stand springt.
+    revision: 29a1df6c93cec1c64cb4489a26d16f895124683c
   swift-log:
     url: https://github.com/apple/swift-log.git
     from: "1.4.0"
