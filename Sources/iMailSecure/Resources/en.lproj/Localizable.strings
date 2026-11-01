@@ -71,7 +71,7 @@
 "welcome.feature1"    = "No tracking, no ads";
 "welcome.feature2"    = "Read receipts (MDN/RFC 8098)";
 "welcome.feature3"    = "Passwords stored in Keychain";
-"welcome.feature4"    = "Open Source (GPL-3.0)";
+"welcome.feature4"    = "Source code available for review";
 "welcome.cta"         = "Add Email Account";
 
 /* Errors */

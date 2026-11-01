@@ -28,7 +28,7 @@ struct WelcomeView: View {
                 featureRow("Kein Tracking, keine Werbung", icon: "hand.raised.fill", color: .green)
                 featureRow("Lesebestätigungen (MDN/RFC 8098)", icon: "checkmark.seal.fill", color: .blue)
                 featureRow("Passwörter im Keychain gespeichert", icon: "lock.fill", color: .orange)
-                featureRow("Open Source (GPL-3.0)", icon: "chevron.left.forwardslash.chevron.right", color: .purple)
+                featureRow("Quellcode einsehbar, nicht kommerziell", icon: "chevron.left.forwardslash.chevron.right", color: .purple)
             }
             .padding(.horizontal)
 

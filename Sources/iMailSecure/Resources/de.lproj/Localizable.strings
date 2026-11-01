@@ -71,7 +71,7 @@
 "welcome.feature1"    = "Kein Tracking, keine Werbung";
 "welcome.feature2"    = "Lesebestätigungen (MDN/RFC 8098)";
 "welcome.feature3"    = "Passwörter im Keychain gespeichert";
-"welcome.feature4"    = "Open Source (GPL-3.0)";
+"welcome.feature4"    = "Quellcode einsehbar, nicht kommerziell";
 "welcome.cta"         = "E-Mail-Konto hinzufügen";
 
 /* Errors */

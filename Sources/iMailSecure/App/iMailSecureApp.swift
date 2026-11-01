@@ -1,6 +1,6 @@
 // iMailSecureApp.swift
 // iMail Secure – Datenschutzfreundlicher E-Mail-Client für iOS 18+
-// Lizenz: GPL-3.0
+// Lizenz: PolyForm Noncommercial 1.0.0 (source-available, nicht kommerziell)
 
 import SwiftUI
 
