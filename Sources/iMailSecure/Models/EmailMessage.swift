@@ -13,6 +13,9 @@ struct EmailMessage: Identifiable, Equatable {
     var subject: String
     var date: Date
     var body: String
+    /// Original-HTML, falls die Mail eine HTML-Fassung hat.
+    /// Wird erst nach ausdrücklicher Nutzeraktion gerendert (D2).
+    var htmlBody: String?   = nil
     var isHTML: Bool        = false
 
     var isRead: Bool        = false

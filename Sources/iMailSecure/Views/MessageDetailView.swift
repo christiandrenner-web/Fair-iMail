@@ -1,5 +1,6 @@
 // MessageDetailView.swift
 import SwiftUI
+import UIKit
 import UniformTypeIdentifiers
 
 struct MessageDetailView: View {
@@ -23,6 +24,12 @@ struct MessageDetailView: View {
     @State private var shareItems: [Any]   = []
     @State private var pendingTmpDir: URL? = nil   // wird nach Share-Sheet-Dismiss gelöscht
 
+    // D2 – HTML-Anzeige (Stufe 1: Text, Stufe 2: HTML auf Knopfdruck)
+    @State private var showHTML            = false
+    @State private var htmlContentHeight: CGFloat = 320
+    @State private var htmlRenderFailed    = false
+    @State private var pendingExternalURL: URL? = nil
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -41,11 +48,8 @@ struct MessageDetailView: View {
                     mdnRequestBanner
                 }
 
-                // Nachrichtentext
-                Text(message.body)
-                    .font(.body)
-                    .textSelection(.enabled)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                // Nachrichtentext – Stufe 1: reiner Text
+                messageBodySection
 
                 // Anhänge
                 if !message.attachments.isEmpty {
@@ -111,6 +115,93 @@ struct MessageDetailView: View {
         // Antwort-Sheet
         .sheet(isPresented: $showReply) {
             replySheet
+        }
+        // D2 – externe Links nur nach Bestätigung öffnen
+        .confirmationDialog(
+            "Link öffnen?",
+            isPresented: Binding(
+                get: { pendingExternalURL != nil },
+                set: { if !$0 { pendingExternalURL = nil } }
+            ),
+            titleVisibility: .visible,
+            presenting: pendingExternalURL
+        ) { url in
+            Button("Im Browser öffnen") {
+                UIApplication.shared.open(url.trackingStripped)
+                pendingExternalURL = nil
+            }
+            Button("Abbrechen", role: .cancel) { pendingExternalURL = nil }
+        } message: { url in
+            Text("\(url.trackingStripped.absoluteString)\n\nDamit verlässt du iMail secure. Die Zielseite kann deine IP-Adresse und den Zeitpunkt sehen.")
+        }
+        .onChange(of: message.id) {
+            showHTML = false
+            htmlRenderFailed = false
+            htmlContentHeight = 320
+        }
+    }
+
+    // MARK: – Nachrichtentext (D2)
+
+    @ViewBuilder
+    private var messageBodySection: some View {
+        if showHTML, let html = message.htmlBody, !htmlRenderFailed {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(spacing: 6) {
+                    Image(systemName: "shield.lefthalf.filled")
+                        .foregroundStyle(.green)
+                    Text("HTML-Ansicht · externe Inhalte blockiert")
+                        .font(.caption2.bold())
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Button("Nur Text") { showHTML = false }
+                        .font(.caption.bold())
+                }
+
+                HTMLMessageView(
+                    html: html,
+                    contentHeight: $htmlContentHeight,
+                    failed: $htmlRenderFailed,
+                    onExternalLink: { url in pendingExternalURL = url }
+                )
+                .frame(height: max(160, min(htmlContentHeight, 20_000)))
+                .background(Color(uiColor: .secondarySystemBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+        } else {
+            VStack(alignment: .leading, spacing: 10) {
+                if htmlRenderFailed {
+                    Label("HTML konnte nicht sicher gerendert werden.", systemImage: "exclamationmark.triangle.fill")
+                        .font(.caption)
+                        .foregroundStyle(.orange)
+                }
+
+                if message.body.isEmpty {
+                    Text("Keine Textfassung vorhanden.")
+                        .font(.body)
+                        .foregroundStyle(.secondary)
+                } else {
+                    Text(message.body)
+                        .font(.body)
+                        .textSelection(.enabled)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+
+                if let html = message.htmlBody, !html.isEmpty {
+                    Button {
+                        showHTML = true
+                    } label: {
+                        Label("HTML anzeigen", systemImage: "chevron.left.forwardslash.chevron.right")
+                            .font(.subheadline.bold())
+                    }
+                    .buttonStyle(.bordered)
+
+                    Text("HTML wird erst auf Knopfdruck gerendert – ohne Netzwerkzugriff, ohne JavaScript.")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 

@@ -34,8 +34,6 @@ enum AppConstants {
 
     enum UserDefaultsKeys {
         static let accounts             = "imailsecure.accounts"
-        static let loadRemoteImages     = "loadRemoteImages"
-        static let confirmExternalLinks = "confirmExternalLinks"
         static let defaultRequestMDN    = "defaultRequestMDN"
         static let lastSyncDate         = "imailsecure.lastSync"
     }

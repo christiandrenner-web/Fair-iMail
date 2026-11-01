@@ -136,7 +136,10 @@ final class MailSyncEngine {
         let isRead        = msg.flags.contains(.seen)
 
         let mdnRequested  = msg.header.additionalFields?["disposition-notification-to"] != nil
-        let body          = msg.textBody ?? msg.htmlBody?.strippedHTML ?? ""
+        // Klartext bleibt die Standardansicht. Die HTML-Fassung wird
+        // mitgeführt, aber erst nach Knopfdruck gerendert (D2).
+        let htmlBody      = msg.htmlBody?.isEmpty == false ? msg.htmlBody : nil
+        let body          = msg.textBody ?? htmlBody?.strippedHTML ?? ""
 
         let attachments: [EmailAttachment] = msg.attachments.map { att in
             EmailAttachment(
@@ -156,6 +159,8 @@ final class MailSyncEngine {
             subject: msg.subject ?? "(kein Betreff)",
             date: msg.date ?? Date(),
             body: body,
+            htmlBody: htmlBody,
+            isHTML: htmlBody != nil,
             isRead: isRead,
             attachments: attachments,
             mdnRequested: mdnRequested,

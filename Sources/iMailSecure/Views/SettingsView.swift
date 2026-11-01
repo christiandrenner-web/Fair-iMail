@@ -4,8 +4,6 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var accountStore: AccountStore
     @State private var showAddAccount = false
-    @AppStorage("loadRemoteImages") private var loadRemoteImages = false
-    @AppStorage("confirmExternalLinks") private var confirmExternalLinks = true
     @AppStorage("defaultRequestMDN") private var defaultRequestMDN = false
 
     var body: some View {
@@ -29,12 +27,14 @@ struct SettingsView: View {
 
                 // Datenschutz
                 Section {
-                    Toggle("Externe Bilder laden", isOn: $loadRemoteImages)
-                    Toggle("Links vor dem Öffnen bestätigen", isOn: $confirmExternalLinks)
+                    Label("Mails werden als Text angezeigt", systemImage: "doc.plaintext")
+                    Label("HTML nur auf Knopfdruck", systemImage: "chevron.left.forwardslash.chevron.right")
+                    Label("Externe Inhalte blockiert", systemImage: "shield.lefthalf.filled")
+                    Label("Links nur nach Bestätigung", systemImage: "hand.raised.fill")
                 } header: {
                     Text("Datenschutz")
                 } footer: {
-                    Text("iMail secure überträgt keine Daten an Dritte und enthält kein Tracking.")
+                    Text("iMail secure überträgt keine Daten an Dritte und enthält kein Tracking. Das Laden externer Bilder ist bewusst nicht abschaltbar – es findet nicht statt.")
                 }
 
                 // Nachrichtenoptionen
@@ -44,12 +44,14 @@ struct SettingsView: View {
 
                 // Info
                 Section("Über iMail secure") {
-                    LabeledContent("Version", value: "1.0.0")
-                    LabeledContent("Lizenz", value: "GPL-3.0")
-                    Link("Quellcode auf GitHub",
-                         destination: URL(string: "https://github.com/yourusername/Fair-iMail")!)
-                    Link("Datenschutzerklärung",
-                         destination: URL(string: "https://fairimail.io/privacy")!)
+                    LabeledContent("Version", value: AppConstants.appVersion)
+                    LabeledContent("Lizenz", value: "GPL-3.0 mit App-Store-Ausnahme")
+                    if let source = URL(string: AppConstants.sourceCodeURL) {
+                        Link("Quellcode", destination: source)
+                    }
+                    if let privacy = URL(string: AppConstants.privacyPolicyURL) {
+                        Link("Datenschutzerklärung", destination: privacy)
+                    }
                 }
             }
             .navigationTitle("Einstellungen")

@@ -11,30 +11,22 @@
 <dict>
 
   <!-- ─── Datenerfassung ─────────────────────────────────────── -->
-  <!-- iMail secure erfasst KEINE Nutzerdaten -->
+  <!--
+    Apple definiert „erfasst" als Daten, die das Gerät verlassen und für den
+    Entwickler oder Dritte zugänglich werden. iMail Secure überträgt Daten
+    ausschließlich an den vom Nutzer selbst konfigurierten IMAP-/SMTP-Server;
+    der Entwickler hat darauf keinen Zugriff. Deshalb: keine erfassten
+    Datentypen → App-Store-Datenschutzlabel „Keine Daten erfasst".
+    (Vorher stand hier fälschlich EmailAddress.)
+  -->
   <key>NSPrivacyTracking</key>
   <false/>
 
   <key>NSPrivacyTrackingDomains</key>
   <array/>
 
-  <!-- ─── Zugriff auf erfasste Daten ────────────────────────── -->
   <key>NSPrivacyCollectedDataTypes</key>
-  <array>
-    <!-- E-Mail-Adressen: nur für App-Funktionalität, kein Tracking -->
-    <dict>
-      <key>NSPrivacyCollectedDataType</key>
-      <string>NSPrivacyCollectedDataTypeEmailAddress</string>
-      <key>NSPrivacyCollectedDataTypeLinked</key>
-      <false/>
-      <key>NSPrivacyCollectedDataTypeTracking</key>
-      <false/>
-      <key>NSPrivacyCollectedDataTypePurposes</key>
-      <array>
-        <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
-      </array>
-    </dict>
-  </array>
+  <array/>
 
   <!-- ─── Required Reason APIs ──────────────────────────────── -->
   <key>NSPrivacyAccessedAPITypes</key>
