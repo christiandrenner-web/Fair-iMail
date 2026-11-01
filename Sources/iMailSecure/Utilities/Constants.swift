@@ -6,9 +6,12 @@ enum AppConstants {
     static let bundleID         = "io.imailsecure.app"
     static let appVersion       = "1.0.0"
     static let appBuild         = "1"
-    static let supportEmail     = "support@fairimail.io"
-    static let privacyPolicyURL = "https://fairimail.io/privacy"
-    static let sourceCodeURL    = "https://github.com/yourusername/Fair-iMail"
+    // Website: https://christiandrenner-web.github.io/imailsecure-site/
+    // TODO: Kontaktadresse festlegen — support@imailsecure.de erst nach
+    // Domain-Registrierung nutzbar. Vor App-Store-Einreichung ersetzen.
+    static let supportEmail     = "support@imailsecure.de"
+    static let privacyPolicyURL = "https://christiandrenner-web.github.io/imailsecure-site/privacy.html"
+    static let sourceCodeURL    = "https://github.com/christiandrenner-web/Fair-iMail"
 
     enum Keychain {
         static let service = "io.imailsecure.keychain"
