@@ -70,6 +70,26 @@ Empfohlen: Simulator-Screenshots + [Previewed.app](https://previewed.app) für s
    Standard-EULA und die Nicht-kommerziell-Klausel der PolyForm-Lizenz greift
    gegenüber App-Store-Nutzern nicht (siehe `LICENSING.md`, Abschnitt 3.1)
 
+### Abos (StoreKit)
+
+Details und Begründung: `MONETIZATION.md`.
+
+- [ ] Abo-Gruppe **„iMail Secure Pro"** anlegen
+- [ ] Produkt `io.imailsecure.pro.monthly` — 1,99 €, Laufzeit 1 Monat
+- [ ] Produkt `io.imailsecure.pro.yearly` — 17,99 €, Laufzeit 1 Jahr
+- [ ] Einführungsangebot je Produkt: **kostenlose Testphase, 1 Woche**
+      (Apple macht den Trial — die App enthält bewusst keine Trial-Logik)
+- [ ] Beide Produkte zum Review einreichen, Screenshot der Paywall beilegen
+- [ ] **Nutzungsbedingungen** unter einer öffentlichen URL veröffentlichen
+      (`terms.html`) und in App Store Connect + in der App verlinken —
+      Pflicht nach Guideline 3.1.2
+- [ ] „Käufe wiederherstellen" prüfen (in Einstellungen und Paywall vorhanden)
+- [ ] Apple-Kleinstunternehmerprogramm beantragen (15 % statt 30 %)
+- [ ] Steuer- und Bankdaten hinterlegen, sonst keine Auszahlung
+
+Testen ohne Developer-Account: `iMailSecure.storekit` ist im Scheme hinterlegt
+(Xcode → Product → Scheme → Edit Scheme → Run → Options).
+
 ### Metadaten (DE)
 ```
 Name:           iMail Secure
@@ -139,6 +159,7 @@ Apple prüft die App in der Regel innerhalb von 24–48 Stunden.
 ### Häufige Ablehnungsgründe vermeiden:
 - [ ] `ITSAppUsesNonExemptEncryption = false` in Info.plist ✅ (bereits gesetzt)
 - [ ] Datenschutzerklärung erreichbar unter der angegebenen URL
+- [ ] Nutzungsbedingungen erreichbar (`terms.html`, Pflicht bei Abos)
 - [ ] Alle Berechtigungen in Info.plist begründet
 - [ ] PrivacyInfo.xcprivacy vollständig ✅
 - [ ] Keine Abstürze im Simulator (cmd+U → alle Tests grün)

@@ -8,10 +8,24 @@ final class MailStore: ObservableObject {    @Published var messages: [EmailMess
     @Published var lastSyncError: String?
 
     private var syncEngines: [UUID: MailSyncEngine] = [:]
+    /// Konto-Stand, mit dem die jeweilige Engine gebaut wurde. Ändert sich
+    /// das Konto (Host, Port, Aktivierung), wird die Engine neu erzeugt.
+    private var engineAccounts: [UUID: EmailAccount] = [:]
 
+    /// Gleicht die Sync-Engines mit den gespeicherten Konten ab.
+    /// Idempotent: kann nach jedem Hinzufügen/Löschen/Deaktivieren erneut
+    /// aufgerufen werden, ohne bestehende Engines zu verlieren.
     func loadAccounts(from store: AccountStore) {
-        for account in store.accounts where account.isActive {
+        let activeAccounts = store.accounts.filter(\.isActive)
+        let activeIDs = Set(activeAccounts.map(\.id))
+
+        // Engines für gelöschte oder deaktivierte Konten entfernen.
+        syncEngines = syncEngines.filter { activeIDs.contains($0.key) }
+        engineAccounts = engineAccounts.filter { activeIDs.contains($0.key) }
+
+        for account in activeAccounts where engineAccounts[account.id] != account {
             syncEngines[account.id] = MailSyncEngine(account: account, mailStore: self)
+            engineAccounts[account.id] = account
         }
     }
 

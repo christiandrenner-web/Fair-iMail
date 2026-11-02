@@ -42,6 +42,10 @@ Ziel ist keine „E-Mail-App mit Privacy-Feature", sondern **Privacy als Archite
 10. **Schalter müssen wirken.** Ein UI-Toggle ohne Konsument im Code ist ein Bug, kein
     Feature. Jede Datenschutz-Funktion braucht entweder einen Test oder eine dokumentierte
     Begründung, warum nicht.
+11. **Datenschutz ist nie kostenpflichtig.** Die Bezahlversion verkauft Bequemlichkeit
+    (mehrere Konten, mehr Ordner, gemeinsamer Posteingang), niemals Sicherheit. HTML-Blocker,
+    Tracking-Schutz, Zertifikat-Pinning und „keine Telemetrie" bleiben in der kostenlosen
+    Version. Details: `MONETIZATION.md`.
 
 ## Arbeitsweise
 
@@ -88,6 +92,7 @@ xcodegen generate
 | S6 | Entwürfe lokal speichern (verschlüsselt) | offen |
 | C1 | PGP/S/MIME: Drittbibliothek ja/nein | offen |
 | L1 | Lizenz: source-available, nicht-kommerziell | ✅ entschieden (Option B, 2026-11-01) |
+| M1 | Monetarisierung: Free-Tier + Pro-Abo (StoreKit 2, Trial über Apple) | ✅ entschieden (2026-11-02) |
 
 ## Lizenz
 

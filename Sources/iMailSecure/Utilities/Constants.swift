@@ -11,6 +11,7 @@ enum AppConstants {
     // Domain-Registrierung nutzbar. Vor App-Store-Einreichung ersetzen.
     static let supportEmail     = "support@imailsecure.de"
     static let privacyPolicyURL = "https://christiandrenner-web.github.io/imailsecure-site/privacy.html"
+    static let termsOfUseURL    = "https://christiandrenner-web.github.io/imailsecure-site/terms.html"
     static let sourceCodeURL    = "https://github.com/christiandrenner-web/Fair-iMail"
 
     enum Keychain {

@@ -28,13 +28,15 @@ Fair-iMail/
 ├── CLAUDE.md                 Claude-spezifische Hinweise (verweist auf AGENTS.md)
 ├── AUDIT_NOTES.md            Security-Audit N1…C1 mit Status
 ├── LICENSING.md              Lizenz-/App-Store-Analyse
+├── MONETIZATION.md           Free/Pro, Abo und StoreKit 2
 ├── LICENSE                   PolyForm Noncommercial 1.0.0 (Volltext)
 ├── CLA.md                    Contributor License Agreement
 ├── Sources/iMailSecure/
 │   ├── App/                  iMailSecureApp.swift, ContentView.swift
 │   ├── Models/               EmailAccount, EmailMessage, EmailDraft, MDNNotification
 │   ├── Managers/             AccountStore, MailStore, MailSyncEngine, SMTPManager,
-│   │                         KeychainManager, CertificatePinner
+│   │                         KeychainManager, CertificatePinner, RemoteContentPolicy,
+│   │                         SubscriptionManager
 │   ├── Services/             EmailHeaderBuilder, MDNProcessor, CoreDataService
 │   └── Views/                InboxView, MessageDetailView, ComposeView, SettingsView, …
 ├── Tests/iMailSecureTests/   Unit Tests

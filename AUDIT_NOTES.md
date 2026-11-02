@@ -353,7 +353,21 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
   support, lokales CSS, `.nojekyll`). Keine externen Ressourcen, keine Cookies, keine
   Analytics; GitHub-Pages-Hosting ist in der Datenschutzerklärung offengelegt.
   Veröffentlicht wird erst nach Einsetzen der markierten Platzhalter.
+- **M1 Monetarisierung (2026-11-02):** Free-Tier + Pro-Abo, Trial als Apples
+  Introductory Offer (kein eigener Timer). `Entitlement.swift` (Tier, Produkt-IDs,
+  Feature-Tabelle, reine Ableitungsfunktionen), `SubscriptionManager.swift`
+  (StoreKit 2, kein Backend, Keychain-Cache), `PaywallView.swift`. Gates:
+  „Konto hinzufügen" in `SettingsView` und zweite Sicherung in
+  `AccountSetupView.saveAccount()`. `iMailSecure.storekit` für lokale Tests im
+  Schema hinterlegt. **Leitsatz 11 ergänzt:** Datenschutz ist nie kostenpflichtig.
+  Details in `MONETIZATION.md`.
+- **Bugfix Multi-Account:** `MailStore.loadAccounts` war nur beim App-Start
+  aufgerufen — ein neu hinzugefügtes Konto wurde bis zum Neustart nicht
+  synchronisiert. `iMailSecureApp` hört jetzt auf `accountStore.$accounts`;
+  `loadAccounts` ist idempotent und erzeugt Engines bei Konto-Änderungen neu.
+  `MainTabView` fragt bei mehreren Konten, von welchem gesendet wird.
+  **57 Tests, 0 Fehler** (14 neue `EntitlementTests`).
 
 ---
 
-*Letzte Aktualisierung: 2026-11-01 (OpenCode) — siehe Änderungsprotokoll oben*
+*Letzte Aktualisierung: 2026-11-02 (OpenCode) — siehe Änderungsprotokoll oben*

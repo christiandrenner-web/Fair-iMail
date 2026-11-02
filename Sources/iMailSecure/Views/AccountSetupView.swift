@@ -5,6 +5,7 @@ import SwiftUI
 
 struct AccountSetupView: View {
     @EnvironmentObject var accountStore: AccountStore
+    @EnvironmentObject var subscription: SubscriptionManager
     @Environment(\.dismiss) private var dismiss
 
     @State private var displayName  = ""
@@ -196,6 +197,14 @@ struct AccountSetupView: View {
     }
 
     private func saveAccount() {
+        // Zweite Sicherung: Die Einstellungen zeigen bei Erreichen des
+        // Limits direkt die Paywall. Falls das Sheet trotzdem offen ist,
+        // wird hier abgebrochen — kein Konto ohne Berechtigung.
+        guard subscription.canAddAccount(currentCount: accountStore.accounts.count) else {
+            errorMessage = "Die kostenlose Version unterstützt ein Konto. iMail Secure Pro hebt die Beschränkung auf."
+            return
+        }
+
         isSaving      = true
         errorMessage  = nil
         successMessage = nil

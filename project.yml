@@ -76,6 +76,7 @@ schemes:
         iMailSecure: all
     run:
       config: Debug
+      storeKitConfiguration: iMailSecure.storekit
     test:
       config: Debug
       targets:

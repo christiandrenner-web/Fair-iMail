@@ -3,10 +3,16 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var accountStore: AccountStore
+    @EnvironmentObject var subscription: SubscriptionManager
     @State private var showAddAccount = false
+    @State private var showPaywall = false
     @State private var showRevokeAllConfirmation = false
     @AppStorage("defaultRequestMDN") private var defaultRequestMDN = false
     @ObservedObject private var remotePolicy = RemoteContentPolicy.shared
+
+    private var canAddAccount: Bool {
+        subscription.canAddAccount(currentCount: accountStore.accounts.count)
+    }
 
     var body: some View {
         NavigationStack {
@@ -21,10 +27,39 @@ struct SettingsView: View {
                         }
                     }
                     Button {
-                        showAddAccount = true
+                        if canAddAccount {
+                            showAddAccount = true
+                        } else {
+                            showPaywall = true
+                        }
                     } label: {
-                        Label("Konto hinzufügen", systemImage: "plus.circle.fill")
+                        Label(canAddAccount ? "Konto hinzufügen" : "Weiteres Konto (Pro)",
+                              systemImage: canAddAccount ? "plus.circle.fill" : "lock.circle.fill")
                     }
+                }
+
+                // Abo
+                Section {
+                    if subscription.isPro {
+                        Label("Pro aktiv", systemImage: "checkmark.seal.fill")
+                            .foregroundStyle(.green)
+                    } else {
+                        Button {
+                            showPaywall = true
+                        } label: {
+                            Label("iMail Secure Pro", systemImage: "lock.shield.fill")
+                        }
+                    }
+                    Button("Käufe wiederherstellen") {
+                        Task { await subscription.restore() }
+                    }
+                    .font(.callout)
+                } header: {
+                    Text("Abo")
+                } footer: {
+                    Text(subscription.isPro
+                         ? "Alle Pro-Funktionen sind freigeschaltet. Kündigung jederzeit in den App-Store-Einstellungen."
+                         : "Die kostenlose Version unterstützt ein Konto. Alle Datenschutzfunktionen sind darin enthalten.")
                 }
 
                 // Datenschutz
@@ -94,6 +129,9 @@ struct SettingsView: View {
             .navigationTitle("Einstellungen")
             .sheet(isPresented: $showAddAccount) {
                 AccountSetupView()
+            }
+            .sheet(isPresented: $showPaywall) {
+                PaywallView()
             }
             .confirmationDialog(
                 "Alle Freigaben widerrufen?",

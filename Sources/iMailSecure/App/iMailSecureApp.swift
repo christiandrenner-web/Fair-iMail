@@ -8,6 +8,7 @@ import SwiftUI
 struct iMailSecureApp: App {
     @StateObject private var accountStore = AccountStore()
     @StateObject private var mailStore   = MailStore()
+    @StateObject private var subscription = SubscriptionManager()
 
     /// Sichtschutz: true wenn App in den Hintergrund wechselt
     /// → verhindert dass Mail-Inhalte im App-Umschalter sichtbar sind
@@ -18,7 +19,14 @@ struct iMailSecureApp: App {
             ContentView()
                 .environmentObject(accountStore)
                 .environmentObject(mailStore)
+                .environmentObject(subscription)
                 .onAppear {
+                    mailStore.loadAccounts(from: accountStore)
+                }
+                // Konto hinzugefügt/entfernt/deaktiviert → Sync-Engines
+                // nachziehen. Ohne das wirkt ein neues Konto erst nach
+                // einem App-Neustart.
+                .onReceive(accountStore.$accounts) { accounts in
                     mailStore.loadAccounts(from: accountStore)
                 }
                 // Sichtschutz-Overlay
