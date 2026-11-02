@@ -22,6 +22,28 @@ Pflicht:
 2. Nach jeder abgeschlossenen Änderung: `git_add` + `git_commit` mit sprechender Nachricht.
 3. Behauptungen wie „baut durch" nur nach tatsächlichem Build — sonst als ungeprüft kennzeichnen.
 
+## Build-Validierung (Hook)
+
+Nach jedem nicht-trivialen Code-Edit sofort bauen und testen:
+
+```bash
+# Bauen
+xcodebuild -scheme iMailSecure \
+  -destination 'platform=iOS Simulator,name=iPad Pro 13-inch (M5)' build \
+  2>&1 | grep -E 'error:|Build succeeded|FAILED'
+
+# Testen (nach Logikänderungen)
+xcodebuild -scheme iMailSecure \
+  -destination 'platform=iOS Simulator,name=iPad Pro 13-inch (M5)' test \
+  2>&1 | grep -E 'Test Suite .All tests|passed|failed|FAILED' | tail -3
+
+# Graph aktualisieren (nach Swift-Änderungen)
+uvx --from graphifyy graphify . --code-only 2>&1 | tail -2
+```
+
+Ein Commit darf erst erfolgen, wenn Build und Tests grün sind.
+Behauptungen wie "baut durch" nur nach tatsächlichem Build-Log.
+
 ## Was in der Vergangenheit schiefging
 
 - Aussagen wie „Domain ist deine echte" ohne DNS-Prüfung. **Externe Fakten verifizieren,
