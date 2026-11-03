@@ -68,6 +68,8 @@ Ziel ist keine „E-Mail-App mit Privacy-Feature", sondern **Privacy als Archite
 - **Coder = DeepSeek V4.1 Flash** (`@coder`, Subagent), kostenlos über OpenCode. Setzt genau
   eine Aufgabe um, baut, testet, committet nicht. Bezahlter Fallback:
   `openrouter/deepseek/deepseek-v3.2` (in `opencode.jsonc` umstellen).
+- **Coder-OR = Cohere North Mini Code** (`@coder-or`, Subagent), kostenlos über OpenRouter.
+  Gleiches Modell wie in Claude; teilt 50 Requests/Tag mit Claude Desktop/Code.
 - **Fixer = stärkstes verfügbares Modell** (`@fixer`, Subagent). Wird gerufen, wenn der Coder
   zweimal gescheitert ist. Aktuell Big Pickle, weil OpenRouter kein Guthaben für V4 Pro hat.
 - **Ablauf:** Aufgabe → Controller plant → `@coder` → Controller prüft (Diff, Build, Test) →
