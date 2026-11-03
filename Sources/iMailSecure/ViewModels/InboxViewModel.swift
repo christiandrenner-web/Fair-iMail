@@ -4,13 +4,11 @@ import Combine
 
 @MainActor
 final class InboxViewModel: ObservableObject {
-    @Published var searchText   = ""
-    @Published var selectedFolder = "INBOX"
-
-    var folders = ["INBOX", "Gesendet", "Entwürfe", "Papierkorb", "Spam"]
+    @Published var searchText = ""
 
     func filteredMessages(from store: MailStore) -> [EmailMessage] {
-        let msgs = store.messages(for: selectedFolder)
+        guard let selection = store.selection else { return [] }
+        let msgs = store.messages(for: selection)
         guard !searchText.isEmpty else { return msgs }
         return msgs.filter {
             $0.subject.localizedCaseInsensitiveContains(searchText) ||
@@ -20,6 +18,11 @@ final class InboxViewModel: ObservableObject {
     }
 
     func unreadCount(from store: MailStore) -> Int {
-        store.messages(for: selectedFolder).filter { !$0.isRead }.count
+        guard let selection = store.selection else { return 0 }
+        return store.messages(for: selection).filter { !$0.isRead }.count
+    }
+
+    func title(for store: MailStore) -> String {
+        store.selection?.title ?? "Posteingang"
     }
 }

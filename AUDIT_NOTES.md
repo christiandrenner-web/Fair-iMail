@@ -367,7 +367,28 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
   `loadAccounts` ist idempotent und erzeugt Engines bei Konto-Änderungen neu.
   `MainTabView` fragt bei mehreren Konten, von welchem gesendet wird.
   **57 Tests, 0 Fehler** (14 neue `EntitlementTests`).
+- **M2 IMAP-Ordner und gemeinsamer Posteingang (2026-11-03):** `MailFolder` mit
+  Rollenerkennung (Special-Use-Attribute, Namens-Fallback für Deutsch/Englisch),
+  Anzeigenamen, Validierung neuer Ordnernamen und Free/Pro-Grenze
+  (`requiresPro` nur für eigene Ordner). `MailSyncEngine` bündelt Verbindung,
+  TLS-Pinning und Logout in `withServer`, listet Ordner per `LIST`, lädt pro
+  Ordner die neuesten 50 Nachrichten und legt Ordner per `CREATE` an.
+  `MailStore` hält `foldersByAccount`, repariert die Auswahl wenn ein Ordner
+  verschwindet und filtert Rollen statt Namen. Löschen verschiebt per `MOVE`
+  in den Papierkorb des Kontos, statt sofort zu expungieren. `FolderListView`
+  zeigt gesperrte Pro-Ordner und öffnet die Paywall; der gemeinsame
+  Posteingang ist Pro, Systemordner bleiben frei.
+  **Nachrichtenidentität:** `EmailMessage.listID` ist Konto + Ordner +
+  Message-ID. Dieselbe Mail kann in mehreren Ordnern liegen (Gmail-Labels),
+  ohne dass `merge` eine Kopie verschluckt.
+  **99 Tests, 0 Fehler** (42 neue: 22 `MailFolderTests`, 19 `MailStoreTests`,
+  1 `EntitlementTests`). Umbenennen/Löschen bleibt offen: Die gepinnte
+  SwiftMail-Revision bietet keine API. Nach einem Abo-Ende fällt die Auswahl
+  automatisch auf einen Systemordner zurück, ohne Nachrichten zu löschen.
+  Ein neu angelegtes Konto wird sofort synchronisiert, statt bis zum
+  nächsten manuellen Refresh zu warten. `isSyncing` zählt laufende Syncs,
+  damit parallele Aktualisierungen den Spinner nicht zu früh ausblenden.
 
 ---
 
-*Letzte Aktualisierung: 2026-11-02 (OpenCode) — siehe Änderungsprotokoll oben*
+*Letzte Aktualisierung: 2026-11-03 (OpenCode) — siehe Änderungsprotokoll oben*

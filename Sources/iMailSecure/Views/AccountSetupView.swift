@@ -5,6 +5,7 @@ import SwiftUI
 
 struct AccountSetupView: View {
     @EnvironmentObject var accountStore: AccountStore
+    @EnvironmentObject var mailStore: MailStore
     @EnvironmentObject var subscription: SubscriptionManager
     @Environment(\.dismiss) private var dismiss
 
@@ -226,6 +227,12 @@ struct AccountSetupView: View {
             try account.savePassword(password)
             accountStore.add(account)
             successMessage = "Konto gespeichert ✓ Passwort im Schlüsselbund."
+            // Neues Konto sofort abgleichen, damit Ordner und Posteingang
+            // ohne manuelles Aktualisieren erscheinen.
+            Task {
+                mailStore.loadAccounts(from: accountStore)
+                await mailStore.syncAll()
+            }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { dismiss() }
         } catch {
             errorMessage = "Keychain-Fehler: \(error.localizedDescription)"

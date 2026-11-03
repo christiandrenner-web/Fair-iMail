@@ -58,18 +58,23 @@ enum SubscriptionProduct {
 /// die Paywall darf nichts bewerben, was es nicht gibt.
 enum Feature: String, CaseIterable, Identifiable {
     case multipleAccounts
+    case folderManagement
+    case unifiedInbox
 
     var id: String { rawValue }
 
     var requiredTier: Tier {
         switch self {
-        case .multipleAccounts: return .pro
+        case .multipleAccounts, .folderManagement, .unifiedInbox:
+            return .pro
         }
     }
 
     var title: String {
         switch self {
-        case .multipleAccounts: return "Mehrere E-Mail-Konten"
+        case .multipleAccounts:  return "Mehrere E-Mail-Konten"
+        case .folderManagement:  return "Alle Ordner und Mailboxen"
+        case .unifiedInbox:      return "Gemeinsamer Posteingang"
         }
     }
 
@@ -77,12 +82,18 @@ enum Feature: String, CaseIterable, Identifiable {
         switch self {
         case .multipleAccounts:
             return "Privat- und Arbeitsadresse parallel, ohne ständiges Ab- und Anmelden."
+        case .folderManagement:
+            return "Jeden Server-Ordner öffnen und eigene Ordner anlegen — nicht nur den Posteingang."
+        case .unifiedInbox:
+            return "Alle Konten in einer Liste, ohne zwischen Postfächern zu wechseln."
         }
     }
 
     var icon: String {
         switch self {
         case .multipleAccounts: return "person.2.fill"
+        case .folderManagement: return "folder.badge.gearshape"
+        case .unifiedInbox:     return "tray.2.fill"
         }
     }
 

@@ -60,6 +60,14 @@ final class EntitlementTests: XCTestCase {
         XCTAssertTrue(Feature.multipleAccounts.isAvailable(in: .pro))
     }
 
+    func testFolderFeaturesRequirePro() {
+        for feature in [Feature.folderManagement, Feature.unifiedInbox] {
+            XCTAssertEqual(feature.requiredTier, .pro, "\(feature.rawValue)")
+            XCTAssertFalse(feature.isAvailable(in: .free), "\(feature.rawValue)")
+            XCTAssertTrue(feature.isAvailable(in: .pro), "\(feature.rawValue)")
+        }
+    }
+
     func testEveryFeatureHasTitleAndDetail() {
         for feature in Feature.allCases {
             XCTAssertFalse(feature.title.isEmpty, "Titel fehlt: \(feature.rawValue)")

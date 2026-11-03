@@ -1,6 +1,6 @@
 # MONETIZATION.md — Free, Pro und Abo
 
-**Stand:** 2026-11-02 · **Status:** entschieden und als Gerüst umgesetzt
+**Stand:** 2026-11-03 · **Status:** umgesetzt
 
 *Keine Rechtsberatung. Preise, AGB und EULA vor dem Livegang prüfen lassen.*
 
@@ -13,7 +13,7 @@
 | Modell | Freemium: dauerhaft nutzbare Gratisversion + Pro-Abo |
 | Testphase | **7 Tage gratis über Apples Introductory Offer** — kein eigener Trial-Code |
 | Preis | 1,99 €/Monat, 17,99 €/Jahr (Apple-Kleinstunternehmerprogramm: 15 % Provision) |
-| Pro-Inhalt | Mehrere Konten, alle Mailboxen/Ordner, Ordnerverwaltung, gemeinsamer Posteingang |
+| Pro-Inhalt | Mehrere Konten, alle Server-Ordner, eigene Ordner anlegen, gemeinsamer Posteingang |
 | Nie Pro | Datenschutzfunktionen (siehe Leitsatz 11 in `AGENTS.md`) |
 | Technik | StoreKit 2, Prüfung auf dem Gerät, **kein Backend**, keine Drittanbieter-SDKs |
 | Datenweitergabe | keine an den Entwickler; Zahlungsdaten verarbeitet ausschließlich Apple |
@@ -43,13 +43,18 @@ Typ „Kostenlose Testphase", Dauer 1 Woche, für alle Neukunden.
 | Kostenlos, dauerhaft | Pro |
 |---|---|
 | 1 Konto | beliebig viele Konten |
-| Posteingang | alle Mailboxen und Ordner |
-| Lesen, Senden, Antworten, Weiterleiten | Ordner anlegen, umbenennen, verschieben |
+| Posteingang und Systemordner (Gesendet, Entwürfe, Papierkorb, Spam, Archiv) | alle Server-Ordner einschließlich eigener |
+| Lesen, Senden, Antworten, Weiterleiten | eigene Ordner anlegen |
 | Text- und HTML-Anzeige auf Knopfdruck | gemeinsamer Posteingang |
 | externe Inhalte blockiert, Freigabe pro Mail/Absender | später: Signaturen, kontenübergreifende Suche |
 | Tracking-Parameter entfernen, Links bestätigen | |
 | TLS + Zertifikat-Pinning, Keychain | |
 | Anhänge, Suche im Posteingang, MDN | |
+
+**Ordnergrenze:** Systemordner bleiben frei, damit ein Konto auch ohne Abo vollständig
+nutzbar ist. Nur eigene Ordner und der gemeinsame Posteingang verlangen Pro. Umbenennen
+und Löschen von Ordnern fehlt bewusst: Die gepinnte SwiftMail-Revision bietet dafür keine
+API; ein Knopf ohne Wirkung wäre schlechter als keiner.
 
 **Regel:** Pro ist Bequemlichkeit, nicht Sicherheit. Eine Privacy-App, die ihre
 Schutzfunktionen hinter ein Abo legt, wäre unglaubwürdig — und würde das einzige Argument
@@ -89,6 +94,8 @@ PaywallView           erscheint nur am Ort des Bedarfs
 | `SettingsView` | „Konto hinzufügen" öffnet bei erreichtem Limit die Paywall |
 | `AccountSetupView.saveAccount()` | zweite Sicherung, falls das Sheet offen bleibt |
 | `SubscriptionManager.canAddAccount(currentCount:)` | einzige Entscheidung über das Kontolimit |
+| `FolderListView` | gemeinsamer Posteingang und eigene Ordner öffnen bei Free die Paywall |
+| `InboxView` / `MailStore.selection` | die Nachrichtenliste folgt der Ordnerauswahl |
 | `MainTabView` | fragt bei mehreren Konten, von welchem gesendet wird |
 
 ### Verhalten beim Downgrade
@@ -129,4 +136,6 @@ Review-Risiko.
 - [ ] Preise gegen den Markt prüfen (Wettbewerb: 1,99–4,99 €/Monat)
 - [ ] Entscheiden, ob Familienfreigabe für das Abo aktiviert wird
 - [ ] Prüfen, ob ein Lifetime-Kauf angeboten werden soll (deckt laufende Kosten nicht)
+- [ ] Ordner umbenennen/löschen, sobald SwiftMail es anbietet oder ein eigener
+      IMAP-Befehl ergänzt wird
 - [ ] Steuer- und Bankdaten in App Store Connect hinterlegen (Voraussetzung für Auszahlung)

@@ -31,6 +31,12 @@ struct EmailMessage: Identifiable, Equatable {
     var receiptDate: Date?          = nil
 
     var folder: String              = "INBOX"
+
+    /// Eindeutig innerhalb von Konto und Ordner. Die Message-ID allein
+    /// reicht nicht: Eine Mail kann auf dem Server in mehreren Ordnern
+    /// liegen (Gmail-Labels, „Alle Nachrichten"). `id` bleibt die
+    /// Message-ID für MDN und Anzeige.
+    var listID: String { "\(accountID.uuidString)|\(folder)|\(id)" }
 }
 
 struct EmailAddress: Identifiable, Equatable, Codable {

@@ -12,7 +12,7 @@ struct MainTabView: View {
         TabView(selection: $selectedTab) {
             InboxView()
                 .tabItem { Label("Posteingang", systemImage: "tray.fill") }
-                .badge(mailStore.messages.filter { !$0.isRead }.count)
+                .badge(mailStore.unreadInboxCount)
                 .tag(0)
 
             SettingsView()

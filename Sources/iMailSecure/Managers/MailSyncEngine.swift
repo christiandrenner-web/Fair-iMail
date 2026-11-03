@@ -18,10 +18,25 @@ import Foundation
 import Logging
 import SwiftMail
 
+enum MailSyncError: LocalizedError {
+    case missingPassword
+
+    var errorDescription: String? {
+        switch self {
+        case .missingPassword: return "Kein Passwort gespeichert."
+        }
+    }
+}
+
 final class MailSyncEngine {
     let account: EmailAccount
     weak var mailStore: MailStore?
     private let logger = Logger(label: "io.imailsecure.sync")
+
+    /// Wie viele Nachrichten pro Ordner beim Öffnen geladen werden.
+    /// Bewusst klein: ein Ordner mit 10.000 Mails soll die App nicht
+    /// minutenlang blockieren. Der Rest kommt über die Suche.
+    private let pageSize = 50
 
     init(account: EmailAccount, mailStore: MailStore) {
         self.account   = account
@@ -30,77 +45,123 @@ final class MailSyncEngine {
 
     // MARK: – Sync
 
-    func sync() async {
-        guard let password = account.password else {
-            await MainActor.run { mailStore?.lastSyncError = "Kein Passwort gespeichert." }
+    /// Vollständiger Abgleich: Ordnerliste holen und den Posteingang laden.
+    /// Wird beim App-Start und bei „Alle aktualisieren" aufgerufen.
+    func initialSync() async {
+        let folders: [MailFolder]
+        do {
+            folders = try await fetchFolders()
+        } catch {
+            await report(error)
             return
         }
 
-        do {
-            // N2: TOFU-Fingerabdruck-Pinning vor Verbindungsaufbau
-            // (nur Port 993/465 – Implicit TLS; STARTTLS-Ports durch BoringSSL fullVerification)
-            try await CertificatePinner.shared.verifyAndPin(
-                host: account.imapHost, port: account.imapPort)
+        await MainActor.run {
+            mailStore?.setFolders(folders, for: account.id)
+            mailStore?.lastSyncError = nil
+        }
 
-            // useTLS: true erzwingt TLS auf allen Ports (N1/N2).
-            // Port 993 → implicitTLS | Port 143 → STARTTLS required
-            let server = IMAPServer(
-                host:   account.imapHost,
-                port:   account.imapPort,
-                useTLS: true
-            )
-            try await server.connect()
-            try await server.login(username: account.username, password: password)
-            let mailboxInfo = try await server.selectMailbox("INBOX")
-            let total = mailboxInfo.messageCount
-            #if DEBUG
-            logger.debug("INBOX: \(total) Nachrichten")
-            #endif
-            if total > 0, let set = mailboxInfo.latest(min(total, 50)) {
-                var fetched: [Message] = []
-                for try await message in server.fetchMessages(using: set) {
-                    fetched.append(message)
-                }
-                let converted = fetched.compactMap { convert($0) }
-                #if DEBUG
-                logger.debug("Sync OK: \(converted.count) konvertiert")
-                #endif
-                await MainActor.run { mailStore?.merge(incoming: converted) }
-            }
-            try await server.logout()
-            await MainActor.run { mailStore?.lastSyncError = nil }
-        } catch {
-            logger.error("Sync-Fehler: \(error.localizedDescription)")
+        // Fallback „INBOX" nur für Server, die den Posteingang nicht als
+        // auswählbaren Ordner melden. Das ist selten, aber billig abzufangen.
+        let inbox = folders.first { $0.role == .inbox }?.name ?? "INBOX"
+        await sync(folderNamed: inbox)
+    }
+
+    /// Nur die Ordnerliste neu laden. Wird nach dem Anlegen eines Ordners
+    /// und beim Öffnen der Ordnerauswahl verwendet.
+    func refreshFolders() async {
+        do {
+            let folders = try await fetchFolders()
             await MainActor.run {
-                mailStore?.lastSyncError = error.localizedDescription
+                mailStore?.setFolders(folders, for: account.id)
+                mailStore?.lastSyncError = nil
             }
+        } catch {
+            await report(error)
         }
     }
 
-    // MARK: – Löschen auf dem Server
+    /// Posteingang dieses Kontos laden, ohne die Ordnerliste erneut zu holen.
+    func syncInbox() async {
+        let name = await MainActor.run {
+            mailStore?.folder(for: account.id, role: .inbox)?.name
+        } ?? "INBOX"
+        await sync(folderNamed: name)
+    }
 
-    func deleteOnServer(uid: UInt32) async {
-        guard let password = account.password else { return }
+    /// Einen bestimmten Ordner laden.
+    func sync(folderNamed name: String) async {
         do {
-            try await CertificatePinner.shared.verifyAndPin(
-                host: account.imapHost, port: account.imapPort)
-            let server = IMAPServer(
-                host:   account.imapHost,
-                port:   account.imapPort,
-                useTLS: true   // N1/N2: TLS erzwungen
-            )
-            try await server.connect()
-            try await server.login(username: account.username, password: password)
-            try await server.selectMailbox("INBOX")
-
-            let nioUID = UID(uid)
-            let uidSet: UIDSet = UIDSet(nioUID)
-            try await server.store(flags: [.deleted], on: uidSet, operation: .add)
-            try await server.expunge()
-            try await server.logout()
-            logger.info("UID auf Server gelöscht")
+            let converted = try await withServer { server in
+                try await fetchMessages(from: server, folder: name)
+            }
+            await MainActor.run {
+                mailStore?.merge(incoming: converted)
+                mailStore?.lastSyncError = nil
+            }
         } catch {
-            logger.error("Server-Löschen fehlgeschlagen: \(error.localizedDescription)")
+            await report(error)
+        }
+    }
+
+    // MARK: – Ordner anlegen
+
+    /// Legt einen Ordner auf dem Server an und aktualisiert die lokale Liste.
+    /// Umbenennen und Löschen bietet die SwiftMail-Revision nicht an — die
+    /// Buttons fehlen deshalb bewusst, statt ins Leere zu zeigen.
+    @discardableResult
+    func createFolder(named rawName: String) async throws -> MailFolder? {
+        let delimiter = await MainActor.run {
+            mailStore?.folderDelimiter(for: account.id)
+        }
+        let name = try MailFolder.validatedName(rawName, delimiter: delimiter)
+
+        let existing = await MainActor.run {
+            mailStore?.folders(for: account.id) ?? []
+        }
+        guard !existing.contains(where: {
+            $0.name.caseInsensitiveCompare(name) == .orderedSame
+        }) else {
+            throw MailFolderError.alreadyExists
+        }
+
+        let folders = try await withServer { server -> [MailFolder] in
+            try await server.createMailbox(name)
+            return try await listFolders(from: server)
+        }
+
+        await MainActor.run {
+            mailStore?.setFolders(folders, for: account.id)
+            mailStore?.lastSyncError = nil
+        }
+        return folders.first { $0.name == name }
+    }
+
+    // MARK: – Löschen / Verschieben
+
+    /// Verschiebt eine Nachricht in den Papierkorb des Kontos. Kennt die App
+    /// den Papierkorb (noch) nicht, wird wie bisher endgültig gelöscht.
+    func moveToTrash(_ message: EmailMessage, trashFolder: String?) async {
+        guard message.uid > 0 else { return }
+
+        do {
+            try await withServer { server in
+                try await server.selectMailbox(message.folder)
+                let uid = UID(message.uid)
+
+                if let trashFolder, trashFolder != message.folder {
+                    try await server.move(message: uid, to: trashFolder)
+                } else {
+                    // Schon im Papierkorb oder kein Papierkorb bekannt:
+                    // endgültig löschen (bisheriges Verhalten).
+                    let uidSet = UIDSet(uid)
+                    try await server.store(flags: [.deleted], on: uidSet, operation: .add)
+                    try await server.expunge()
+                }
+            }
+            await MainActor.run { mailStore?.lastSyncError = nil }
+        } catch {
+            await report(error)
         }
     }
 
@@ -125,9 +186,99 @@ final class MailSyncEngine {
         }
     }
 
+    // MARK: – Verbindung
+
+    /// Eine Verbindung pro Operation. Konto-Passwort, TLS-Pinning und
+    /// Abmelden liegen an genau einer Stelle — kein Pfad kann sie vergessen.
+    private func withServer<T>(_ operation: (IMAPServer) async throws -> T) async throws -> T {
+        guard let password = account.password else {
+            throw MailSyncError.missingPassword
+        }
+
+        // N2: TOFU-Fingerabdruck-Pinning vor Verbindungsaufbau
+        // (nur Port 993/465 – Implicit TLS; STARTTLS-Ports durch BoringSSL fullVerification)
+        try await CertificatePinner.shared.verifyAndPin(
+            host: account.imapHost, port: account.imapPort)
+
+        // useTLS: true erzwingt TLS auf allen Ports (N1/N2).
+        // Port 993 → implicitTLS | Port 143 → STARTTLS required
+        let server = IMAPServer(
+            host:   account.imapHost,
+            port:   account.imapPort,
+            useTLS: true
+        )
+        try await server.connect()
+
+        do {
+            try await server.login(username: account.username, password: password)
+            let result = try await operation(server)
+            try? await server.logout()
+            return result
+        } catch {
+            // Abbruch darf nicht am Logout scheitern.
+            try? await server.logout()
+            throw error
+        }
+    }
+
+    private func listFolders(from server: IMAPServer) async throws -> [MailFolder] {
+        // `listSpecialUseMailboxes()` ruft intern bereits die vollständige
+        // Liste ab und ergänzt die RFC-6154-Attribute. Damit werden auch
+        // lokalisierte Systemordner erkannt, deren Namen wir nicht kennen.
+        let infos: [Mailbox.Info]
+        if let special = try? await server.listSpecialUseMailboxes() {
+            let attributesByName = Dictionary(
+                special.map { ($0.name, $0.attributes) },
+                uniquingKeysWith: { $0.union($1) }
+            )
+            infos = await server.mailboxes.map { info in
+                guard let extra = attributesByName[info.name] else { return info }
+                return Mailbox.Info(
+                    name: info.name,
+                    attributes: info.attributes.union(extra),
+                    hierarchyDelimiter: info.hierarchyDelimiter
+                )
+            }
+        } else {
+            infos = try await server.listMailboxes()
+        }
+        return MailFolder.sorted(infos.map(MailFolder.init(info:)))
+    }
+
+    private func fetchFolders() async throws -> [MailFolder] {
+        try await withServer { server in
+            try await listFolders(from: server)
+        }
+    }
+
+    private func fetchMessages(from server: IMAPServer, folder: String) async throws -> [EmailMessage] {
+        let mailboxInfo = try await server.selectMailbox(folder)
+        let total = mailboxInfo.messageCount
+        #if DEBUG
+        logger.debug("\(folder): \(total) Nachrichten")
+        #endif
+
+        guard total > 0, let set = mailboxInfo.latest(min(total, pageSize)) else {
+            return []
+        }
+
+        var fetched: [Message] = []
+        for try await message in server.fetchMessages(using: set) {
+            fetched.append(message)
+        }
+        return fetched.compactMap { convert($0, folder: folder) }
+    }
+
+    private func report(_ error: Error) async {
+        logger.error("Sync-Fehler: \(error.localizedDescription)")
+        await MainActor.run {
+            mailStore?.lastSyncError = error.localizedDescription
+        }
+    }
+
     // MARK: – Message → EmailMessage
 
-    func convert(_ msg: Message) -> EmailMessage? {
+    func convert(_ msg: Message, folder: String = "INBOX") -> EmailMessage? {
         let senderAddress = msg.from ?? "unknown@unknown"
         let toRecipients  = msg.to.map  { EmailAddress(name: nil, address: $0) }
         let ccRecipients  = msg.cc.map  { EmailAddress(name: nil, address: $0) }
@@ -164,7 +315,7 @@ final class MailSyncEngine {
             isRead: isRead,
             attachments: attachments,
             mdnRequested: mdnRequested,
-            folder: "INBOX"
+            folder: folder
         )
     }
 }

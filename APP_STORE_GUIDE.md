@@ -104,6 +104,8 @@ ohne Datenweitergabe an Dritte.
 
 Funktionen:
 • IMAP/SMTP-Unterstützung für alle Anbieter
+• Alle IMAP-Ordner, auch eigene (Pro)
+• Mehrere Konten und gemeinsamer Posteingang (Pro)
 • Lesebestätigungen (MDN/RFC 8098)
 • Empfangsbestätigungen
 • Passwörter ausschließlich im iOS-Keychain
@@ -117,6 +119,7 @@ Keywords: E-Mail, Mail, Datenschutz, IMAP, SMTP, MDN, Lesebestätigung,
 Support-URL:    https://christiandrenner-web.github.io/imailsecure-site/support.html
 Marketing-URL:  https://christiandrenner-web.github.io/imailsecure-site/
 Datenschutz:    https://christiandrenner-web.github.io/imailsecure-site/privacy.html
+Nutzungsbed.:   https://christiandrenner-web.github.io/imailsecure-site/terms.html
 ```
 
 ---

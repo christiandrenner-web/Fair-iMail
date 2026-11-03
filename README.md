@@ -33,12 +33,14 @@ Fair-iMail/
 ├── CLA.md                    Contributor License Agreement
 ├── Sources/iMailSecure/
 │   ├── App/                  iMailSecureApp.swift, ContentView.swift
-│   ├── Models/               EmailAccount, EmailMessage, EmailDraft, MDNNotification
+│   ├── Models/               EmailAccount, EmailMessage, EmailDraft, MDNNotification,
+│   │                         MailFolder, Entitlement
 │   ├── Managers/             AccountStore, MailStore, MailSyncEngine, SMTPManager,
 │   │                         KeychainManager, CertificatePinner, RemoteContentPolicy,
 │   │                         SubscriptionManager
 │   ├── Services/             EmailHeaderBuilder, MDNProcessor, CoreDataService
-│   └── Views/                InboxView, MessageDetailView, ComposeView, SettingsView, …
+│   └── Views/                InboxView, FolderListView, MessageDetailView, ComposeView,
+│                             SettingsView, PaywallView, …
 ├── Tests/iMailSecureTests/   Unit Tests
 ├── project.yml               XcodeGen-Quelle (verbindlich)
 └── Package.swift             SwiftPM-Definition (gleiche Pins wie project.yml)
@@ -91,6 +93,7 @@ Verbindlich dokumentiert in [AGENTS.md](AGENTS.md). Kurzfassung:
 8. Anhänge: Pfad-Sanitizing, eigener UUID-Ordner, FileProtection, Cleanup
 9. Fehler nicht verschlucken
 10. Schalter müssen wirken — UI-Toggle ohne Konsument ist ein Bug
+11. Datenschutz ist nie kostenpflichtig — Pro verkauft Bequemlichkeit, nicht Sicherheit
 
 ---
 
