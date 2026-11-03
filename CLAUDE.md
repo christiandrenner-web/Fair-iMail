@@ -7,6 +7,8 @@ zusätzlich relevant ist.
 
 ## Projektgedächtnis
 
+- `STATE.md` — Kaltstartspeicher: Stand, offene Fehler, nächster Schritt. **Am Anfang jeder
+  Session lesen, nach jedem Fix aktualisieren** (max. 40 Zeilen).
 - `AUDIT_NOTES.md` — alle Befunde N1…C1 mit Status. **Am Anfang jeder Session lesen.**
 - `AGENTS.md` — verbindliche Datenschutz-Leitsätze und Arbeitsweise.
 - `LICENSING.md` — Lizenz-/App-Store-Analyse (offene Entscheidung L1).

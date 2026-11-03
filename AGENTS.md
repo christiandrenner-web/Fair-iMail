@@ -47,6 +47,20 @@ Ziel ist keine „E-Mail-App mit Privacy-Feature", sondern **Privacy als Archite
     Tracking-Schutz, Zertifikat-Pinning und „keine Telemetrie" bleiben in der kostenlosen
     Version. Details: `MONETIZATION.md`.
 
+## Kontext & Antworten (Token sparen)
+
+- **Git:** nie den vollen Verlauf lesen. Nur `git status`, `git diff`, `git log -5 --oneline`.
+  `git diff HEAD~1` ist verboten — bricht bei Erstcommit, Merge, Rebase und Detached HEAD.
+- **Antwortformat:** Patch/Code + maximal 3 Bullets (Ursache → Änderung → Verifikation).
+  Keine Prosa, keine Wiederholung des Auftrags.
+- **Ein Fehler pro Antwort.** Mehrere Befunde → nach Schwere (K/H/M/N) trennen.
+- **Nach jedem Fix:** Build/Test laut Hook ausführen, Ergebnis in `STATE.md` eintragen.
+  „Behoben" ohne Build-Log ist unzulässig.
+- **Kaltstart:** bei > 60 % Kontext oder nach 3 erledigten Punkten `STATE.md` aktualisieren
+  und Kaltstart anfordern. `STATE.md` max. 40 Zeilen; erledigte Zeilen nach
+  „Zuletzt erledigt" (max. 3), ältere löschen.
+- **Nicht raten:** fehlt Datei/Zeile/Log, gezielt nachfragen statt Code erfinden.
+
 ## Arbeitsweise
 
 ```bash
@@ -69,6 +83,8 @@ xcodegen generate
   Beispiel: `fix(smtp): Zertifikat-Pinning auch beim Versand`.
 - **Vor und nach jedem größeren Eingriff committen.** Das Repo ist die Rückversicherung,
   nicht der Chat.
+- **`STATE.md` pflegen:** nach jedem abgeschlossenen Fix Stand, offene Punkte und nächsten
+  Schritt aktualisieren (max. 40 Zeilen).
 - **`AUDIT_NOTES.md` pflegen:** Wird ein Befund (N1…C1) erledigt, Statuszeile aktualisieren —
   mit Datum und wer es gemacht hat.
 - **Keine Dateien löschen oder umbenennen**, ohne vorher zu prüfen, wer sie benutzt
