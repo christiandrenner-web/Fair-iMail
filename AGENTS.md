@@ -65,8 +65,9 @@ Ziel ist keine „E-Mail-App mit Privacy-Feature", sondern **Privacy als Archite
 
 - **Controller = Big Pickle.** Plant, zerlegt in Einzelaufgaben, prüft Diff und Build, entscheidet
   den nächsten Schritt. Schreibt größere Codemengen nicht selbst.
-- **Coder = DeepSeek V3.2** (`@coder`, Subagent). Setzt genau eine Aufgabe um, baut, testet,
-  committet nicht.
+- **Coder = DeepSeek V4.1 Flash** (`@coder`, Subagent), kostenlos über OpenCode. Setzt genau
+  eine Aufgabe um, baut, testet, committet nicht. Bezahlter Fallback:
+  `openrouter/deepseek/deepseek-v3.2` (in `opencode.jsonc` umstellen).
 - **Fixer = stärkstes verfügbares Modell** (`@fixer`, Subagent). Wird gerufen, wenn der Coder
   zweimal gescheitert ist. Aktuell Big Pickle, weil OpenRouter kein Guthaben für V4 Pro hat.
 - **Ablauf:** Aufgabe → Controller plant → `@coder` → Controller prüft (Diff, Build, Test) →

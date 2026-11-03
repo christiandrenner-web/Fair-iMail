@@ -7,9 +7,10 @@
 
   "agent": {
     "coder": {
-      "description": "DeepSeek-Coder: setzt genau eine Aufgabe um, baut und testet. Kein Commit.",
+      "description": "DeepSeek-Coder: setzt genau eine Aufgabe um, baut und testet. Kein Commit. Kostenlos über OpenCode.",
       "mode": "subagent",
-      "model": "openrouter/deepseek/deepseek-v3.2",
+      // Kostenlos. Bezahlter Fallback: "openrouter/deepseek/deepseek-v3.2"
+      "model": "opencode/deepseek-v4.1-flash-free",
       "temperature": 0.1,
       "prompt": "Du bist der Implementierer in diesem Repo. Lies AGENTS.md und STATE.md. Setze genau eine Aufgabe um, ändere so wenig wie möglich. Baue und teste mit den Befehlen aus AGENTS.md. Committe nicht. Antworte nur mit: geänderte Dateien, Build-/Test-Ergebnis, offene Risiken.",
       "tools": {
