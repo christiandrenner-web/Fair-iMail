@@ -13,6 +13,7 @@ Grundgerüst steht. Leere Schalter und fehlerhafte Xcode-Abfragen korrigieren.
 
 ## Offene Entscheidungen
 - S5 OAuth 2.0 · S6 Entwürfe speichern · C1 PGP/S-MIME · L1 Lizenz/App Store (`LICENSING.md`)
+- OpenRouter-Guthaben: 0 (Key-Limit 100 ist kein Guthaben) → aufladen oder DeepSeek-Ausfall akzeptieren
 
 ## Zuletzt erledigt
 - 2026-11-03 `68e246b` IMAP-Ordner, Papierkorb, gemeinsamer Posteingang

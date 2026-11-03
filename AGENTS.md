@@ -61,6 +61,18 @@ Ziel ist keine „E-Mail-App mit Privacy-Feature", sondern **Privacy als Archite
   „Zuletzt erledigt" (max. 3), ältere löschen.
 - **Nicht raten:** fehlt Datei/Zeile/Log, gezielt nachfragen statt Code erfinden.
 
+## Rollen & Delegation
+
+- **Controller = Big Pickle.** Plant, zerlegt in Einzelaufgaben, prüft Diff und Build, entscheidet
+  den nächsten Schritt. Schreibt größere Codemengen nicht selbst.
+- **Coder = DeepSeek V3.2** (`@coder`, Subagent). Setzt genau eine Aufgabe um, baut, testet,
+  committet nicht.
+- **Fixer = stärkstes verfügbares Modell** (`@fixer`, Subagent). Wird gerufen, wenn der Coder
+  zweimal gescheitert ist. Aktuell Big Pickle, weil OpenRouter kein Guthaben für V4 Pro hat.
+- **Ablauf:** Aufgabe → Controller plant → `@coder` → Controller prüft (Diff, Build, Test) →
+  Commit → `STATE.md` aktualisieren → nächste Aufgabe.
+- **Eskalation:** 2 Fehlversuche Coder → `@fixer`; danach übernimmt der Controller selbst.
+
 ## Arbeitsweise
 
 ```bash

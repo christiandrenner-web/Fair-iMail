@@ -1,0 +1,42 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // Controller: Big Pickle plant, prüft, entscheidet. Coder: DeepSeek.
+  "model": "opencode/big-pickle",
+  "instructions": ["STATE.md"],
+
+  "agent": {
+    "coder": {
+      "description": "DeepSeek-Coder: setzt genau eine Aufgabe um, baut und testet. Kein Commit.",
+      "mode": "subagent",
+      "model": "openrouter/deepseek/deepseek-v3.2",
+      "temperature": 0.1,
+      "prompt": "Du bist der Implementierer in diesem Repo. Lies AGENTS.md und STATE.md. Setze genau eine Aufgabe um, ändere so wenig wie möglich. Baue und teste mit den Befehlen aus AGENTS.md. Committe nicht. Antworte nur mit: geänderte Dateien, Build-/Test-Ergebnis, offene Risiken.",
+      "tools": {
+        "bash": true,
+        "read": true,
+        "edit": true,
+        "glob": true,
+        "grep": true,
+        "todowrite": true
+      }
+    },
+    "fixer": {
+      "description": "Eskalation für Aufgaben, an denen der Coder zweimal gescheitert ist.",
+      "mode": "subagent",
+      // Aktuell kein OpenRouter-Guthaben für V4 Pro. Nach Aufladung:
+      // "openrouter/deepseek/deepseek-v4-pro"
+      "model": "opencode/big-pickle",
+      "temperature": 0.1,
+      "prompt": "Du bist die Eskalationsstufe. Übernimm die gescheiterte Aufgabe, finde die Ursache mit gezielten Greps und Logs, behebe sie, baue und teste. Committe nicht. Antworte knapp: Ursache, Fix, Verifikation.",
+      "tools": {
+        "bash": true,
+        "read": true,
+        "edit": true,
+        "glob": true,
+        "grep": true,
+        "todowrite": true
+      }
+    }
+  }
+}
