@@ -161,7 +161,8 @@ Apple prüft die App in der Regel innerhalb von 24–48 Stunden.
 
 ### Häufige Ablehnungsgründe vermeiden:
 - [ ] `ITSAppUsesNonExemptEncryption = false` in Info.plist ✅ (bereits gesetzt)
-- [ ] Datenschutzerklärung erreichbar unter der angegebenen URL
+- [x] Datenschutzerklärung erreichbar unter der angegebenen URL
+      (https://christiandrenner-web.github.io/imailsecure-site/privacy.html, geprüft 2026-11-12)
 - [ ] Nutzungsbedingungen erreichbar (`terms.html`, Pflicht bei Abos)
 - [ ] Alle Berechtigungen in Info.plist begründet
 - [ ] PrivacyInfo.xcprivacy vollständig ✅
@@ -172,9 +173,9 @@ Apple prüft die App in der Regel innerhalb von 24–48 Stunden.
 
 ## 9. Nach der Veröffentlichung
 
-- [ ] Quellcode veröffentlichen, falls gewünscht (die PolyForm-Lizenz
-      verpflichtet **nicht** dazu — ohne Veröffentlichung ist der Code nur
-      nicht einsehbar, die Aussage „nachprüfbar" wäre dann aber unbelegt)
+- [x] Quellcode veröffentlicht: <https://github.com/christiandrenner-web/Fair-iMail>
+      (die PolyForm-Lizenz verpflichtet **nicht** dazu; ohne Veröffentlichung
+      wäre die Aussage „nachprüfbar" aber unbelegt)
 - [ ] `CHANGELOG.md` pflegen
 - [ ] **Kein** Crash-Reporting-SDK einbinden (Crashlytics/Sentry verstoßen
       gegen Leitsatz 1 in `AGENTS.md`)

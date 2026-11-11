@@ -103,8 +103,8 @@ Verbindlich dokumentiert in [AGENTS.md](AGENTS.md). Kurzfassung:
 - [x] Passwörter nur im Keychain (kein UserDefaults, kein NSLog)
 - [x] Keine externen Tracker
 - [x] `NSAllowsArbitraryLoads = false` (ATS aktiv)
-- [ ] **Datenschutzerklärung erreichbar** — Repo `imailsecure-site` veröffentlichen
-      und GitHub Pages aktivieren. Ohne erreichbare Privacy-URL keine Freigabe.
+- [x] **Datenschutzerklärung erreichbar** — GitHub Pages aktiv, geprüft 2026-11-12:
+      https://christiandrenner-web.github.io/imailsecure-site/privacy.html
 - [x] Support-Adresse funktionsfähig (`chr.renner@mein.gmx`)
 - [ ] Code Signing: Apple Developer Account
 - [ ] Provisioning Profile und Bundle ID: `io.imailsecure.app`
