@@ -268,7 +268,7 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
 
 | Nr. | Status | Notiz |
 |---|---|---|
-| N1 | ✅ erledigt | `useTLS: true` in IMAPServer – Port 993 → implicitTLS, Port 143 → STARTTLS required (fail-closed) |
+| N1 | ✅ erledigt | `useTLS: true` in IMAPServer – Port 993 → implicitTLS, Port 143 → STARTTLS required (fail-closed). **2026-11-11:** explizite `transportSecurity`-Policy aus `imapSecurity`/`smtpSecurity` statt Port-Heuristik; SMTP-STARTTLS ist jetzt erzwungen (`.startTLS`) und bricht bei fehlendem Angebot ab |
 | N2 | ✅ erledigt | CertificatePinner.swift (TOFU): SHA-256 Leaf-Fingerabdruck, Keychain ThisDeviceOnly; Ports 993/465; STARTTLS-Ports durch BoringSSL fullVerification. **2026-11-01:** Pinning auch im SMTP-Versandpfad (`SMTPManager.sendEmail`) vor `connect()`; `resetPin` über echten Button in `AccountDetailView` erreichbar |
 | N3 | ✅ erledigt | pbxproj auf Revision 29a1df6c gepinnt |
 | N4 | ✅ erledigt | Betreff + Host nur noch in #if DEBUG; Release-Logs ohne Inhalte |
@@ -382,8 +382,9 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
   Message-ID. Dieselbe Mail kann in mehreren Ordnern liegen (Gmail-Labels),
   ohne dass `merge` eine Kopie verschluckt.
   **99 Tests, 0 Fehler** (42 neue: 22 `MailFolderTests`, 19 `MailStoreTests`,
-  1 `EntitlementTests`). Umbenennen/Löschen bleibt offen: Die gepinnte
-  SwiftMail-Revision bietet keine API. Nach einem Abo-Ende fällt die Auswahl
+  1 `EntitlementTests`). Umbenennen/Löschen folgte am 2026-11-11 mit SwiftMail
+  1.16.0 (siehe unten); die damalige Revision konnte beides nicht. Nach einem
+  Abo-Ende fällt die Auswahl
   automatisch auf einen Systemordner zurück, ohne Nachrichten zu löschen.
   Ein neu angelegtes Konto wird sofort synchronisiert, statt bis zum
   nächsten manuellen Refresh zu warten. `isSyncing` zählt laufende Syncs,
@@ -404,6 +405,36 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
   der veralteten GPL-Option.
 - **103 Tests, 0 Fehler** (4 neue `ComposeViewModelTests`: Vorgabe an/aus, Änderung nach
   dem Senden, kein Übernehmen von Empfänger/Betreff in den frischen Entwurf).
+
+---
+
+## Änderungen 2026-11-11 (OpenCode, SwiftMail 1.16.0)
+
+- **Dependency-Pin angehoben:** `29a1df6` (24. März 2026) → `88c45cbd`
+  (Release **1.16.0**, 9. Oktober 2026) in `Package.swift` und `project.yml`.
+  Anlass: Upstream bietet seit PR #247 (in 1.14.0) `renameMailbox(_:to:)` und
+  `deleteMailbox(_:)`. Der alte Pin konnte Ordner nur anlegen.
+- **Datenschutzprüfung 1.16.0:** keine `URLSession`-Aufrufe in der Bibliothek, keine
+  Analytics-/Telemetrie-/Crash-SDKs, kein `UserDefaults`, keine neuen Zielhosts.
+  Lizenz bleibt BSD-3-Clause; Plattform-Floor iOS 18 wie die App. Neue transitive
+  Pakete (SwiftCross, swift-crypto, swift-certificates, swift-nio-imap-Revision)
+  sind Build-Abhängigkeiten ohne Netzwerkziele; `swift-testing`/ArgumentParser
+  landen nicht im App-Bundle. `PrivacyInfo.xcprivacy` bleibt unverändert gültig.
+- **TLS explizit statt Port-Heuristik:** `ConnectionSecurity+SwiftMail` übersetzt
+  `implicit` → `.implicitTLS`, `startTLS` → `.startTLS` (erzwungen). Für SMTP war
+  `.automatic` auf Port 587 nur „STARTTLS, falls angeboten"; jetzt bricht der
+  Versand ab, wenn der Server STARTTLS nicht anbietet. TLS-Mindestversion bleibt
+  1.2, Zertifikatsprüfung `.fullVerification`, TOFU-Pinning unverändert.
+- **Ordner umbenennen/löschen:** `MailSyncEngine.renameFolder(_:toLeaf:)` und
+  `deleteFolder(_:)`; `MailStore` aktualisiert Nachrichten und Auswahl. Die UI
+  bietet beides im Kontextmenü eigener Ordner, Löschen mit Bestätigungsdialog.
+  Systemordner sind gesperrt (`MailFolderError.systemFolder`), weil ihre Rolle
+  Posteingang, Papierkorb-Ziel und Free/Pro-Fallback bestimmt. Verschachtelte
+  Ordner behalten beim Umbenennen den Elternpfad (`leafName`/`renamedPath`).
+- **109 Tests, 0 Fehler** (6 neue: `leafName`/`renamedPath`, Systemordner-Schutz,
+  unbekannter Ordner).
+- **Weiterhin nicht vorhanden:** `subscribe`/`unsubscribe` fehlen auch in 1.16.0;
+  die App nutzt sie nicht.
 
 ---
 

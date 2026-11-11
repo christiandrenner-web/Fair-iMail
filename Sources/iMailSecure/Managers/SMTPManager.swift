@@ -57,25 +57,23 @@ final class SMTPManager {
         }
         if !extraHeaders.isEmpty { email.additionalHeaders = extraHeaders }
 
-        let server = SMTPServer(host: account.smtpHost, port: account.smtpPort)
+        let server = SMTPServer(
+            host: account.smtpHost,
+            port: account.smtpPort,
+            transportSecurity: account.smtpSecurity.mailTransportSecurity
+        )
 
         // N2: TOFU-Fingerabdruck-Pinning auch für den Versandpfad.
-        // Greift bei implicit TLS (Port 465); bei STARTTLS (587/25) übernimmt die
-        // Zertifikatsprüfung der TLS-Schicht in SwiftMail (fail-closed).
         // Muss VOR dem Verbindungsaufbau laufen, sonst ist der Handshake bereits durch.
+        // Die TLS-Schicht prüft zusätzlich Zertifikatskette und Hostname; bei
+        // erzwungenem STARTTLS ohne Serverangebot bricht der Aufbau ab.
         try await CertificatePinner.shared.verifyAndPin(
             host: account.smtpHost,
             port: account.smtpPort
         )
 
-        // N1/N2 – TLS-Modus vorbereitet.
-        // Sobald SwiftMail eine TLSConfiguration-Übergabe anbietet:
-        //   var tlsConfig = TLSConfiguration.makeClientConfiguration()
-        //   tlsConfig.minimumTLSVersion = .tlsv12
-        //   let server = SMTPServer(
-        //       host: account.smtpHost, port: account.smtpPort,
-        //       connectionSecurity: account.smtpSecurity == .implicit ? .implicit : .startTLS,
-        //       tlsConfiguration: tlsConfig)
+        // N1/N2 – Transport-Policy kommt aus der Kontoeinstellung, nicht aus
+        // dem Port: STARTTLS ist erzwungen und fällt nie auf Klartext zurück.
         try await server.connect()
         try await server.login(username: account.username, password: password)
         try await server.sendEmail(email)

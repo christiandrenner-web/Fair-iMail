@@ -104,11 +104,9 @@ final class MailSyncEngine {
         }
     }
 
-    // MARK: – Ordner anlegen
+    // MARK: – Ordner anlegen, umbenennen, löschen
 
     /// Legt einen Ordner auf dem Server an und aktualisiert die lokale Liste.
-    /// Umbenennen und Löschen bietet die SwiftMail-Revision nicht an — die
-    /// Buttons fehlen deshalb bewusst, statt ins Leere zu zeigen.
     @discardableResult
     func createFolder(named rawName: String) async throws -> MailFolder? {
         let delimiter = await MainActor.run {
@@ -135,6 +133,56 @@ final class MailSyncEngine {
             mailStore?.lastSyncError = nil
         }
         return folders.first { $0.name == name }
+    }
+
+    /// Benennt einen eigenen Ordner auf dem Server um. Der neue Name gilt nur
+    /// für das letzte Pfadsegment; der Elternordner bleibt erhalten, damit ein
+    /// verschachtelter Ordner nicht versehentlich nach oben wandert.
+    @discardableResult
+    func renameFolder(_ folder: MailFolder, toLeaf leaf: String) async throws -> MailFolder? {
+        let delimiter: String?
+        if let known = folder.delimiter {
+            delimiter = known
+        } else {
+            delimiter = await MainActor.run {
+                mailStore?.folderDelimiter(for: account.id)
+            }
+        }
+        let newName = try folder.renamedPath(to: leaf, delimiter: delimiter)
+        guard newName != folder.name else { return folder }
+
+        let existing = await MainActor.run {
+            mailStore?.folders(for: account.id) ?? []
+        }
+        guard !existing.contains(where: {
+            $0.name.caseInsensitiveCompare(newName) == .orderedSame
+        }) else {
+            throw MailFolderError.alreadyExists
+        }
+
+        let folders = try await withServer { server -> [MailFolder] in
+            try await server.renameMailbox(folder.name, to: newName)
+            return try await listFolders(from: server)
+        }
+
+        await MainActor.run {
+            mailStore?.setFolders(folders, for: account.id)
+            mailStore?.lastSyncError = nil
+        }
+        return folders.first { $0.name == newName }
+    }
+
+    /// Löscht einen eigenen Ordner samt Inhalt auf dem Server.
+    func deleteFolder(_ folder: MailFolder) async throws {
+        let folders = try await withServer { server -> [MailFolder] in
+            try await server.deleteMailbox(folder.name)
+            return try await listFolders(from: server)
+        }
+
+        await MainActor.run {
+            mailStore?.setFolders(folders, for: account.id)
+            mailStore?.lastSyncError = nil
+        }
     }
 
     // MARK: – Löschen / Verschieben
@@ -202,10 +250,12 @@ final class MailSyncEngine {
 
         // useTLS: true erzwingt TLS auf allen Ports (N1/N2).
         // Port 993 → implicitTLS | Port 143 → STARTTLS required
+        // Explizite Policy statt Port-Heuristik: STARTTLS bleibt erzwungen,
+        // auch wenn der Nutzer einen abweichenden Port einträgt.
         let server = IMAPServer(
             host:   account.imapHost,
             port:   account.imapPort,
-            useTLS: true
+            transportSecurity: account.imapSecurity.mailTransportSecurity
         )
         try await server.connect()
 

@@ -159,6 +159,33 @@ final class MailFolderTests: XCTestCase {
         XCTAssertEqual(MailboxSelection.unifiedInbox.title, "Gemeinsamer Posteingang")
     }
 
+    // MARK: – Umbenennen
+
+    func testLeafNameForRootAndNestedFolders() {
+        XCTAssertEqual(
+            MailFolder(name: "Rechnungen", role: .custom).leafName(),
+            "Rechnungen"
+        )
+        XCTAssertEqual(
+            MailFolder(name: "Projekte/2026", role: .custom, delimiter: "/").leafName(),
+            "2026"
+        )
+    }
+
+    func testRenamedPathKeepsParentAndValidatesLeaf() throws {
+        let folder = MailFolder(name: "Projekte/2026", role: .custom, delimiter: "/")
+
+        XCTAssertEqual(try folder.renamedPath(to: "2027"), "Projekte/2027")
+        XCTAssertThrowsError(try folder.renamedPath(to: "   "))
+        XCTAssertThrowsError(try folder.renamedPath(to: "a/b"))
+    }
+
+    func testOnlyCustomFoldersAreRenameable() {
+        XCTAssertTrue(MailFolder(name: "INBOX", role: .inbox).role.isSystem)
+        XCTAssertTrue(MailFolder(name: "Trash", role: .trash).role.isSystem)
+        XCTAssertFalse(MailFolder(name: "Projekte", role: .custom).role.isSystem)
+    }
+
     // MARK: – Namensvalidierung
 
     func testValidNameIsTrimmed() throws {

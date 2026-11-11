@@ -11,7 +11,7 @@ let package = Package(
     ],
     dependencies: [
         // SwiftMail – auf stabilen Commit gepinnt um API-Änderungen zu vermeiden
-        .package(url: "https://github.com/Cocoanetics/SwiftMail.git", revision: "29a1df6"),
+        .package(url: "https://github.com/Cocoanetics/SwiftMail.git", revision: "88c45cbd31b347b373f7c87e197be63eb95efbc2"),
         .package(url: "https://github.com/apple/swift-log.git", from: "1.4.0"),
     ],
     targets: [

@@ -64,7 +64,7 @@ packages:
     url: https://github.com/Cocoanetics/SwiftMail.git
     # Gleicher Pin wie in Package.swift – verhindert, dass ein Resolve
     # stillschweigend auf einen neueren main-Stand springt.
-    revision: 29a1df6c93cec1c64cb4489a26d16f895124683c
+    revision: 88c45cbd31b347b373f7c87e197be63eb95efbc2  # 1.16.0
   swift-log:
     url: https://github.com/apple/swift-log.git
     from: "1.4.0"

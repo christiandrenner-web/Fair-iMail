@@ -13,7 +13,7 @@
 | Modell | Freemium: dauerhaft nutzbare Gratisversion + Pro-Abo |
 | Testphase | **7 Tage gratis über Apples Introductory Offer** — kein eigener Trial-Code |
 | Preis | 1,99 €/Monat, 17,99 €/Jahr (Apple-Kleinstunternehmerprogramm: 15 % Provision) |
-| Pro-Inhalt | Mehrere Konten, alle Server-Ordner, eigene Ordner anlegen, gemeinsamer Posteingang |
+| Pro-Inhalt | Mehrere Konten, alle Server-Ordner, eigene Ordner anlegen/umbenennen/löschen, gemeinsamer Posteingang |
 | Nie Pro | Datenschutzfunktionen (siehe Leitsatz 11 in `AGENTS.md`) |
 | Technik | StoreKit 2, Prüfung auf dem Gerät, **kein Backend**, keine Drittanbieter-SDKs |
 | Datenweitergabe | keine an den Entwickler; Zahlungsdaten verarbeitet ausschließlich Apple |
@@ -44,7 +44,7 @@ Typ „Kostenlose Testphase", Dauer 1 Woche, für alle Neukunden.
 |---|---|
 | 1 Konto | beliebig viele Konten |
 | Posteingang und Systemordner (Gesendet, Entwürfe, Papierkorb, Spam, Archiv) | alle Server-Ordner einschließlich eigener |
-| Lesen, Senden, Antworten, Weiterleiten | eigene Ordner anlegen |
+| Lesen, Senden, Antworten, Weiterleiten | eigene Ordner anlegen, umbenennen, löschen |
 | Text- und HTML-Anzeige auf Knopfdruck | gemeinsamer Posteingang |
 | externe Inhalte blockiert, Freigabe pro Mail/Absender | später: Signaturen, kontenübergreifende Suche |
 | Tracking-Parameter entfernen, Links bestätigen | |
@@ -52,9 +52,10 @@ Typ „Kostenlose Testphase", Dauer 1 Woche, für alle Neukunden.
 | Anhänge, Suche im Posteingang, MDN | |
 
 **Ordnergrenze:** Systemordner bleiben frei, damit ein Konto auch ohne Abo vollständig
-nutzbar ist. Nur eigene Ordner und der gemeinsame Posteingang verlangen Pro. Umbenennen
-und Löschen von Ordnern fehlt bewusst: Die gepinnte SwiftMail-Revision bietet dafür keine
-API; ein Knopf ohne Wirkung wäre schlechter als keiner.
+nutzbar ist. Nur eigene Ordner und der gemeinsame Posteingang verlangen Pro. Eigene Ordner
+lassen sich anlegen, umbenennen und löschen. Systemordner sind bewusst gesperrt: Ihre Rolle
+bestimmt Posteingang, Papierkorb-Ziel und den Free/Pro-Fallback — ein umbenannter
+Posteingang würde diese Logik brechen.
 
 **Regel:** Pro ist Bequemlichkeit, nicht Sicherheit. Eine Privacy-App, die ihre
 Schutzfunktionen hinter ein Abo legt, wäre unglaubwürdig — und würde das einzige Argument
@@ -136,6 +137,4 @@ Review-Risiko.
 - [ ] Preise gegen den Markt prüfen (Wettbewerb: 1,99–4,99 €/Monat)
 - [ ] Entscheiden, ob Familienfreigabe für das Abo aktiviert wird
 - [ ] Prüfen, ob ein Lifetime-Kauf angeboten werden soll (deckt laufende Kosten nicht)
-- [ ] Ordner umbenennen/löschen, sobald SwiftMail es anbietet oder ein eigener
-      IMAP-Befehl ergänzt wird
 - [ ] Steuer- und Bankdaten in App Store Connect hinterlegen (Voraussetzung für Auszahlung)

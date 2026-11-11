@@ -232,6 +232,50 @@ final class MailStoreTests: XCTestCase {
         XCTAssertEqual(store.selection, .folder(accountID: account, folder: sent))
     }
 
+    // MARK: – Ordner umbenennen/löschen
+
+    @MainActor
+    func testRenamingSystemFolderIsRefused() async {
+        let store = MailStore()
+        let account = UUID()
+        store.setFolders([MailFolder(name: "INBOX", role: .inbox)], for: account)
+
+        do {
+            try await store.renameFolder(named: "INBOX", toLeaf: "Posteingang", for: account)
+            XCTFail("Systemordner darf nicht umbenannt werden")
+        } catch {
+            XCTAssertEqual(error as? MailFolderError, .systemFolder)
+        }
+    }
+
+    @MainActor
+    func testDeletingSystemFolderIsRefused() async {
+        let store = MailStore()
+        let account = UUID()
+        store.setFolders([MailFolder(name: "Trash", role: .trash)], for: account)
+
+        do {
+            try await store.deleteFolder(named: "Trash", for: account)
+            XCTFail("Systemordner darf nicht gelöscht werden")
+        } catch {
+            XCTAssertEqual(error as? MailFolderError, .systemFolder)
+        }
+    }
+
+    @MainActor
+    func testRenamingUnknownFolderFails() async {
+        let store = MailStore()
+        let account = UUID()
+        store.setFolders([MailFolder(name: "INBOX", role: .inbox)], for: account)
+
+        do {
+            try await store.renameFolder(named: "Fehlt", toLeaf: "Neu", for: account)
+            XCTFail("Unbekannter Ordner darf nicht umbenannt werden")
+        } catch {
+            XCTAssertEqual(error as? MailFolderError, .folderNotFound)
+        }
+    }
+
     // MARK: – Ordner-Abfragen
 
     @MainActor

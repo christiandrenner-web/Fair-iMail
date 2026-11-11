@@ -186,6 +186,67 @@ final class MailStore: ObservableObject {
         try await engine.createFolder(named: name)
     }
 
+    /// Benennt einen eigenen Ordner um und zieht die lokale Auswahl mit.
+    /// Systemordner sind gesperrt: Ein umbenannter Posteingang würde die
+    /// Rollenerkennung und den Free/Pro-Fallback durcheinanderbringen.
+    func renameFolder(
+        named name: String,
+        toLeaf leaf: String,
+        for accountID: UUID
+    ) async throws {
+        guard let folder = folder(for: accountID, name: name) else {
+            throw MailFolderError.folderNotFound
+        }
+        guard !folder.role.isSystem else {
+            throw MailFolderError.systemFolder
+        }
+        guard let engine = syncEngines[accountID] else {
+            throw MailFolderError.noAccount
+        }
+
+        // Vor dem Serveraufruf merken: `setFolders` in der Engine lässt eine
+        // Auswahl auf den gelöschten/umbenannten Namen bereits zurückfallen.
+        let wasSelected: Bool
+        if case .folder(let id, let selected) = selection,
+           id == accountID, selected.name == name {
+            wasSelected = true
+        } else {
+            wasSelected = false
+        }
+
+        let renamed = try await engine.renameFolder(folder, toLeaf: leaf)
+        guard let renamed else { return }
+
+        for idx in messages.indices
+        where messages[idx].accountID == accountID && messages[idx].folder == name {
+            messages[idx].folder = renamed.name
+        }
+        if wasSelected {
+            selection = .folder(accountID: accountID, folder: renamed)
+        }
+    }
+
+    /// Löscht einen eigenen Ordner samt Inhalt auf dem Server und lokal.
+    func deleteFolder(named name: String, for accountID: UUID) async throws {
+        guard let folder = folder(for: accountID, name: name) else {
+            throw MailFolderError.folderNotFound
+        }
+        guard !folder.role.isSystem else {
+            throw MailFolderError.systemFolder
+        }
+        guard let engine = syncEngines[accountID] else {
+            throw MailFolderError.noAccount
+        }
+
+        try await engine.deleteFolder(folder)
+
+        // Der Server hat die Nachrichten mitgelöscht; die Auswahl hat
+        // `setFolders` bereits auf einen Systemordner zurückgesetzt.
+        messages.removeAll {
+            $0.accountID == accountID && $0.folder == name
+        }
+    }
+
     // MARK: – Nachrichten
 
     /// Nachrichten für die aktuelle Auswahl, neueste zuerst.

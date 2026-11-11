@@ -14,6 +14,9 @@ struct FolderListView: View {
 
     @State private var showPaywall = false
     @State private var showCreateFolder = false
+    @State private var folderToRename: FolderTarget?
+    @State private var folderToDelete: FolderTarget?
+    @State private var actionError: String?
 
     private var activeAccounts: [EmailAccount] {
         accountStore.accounts.filter(\.isActive)
@@ -89,6 +92,37 @@ struct FolderListView: View {
                     preselectedAccountID: preselectedAccountID
                 )
             }
+            .sheet(item: $folderToRename) { target in
+                RenameFolderView(account: target.account, folder: target.folder)
+            }
+            .confirmationDialog(
+                "Ordner löschen?",
+                isPresented: Binding(
+                    get: { folderToDelete != nil },
+                    set: { if !$0 { folderToDelete = nil } }
+                ),
+                titleVisibility: .visible,
+                presenting: folderToDelete
+            ) { target in
+                Button("„\(target.folder.displayName)“ löschen", role: .destructive) {
+                    Task { await delete(target) }
+                }
+                Button("Abbrechen", role: .cancel) {}
+            } message: { _ in
+                Text("Der Ordner und alle enthaltenen Nachrichten werden auf dem Server gelöscht. Das lässt sich nicht rückgängig machen.")
+            }
+            .alert(
+                "Aktion fehlgeschlagen",
+                isPresented: Binding(
+                    get: { actionError != nil },
+                    set: { if !$0 { actionError = nil } }
+                ),
+                presenting: actionError
+            ) { _ in
+                Button("OK", role: .cancel) {}
+            } message: { message in
+                Text(message)
+            }
         }
     }
 
@@ -145,6 +179,40 @@ struct FolderListView: View {
             }
         }
         .foregroundStyle(locked ? .secondary : .primary)
+        .contextMenu {
+            if folder.role == .custom {
+                Button {
+                    guard subscription.canUse(.folderManagement) else {
+                        showPaywall = true
+                        return
+                    }
+                    folderToRename = FolderTarget(account: account, folder: folder)
+                } label: {
+                    Label("Umbenennen", systemImage: "pencil")
+                }
+
+                Button(role: .destructive) {
+                    guard subscription.canUse(.folderManagement) else {
+                        showPaywall = true
+                        return
+                    }
+                    folderToDelete = FolderTarget(account: account, folder: folder)
+                } label: {
+                    Label("Löschen", systemImage: "trash")
+                }
+            }
+        }
+    }
+
+    private func delete(_ target: FolderTarget) async {
+        do {
+            try await mailStore.deleteFolder(
+                named: target.folder.name,
+                for: target.account.id
+            )
+        } catch {
+            actionError = error.localizedDescription
+        }
     }
 
     private func icon(for role: MailFolderRole) -> String {
@@ -245,4 +313,89 @@ struct CreateFolderView: View {
             errorMessage = error.localizedDescription
         }
     }
+}
+
+// MARK: – Ordner umbenennen
+
+struct RenameFolderView: View {
+    let account: EmailAccount
+    let folder: MailFolder
+
+    @EnvironmentObject var mailStore: MailStore
+    @Environment(\.dismiss) private var dismiss
+
+    @State private var name: String
+    @State private var errorMessage: String?
+    @State private var isSaving = false
+
+    init(account: EmailAccount, folder: MailFolder) {
+        self.account = account
+        self.folder = folder
+        // Nur das letzte Segment bearbeiten: Ein verschachtelter Ordner
+        // bleibt im selben Elternordner, statt nach oben zu wandern.
+        _name = State(initialValue: folder.leafName())
+    }
+
+    private var trimmedName: String {
+        name.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    TextField("Ordnername", text: $name)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                } footer: {
+                    Text("Der Ordner wird auf dem Server von \(account.email) umbenannt. Nachrichten bleiben erhalten.")
+                }
+
+                if let errorMessage {
+                    Section {
+                        Text(errorMessage)
+                            .foregroundStyle(.red)
+                    }
+                }
+            }
+            .navigationTitle("Ordner umbenennen")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Abbrechen") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Umbenennen") {
+                        Task { await save() }
+                    }
+                    .disabled(trimmedName.isEmpty || isSaving)
+                }
+            }
+        }
+    }
+
+    private func save() async {
+        isSaving = true
+        defer { isSaving = false }
+
+        do {
+            try await mailStore.renameFolder(
+                named: folder.name,
+                toLeaf: name,
+                for: account.id
+            )
+            dismiss()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+}
+
+// MARK: – Ziel für Kontextmenü und Sheets
+
+private struct FolderTarget: Identifiable {
+    let account: EmailAccount
+    let folder: MailFolder
+
+    var id: String { "\(account.id.uuidString)|\(folder.name)" }
 }

@@ -39,6 +39,7 @@
 		B4A07C9362C7F1707E030CB6 /* ComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AF1FFCDBA40290F9D5EACF /* ComposeView.swift */; };
 		BB86A65C98734A109F87E54C /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6BF84D1CC2BA7EDB4B316ED /* ComposeViewModel.swift */; };
 		BE3E4FFD1DC85BD795CB5426 /* Entitlement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508D947DE916485023FFD7F /* Entitlement.swift */; };
+		BFBA8ECE29335B4CF9896F82 /* ConnectionSecurity+SwiftMail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B602B1327FBA11F7DFC6E5 /* ConnectionSecurity+SwiftMail.swift */; };
 		C7706C3CD838A630227355EA /* MailStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296784EEF112A8020064411A /* MailStoreTests.swift */; };
 		CDCD30E54427C66741387BE7 /* MailFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93216A9BFB5004799A4C7757 /* MailFolder.swift */; };
 		D014171D1F2AF5C3DC27DF87 /* AccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59455C08B21A9F5B16AAC6F /* AccountStore.swift */; };
@@ -104,6 +105,7 @@
 		8A72766BB8E3A9F80A242AFE /* MessageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRowView.swift; sourceTree = "<group>"; };
 		8F369C939BDCC5B68C917A71 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8F8D627CC659BF7BA1192C75 /* iMailSecure.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iMailSecure.xcdatamodel; sourceTree = "<group>"; };
+		91B602B1327FBA11F7DFC6E5 /* ConnectionSecurity+SwiftMail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConnectionSecurity+SwiftMail.swift"; sourceTree = "<group>"; };
 		93216A9BFB5004799A4C7757 /* MailFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailFolder.swift; sourceTree = "<group>"; };
 		9C60797FFDD38E1B555EAAF3 /* CertificatePinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatePinner.swift; sourceTree = "<group>"; };
 		9FD1D214C39203FA17C32CC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 		B5D94B28AA254B57DDC13B73 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				91B602B1327FBA11F7DFC6E5 /* ConnectionSecurity+SwiftMail.swift */,
 				21D84802D3FFAA1D2C0EFA22 /* Constants.swift */,
 				D2B8BB8112A4323D969E0CF3 /* Extensions.swift */,
 				7EC8813452319DB26F8DD0D8 /* HTMLSanitizer.swift */,
@@ -416,6 +419,7 @@
 				11BAFE1E6EC5ED0CA37C6811 /* CertificatePinner.swift in Sources */,
 				B4A07C9362C7F1707E030CB6 /* ComposeView.swift in Sources */,
 				BB86A65C98734A109F87E54C /* ComposeViewModel.swift in Sources */,
+				BFBA8ECE29335B4CF9896F82 /* ConnectionSecurity+SwiftMail.swift in Sources */,
 				DC212E02290DF2B0EB91E756 /* Constants.swift in Sources */,
 				D2928577F7084BFE2B4CB015 /* ContentView.swift in Sources */,
 				4D7E7BE2E76E5E4EEE9BEB87 /* CoreDataService.swift in Sources */,
@@ -720,7 +724,7 @@
 			repositoryURL = "https://github.com/Cocoanetics/SwiftMail.git";
 			requirement = {
 				kind = revision;
-				revision = 29a1df6c93cec1c64cb4489a26d16f895124683c;
+				revision = 88c45cbd31b347b373f7c87e197be63eb95efbc2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

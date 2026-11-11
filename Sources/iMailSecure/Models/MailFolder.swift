@@ -149,6 +149,27 @@ struct MailFolder: Identifiable, Hashable, Sendable {
         return name.replacingOccurrences(of: delimiter, with: " › ")
     }
 
+    /// Letztes Segment des Servernamens. Wird beim Umbenennen angezeigt,
+    /// damit der Nutzer nicht den kompletten Pfad bearbeiten muss.
+    func leafName(delimiter: String? = nil) -> String {
+        let delimiter = delimiter ?? self.delimiter
+        guard let delimiter, !delimiter.isEmpty else { return name }
+        return name.components(separatedBy: delimiter).last ?? name
+    }
+
+    /// Neuer Servername im selben Elternordner. Der Ordnername selbst wird
+    /// validiert; der bestehende Pfad davor bleibt unverändert.
+    func renamedPath(to leaf: String, delimiter: String? = nil) throws -> String {
+        let delimiter = delimiter ?? self.delimiter
+        let validatedLeaf = try MailFolder.validatedName(leaf, delimiter: delimiter)
+        guard let delimiter, !delimiter.isEmpty else { return validatedLeaf }
+
+        var components = name.components(separatedBy: delimiter)
+        guard !components.isEmpty else { return validatedLeaf }
+        components[components.count - 1] = validatedLeaf
+        return components.joined(separator: delimiter)
+    }
+
     init(
         name: String,
         role: MailFolderRole,
@@ -232,6 +253,8 @@ enum MailFolderError: LocalizedError, Equatable {
     case usesDelimiter(String)
     case alreadyExists
     case noAccount
+    case systemFolder
+    case folderNotFound
 
     var errorDescription: String? {
         switch self {
@@ -247,6 +270,10 @@ enum MailFolderError: LocalizedError, Equatable {
             return "Ein Ordner mit diesem Namen existiert bereits."
         case .noAccount:
             return "Für dieses Konto besteht gerade keine Verbindung."
+        case .systemFolder:
+            return "Systemordner lassen sich nicht umbenennen oder löschen."
+        case .folderNotFound:
+            return "Der Ordner existiert nicht mehr."
         }
     }
 }
