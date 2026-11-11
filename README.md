@@ -103,9 +103,9 @@ Verbindlich dokumentiert in [AGENTS.md](AGENTS.md). Kurzfassung:
 - [x] Passwörter nur im Keychain (kein UserDefaults, kein NSLog)
 - [x] Keine externen Tracker
 - [x] `NSAllowsArbitraryLoads = false` (ATS aktiv)
-- [ ] **Datenschutzerklärung erreichbar** — `fairimail.io` ist derzeit nicht registriert
-      bzw. ohne DNS. Ohne erreichbare Privacy-URL keine Freigabe.
-- [ ] Support-Adresse funktionsfähig (`support@fairimail.io`)
+- [ ] **Datenschutzerklärung erreichbar** — Repo `imailsecure-site` veröffentlichen
+      und GitHub Pages aktivieren. Ohne erreichbare Privacy-URL keine Freigabe.
+- [x] Support-Adresse funktionsfähig (`chr.renner@mein.gmx`)
 - [ ] Code Signing: Apple Developer Account
 - [ ] Provisioning Profile und Bundle ID: `io.imailsecure.app`
 - [ ] Icons in Assets.xcassets (1024×1024)
