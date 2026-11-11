@@ -23,7 +23,7 @@
 | `MessageDetailView.swift` | Mail-Anzeige, Anhang-Handling |
 | `AccountSetupView.swift` | Konto anlegen |
 | `AccountDetailView.swift` | Konto bearbeiten |
-| `SettingsView.swift` | Datenschutz-Schalter (ohne Wirkung) |
+| `SettingsView.swift` | Datenschutz-Schalter (wirksam, u. a. `defaultRequestMDN`) |
 | `Extensions.swift` | strippedHTML, Color, View-Modifiers |
 | `EmailMessage.swift` | Nachrichtenmodell |
 | `Constants.swift` | Bundle-ID, Keychain-Keys, Notifications |
@@ -287,7 +287,7 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
 | S5 | 🔴 offen | OAuth 2.0 – Entscheid ausstehend |
 | S6 | 🔴 offen | Entwürfe werden nicht gespeichert |
 | C1 | 🔴 offen | PGP/S/MIME – Entscheid Krypto-Bibliothek ausstehend |
-| L1 | 🔴 offen | Lizenz/App Store: GPLv3 + Ausnahme, Doppellizenz oder permissiv — siehe `LICENSING.md` |
+| L1 | ✅ entschieden | PolyForm Noncommercial 1.0.0 (`LICENSE`), keine GPL-Reste; juristische Prüfung von `LICENSE`, `CLA.md` und AGB steht aus |
 
 ---
 
@@ -391,4 +391,20 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
 
 ---
 
-*Letzte Aktualisierung: 2026-11-03 (OpenCode) — siehe Änderungsprotokoll oben*
+## Änderungen 2026-11-11 (OpenCode)
+
+- **`defaultRequestMDN` wirkt jetzt (STATE #1):** Der Schalter „Lesebestätigung
+  standardmäßig anfordern" schrieb bisher nur `@AppStorage`; kein Codepfad las den Wert.
+  `ComposeViewModel` übernimmt die Vorgabe beim Öffnen **und** nach dem Senden eines
+  Entwurfs über `makeDraft(defaults:)`. Der Schlüssel kommt ausschließlich aus
+  `AppConstants.UserDefaultsKeys.defaultRequestMDN`, auch in `SettingsView`.
+  `UserDefaults` ist injizierbar, damit Tests die echten Einstellungen nicht verändern.
+- **STATE #2 und #3 geschlossen:** `AUDIT_NOTES` führt `SettingsView` nicht mehr als
+  „Schalter ohne Wirkung"; die L1-Zeile nennt jetzt PolyForm Noncommercial 1.0.0 statt
+  der veralteten GPL-Option.
+- **103 Tests, 0 Fehler** (4 neue `ComposeViewModelTests`: Vorgabe an/aus, Änderung nach
+  dem Senden, kein Übernehmen von Empfänger/Betreff in den frischen Entwurf).
+
+---
+
+*Letzte Aktualisierung: 2026-11-11 (OpenCode) — siehe Änderungsprotokoll oben*
