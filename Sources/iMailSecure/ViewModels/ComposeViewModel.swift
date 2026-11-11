@@ -4,7 +4,7 @@ import Combine
 
 @MainActor
 final class ComposeViewModel: ObservableObject {
-    @Published var draft         = EmailDraft()
+    @Published var draft: EmailDraft
     @Published var isLoading     = false
     @Published var errorMessage: String?
     @Published var successMessage: String?
@@ -12,11 +12,25 @@ final class ComposeViewModel: ObservableObject {
 
     private let account: EmailAccount
     private let smtpManager: SMTPManager
+    private let defaults: UserDefaults
     var onSent: ((EmailDraft) -> Void)?   // Callback → MailStore.saveSentMessage
 
-    init(account: EmailAccount) {
+    init(account: EmailAccount, defaults: UserDefaults = .standard) {
         self.account     = account
         self.smtpManager = SMTPManager(account: account)
+        self.defaults    = defaults
+        self.draft       = Self.makeDraft(defaults: defaults)
+    }
+
+    /// Neuer Entwurf mit den Voreinstellungen aus den Einstellungen.
+    /// Gilt beim Öffnen und nach dem Senden — sonst würde der Schalter
+    /// „Lesebestätigung standardmäßig anfordern" nur beim ersten Mal wirken.
+    static func makeDraft(defaults: UserDefaults = .standard) -> EmailDraft {
+        var draft = EmailDraft()
+        draft.requestMDN = defaults.bool(
+            forKey: AppConstants.UserDefaultsKeys.defaultRequestMDN
+        )
+        return draft
     }
 
     func prepareReply(to message: EmailMessage) {
@@ -40,7 +54,7 @@ final class ComposeViewModel: ObservableObject {
                 successMessage = "E-Mail erfolgreich versendet!"
                 isSent         = true
                 onSent?(sentDraft)   // → in Gesendet speichern
-                draft          = EmailDraft()
+                draft          = Self.makeDraft(defaults: defaults)
             } catch {
                 isLoading    = false
                 errorMessage = error.localizedDescription

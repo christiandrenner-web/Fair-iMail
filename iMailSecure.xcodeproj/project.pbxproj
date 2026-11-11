@@ -22,6 +22,7 @@
 		455C4136CC74CCD270F60F4B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CDC51945EB87A0DDB24BD6D3 /* PrivacyInfo.xcprivacy */; };
 		4809ACDA1C65D9BAF410BC91 /* MailSyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1DB573997EBAEC0171080E /* MailSyncEngine.swift */; };
 		4D7E7BE2E76E5E4EEE9BEB87 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7780183F8EAB78F0571A376 /* CoreDataService.swift */; };
+		5B03D642CAD17D4889FF1AA8 /* ComposeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21696189A4A7D084F74BA21B /* ComposeViewModelTests.swift */; };
 		63B9220BA429A3AF638CCCAC /* FolderListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702086401268B9640AABB7C0 /* FolderListView.swift */; };
 		69AF3B9743CFCF72764CCA43 /* EntitlementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3655C391CFBB75E34F56AF5 /* EntitlementTests.swift */; };
 		700537BD9DABD36205289642 /* MailFolderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541F842A718B15E14498828A /* MailFolderTests.swift */; };
@@ -82,6 +83,7 @@
 		1BB6842DDC26775742F40480 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		1D00E34566BA61E1261B4A62 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		1FB4C248A951094849F79BD9 /* iMailSecure.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iMailSecure.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		21696189A4A7D084F74BA21B /* ComposeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModelTests.swift; sourceTree = "<group>"; };
 		21D84802D3FFAA1D2C0EFA22 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2737E211A07A5B863E029C72 /* iMailSecureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMailSecureTests.swift; sourceTree = "<group>"; };
 		296784EEF112A8020064411A /* MailStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailStoreTests.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 		B33355D7163A51260453B28F /* iMailSecureTests */ = {
 			isa = PBXGroup;
 			children = (
+				21696189A4A7D084F74BA21B /* ComposeViewModelTests.swift */,
 				E3655C391CFBB75E34F56AF5 /* EntitlementTests.swift */,
 				027201199E05689DC5B68B0B /* HTMLSanitizerTests.swift */,
 				2737E211A07A5B863E029C72 /* iMailSecureTests.swift */,
@@ -393,6 +396,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B03D642CAD17D4889FF1AA8 /* ComposeViewModelTests.swift in Sources */,
 				69AF3B9743CFCF72764CCA43 /* EntitlementTests.swift in Sources */,
 				1D684D4F797B75CE25998FC9 /* HTMLSanitizerTests.swift in Sources */,
 				700537BD9DABD36205289642 /* MailFolderTests.swift in Sources */,

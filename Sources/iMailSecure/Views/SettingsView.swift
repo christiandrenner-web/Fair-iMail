@@ -7,7 +7,7 @@ struct SettingsView: View {
     @State private var showAddAccount = false
     @State private var showPaywall = false
     @State private var showRevokeAllConfirmation = false
-    @AppStorage("defaultRequestMDN") private var defaultRequestMDN = false
+    @AppStorage(AppConstants.UserDefaultsKeys.defaultRequestMDN) private var defaultRequestMDN = false
     @ObservedObject private var remotePolicy = RemoteContentPolicy.shared
 
     private var canAddAccount: Bool {
