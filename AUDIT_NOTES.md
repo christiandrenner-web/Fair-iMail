@@ -438,4 +438,27 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
 
 ---
 
-*Letzte Aktualisierung: 2026-11-11 (OpenCode) — siehe Änderungsprotokoll oben*
+## Änderungen 2026-11-12 (OpenCode, Website)
+
+- **`terms.html` veröffentlicht** (Repo `imailsecure-site`, Commit `e559165`):
+  Nutzungsbedingungen mit Geltungsbereich, Free/Pro-Abgrenzung, 7-Tage-Testphase
+  über Apples Introductory Offer, Preisen (1,99 €/Monat, 17,99 €/Jahr),
+  automatischer Verlängerung, Kündigung über die Apple-ID, Widerrufsrecht für
+  digitale Inhalte (§ 356 Abs. 5 BGB), Quellcode-Lizenz (PolyForm
+  Noncommercial, ausdrücklich kein Open Source), Nutzerpflichten, Verfügbarkeit,
+  Haftungsbegrenzung, Änderungsklausel und Streitbeilegung.
+- **Als Entwurf gekennzeichnet** (`badge` + Hinweiskasten), weil keine
+  Rechtsberatung erfolgt ist. Vor der App-Store-Einreichung anwaltlich prüfen
+  und beide Hinweise entfernen.
+- **Ursache behoben:** `PaywallView` verlinkte auf `terms.html`, die Seite
+  lieferte 404. Guideline 3.1.2 verlangt bei Abos einen funktionierenden Link
+  auf die Nutzungsbedingungen.
+- **Konsistenz:** Support-FAQ nennt jetzt 1 Konto frei / mehrere Konten mit Pro
+  (vorher stand dort „Ja" ohne Einschränkung) und beantwortet Preis und
+  Kündigungsweg. AGB-Link in Navigation und Footer aller Seiten.
+- **Weiterhin nötig:** eigene EULA in App Store Connect. Die Website-AGB ersetzt
+  sie nicht (siehe `LICENSING.md` 3.1).
+
+---
+
+*Letzte Aktualisierung: 2026-11-12 (OpenCode) — siehe Änderungsprotokoll oben*

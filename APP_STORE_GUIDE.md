@@ -80,9 +80,10 @@ Details und Begründung: `MONETIZATION.md`.
 - [ ] Einführungsangebot je Produkt: **kostenlose Testphase, 1 Woche**
       (Apple macht den Trial — die App enthält bewusst keine Trial-Logik)
 - [ ] Beide Produkte zum Review einreichen, Screenshot der Paywall beilegen
-- [ ] **Nutzungsbedingungen** unter einer öffentlichen URL veröffentlichen
-      (`terms.html`) und in App Store Connect + in der App verlinken —
-      Pflicht nach Guideline 3.1.2
+- [x] **Nutzungsbedingungen** unter einer öffentlichen URL veröffentlicht
+      (https://christiandrenner-web.github.io/imailsecure-site/terms.html,
+      geprüft 2026-11-12); in App Store Connect noch zu hinterlegen — dort
+      zählt die EULA, nicht die Website
 - [ ] „Käufe wiederherstellen" prüfen (in Einstellungen und Paywall vorhanden)
 - [ ] Apple-Kleinstunternehmerprogramm beantragen (15 % statt 30 %)
 - [ ] Steuer- und Bankdaten hinterlegen, sonst keine Auszahlung
@@ -163,7 +164,7 @@ Apple prüft die App in der Regel innerhalb von 24–48 Stunden.
 - [ ] `ITSAppUsesNonExemptEncryption = false` in Info.plist ✅ (bereits gesetzt)
 - [x] Datenschutzerklärung erreichbar unter der angegebenen URL
       (https://christiandrenner-web.github.io/imailsecure-site/privacy.html, geprüft 2026-11-12)
-- [ ] Nutzungsbedingungen erreichbar (`terms.html`, Pflicht bei Abos)
+- [x] Nutzungsbedingungen erreichbar (`terms.html`, Pflicht bei Abos) — Entwurf
 - [ ] Alle Berechtigungen in Info.plist begründet
 - [ ] PrivacyInfo.xcprivacy vollständig ✅
 - [ ] Keine Abstürze im Simulator (cmd+U → alle Tests grün)

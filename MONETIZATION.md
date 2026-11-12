@@ -116,8 +116,9 @@ Review-Risiko.
    Nicht-kommerziell-Klausel der PolyForm-Lizenz greift gegenüber App-Store-Nutzern nicht
    (siehe `LICENSING.md`, Abschnitt 3.1).
 3. **`terms.html` auf der Website** veröffentlichen. StoreKit-Abos verlangen laut
-   Guideline 3.1.2 einen funktionierenden Link auf die Nutzungsbedingungen — **im App und in
-   den Metadaten**. Die Seite existiert noch nicht.
+   Guideline 3.1.2 einen funktionierenden Link auf die Nutzungsbedingungen — **in der App und
+   in den Metadaten**. Veröffentlicht am 2026-11-12 als **Entwurf**; die anwaltliche Prüfung
+   steht noch aus (siehe `terms.html`, Badge „Entwurf").
 4. **„Käufe wiederherstellen"** ist Pflicht und in den Einstellungen und in der Paywall
    vorhanden.
 5. **Preis, Laufzeit, Auto-Verlängerung** müssen im App Store und in der Paywall sichtbar
@@ -132,7 +133,7 @@ Review-Risiko.
 ## 5. Offen
 
 - [ ] Produkte + Introductory Offer in App Store Connect anlegen (braucht Developer-Account)
-- [ ] `terms.html` schreiben und veröffentlichen
+- [x] `terms.html` entworfen und veröffentlicht (Entwurf, juristische Prüfung offen)
 - [ ] EULA in App Store Connect hinterlegen
 - [ ] Preise gegen den Markt prüfen (Wettbewerb: 1,99–4,99 €/Monat)
 - [ ] Entscheiden, ob Familienfreigabe für das Abo aktiviert wird
