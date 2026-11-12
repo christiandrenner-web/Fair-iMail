@@ -8,7 +8,7 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 ## Offen (max. 5, nach Schwere)
 | # | Datei:Zeile | Symptom | Soll | Status |
 |---|---|---|---|---|
-| 1 | — | Gmail-Labels und SMTP-Versand nicht real getestet (GMX-IMAP bestanden) | Gmail-Konto mit `All Mail`/Labels prüfen, Testmail über SMTP senden | offen |
+| 1 | — | Gmail-Login blockiert: `Invalid credentials` (App-Passwort fehlt), SMTP ungetestet | Google-App-Passwort erzeugen, IMAP im Konto aktivieren, dann `IMAPProbe --env gmail-test.env` | offen |
 | 2 | `imailsecure-site/terms.html` | Nutzungsbedingungen sind Entwurf, nicht anwaltlich geprüft | juristisch prüfen lassen, dann Badge + Hinweiskasten entfernen | Entwurf veröffentlicht |
 | 3 | App Store Connect | Produkte, Abo-Gruppe, 7-Tage-Offer und eigene EULA fehlen | mit Apple-Developer-Account anlegen | offen |
 | 4 | `~/.config/opencode/opencode.jsonc` | OpenRouter-Guthaben 0 (Key-Limit 100 ist kein Guthaben) | aufladen oder DeepSeek-Ausfall akzeptieren | offen |

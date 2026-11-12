@@ -240,6 +240,7 @@ struct FolderListView: View {
         case .drafts:  return "doc.text.fill"
         case .sent:    return "paperplane.fill"
         case .archive: return "archivebox.fill"
+        case .all:     return "tray.full.fill"
         case .junk:    return "exclamationmark.bubble.fill"
         case .trash:   return "trash.fill"
         case .custom:  return "folder.fill"

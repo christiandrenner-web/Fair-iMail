@@ -490,4 +490,17 @@ APPEND, MOVE in den Papierkorb, UID EXPUNGE.
 
 **Nicht abgedeckt:** Gmail-Labels, SMTP-Versand, Keychain/StoreKit auf Gerät.
 
+### Nachtrag: `\All` als Systemrolle
+
+Gmail liefert `[Gmail]/All Mail` mit dem Attribut `\All`. Ohne eigene Rolle
+galt der Ordner als „eigener Ordner" und wäre in der Gratisversion hinter der
+Paywall gelandet. Neu: `MailFolderRole.all` („Alle Nachrichten"), Icon
+`tray.full.fill`, Special-Use `\All` und Namens-Fallback `all mail` /
+`alle nachrichten` / `alle mails`. **121 Tests, 0 Fehler.**
+
+**Gmail-Test blockiert:** `imap.gmail.com:993` lehnt die Anmeldung mit
+`[AUTHENTICATIONFAILED] Invalid credentials` ab. Das ist kein Netzwerkfehler,
+sondern fehlende Autorisierung: Google akzeptiert für IMAP nur ein
+App-Passwort (2-Faktor-Anmeldung nötig) und verlangt aktiviertes IMAP.
+
 *Letzte Aktualisierung: 2026-11-12 (OpenCode) — siehe Änderungsprotokoll oben*

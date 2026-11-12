@@ -22,6 +22,9 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
     case drafts
     case sent
     case archive
+    /// „Alle Nachrichten" (Gmail: All Mail, RFC 6154 \All). Enthält jede
+    /// Nachricht des Kontos zusätzlich zum eigentlichen Ordner.
+    case all
     case junk
     case trash
     case custom
@@ -33,6 +36,7 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
         case .drafts:  return "Entwürfe"
         case .sent:    return "Gesendet"
         case .archive: return "Archiv"
+        case .all:     return "Alle Nachrichten"
         case .junk:    return "Spam"
         case .trash:   return "Papierkorb"
         case .custom:  return "Ordner"
@@ -47,9 +51,10 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
         case .drafts:  return 2
         case .sent:    return 3
         case .archive: return 4
-        case .junk:    return 5
-        case .trash:   return 6
-        case .custom:  return 7
+        case .all:     return 5
+        case .junk:    return 6
+        case .trash:   return 7
+        case .custom:  return 8
         }
     }
 
@@ -73,6 +78,7 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
         if attributes.contains(.trash)   { return .trash }
         if attributes.contains(.junk)    { return .junk }
         if attributes.contains(.archive) { return .archive }
+        if attributes.contains(.all)     { return .all }
         if attributes.contains(.flagged) { return .flagged }
 
         let candidates = nameCandidates(name: name, delimiter: delimiter)
@@ -82,6 +88,7 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
         if candidates.contains(where: trashNames.contains)   { return .trash }
         if candidates.contains(where: junkNames.contains)    { return .junk }
         if candidates.contains(where: archiveNames.contains) { return .archive }
+        if candidates.contains(where: allNames.contains)     { return .all }
         if candidates.contains(where: flaggedNames.contains) { return .flagged }
         return .custom
     }
@@ -129,6 +136,10 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
 
     private static let flaggedNames: Set<String> = [
         "flagged", "starred", "markiert", "wichtig"
+    ]
+
+    private static let allNames: Set<String> = [
+        "all", "all mail", "alle nachrichten", "alle mails"
     ]
 }
 

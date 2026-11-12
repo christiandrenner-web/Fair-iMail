@@ -19,6 +19,7 @@ final class MailFolderTests: XCTestCase {
             (.trash, .trash),
             (.junk, .junk),
             (.archive, .archive),
+            (.all, .all),
             (.flagged, .flagged)
         ]
 
@@ -197,6 +198,38 @@ final class MailFolderTests: XCTestCase {
         XCTAssertEqual(
             MailFolderRole.detect(name: "Gel&APY-scht", attributes: [], delimiter: "/"),
             .trash
+        )
+    }
+
+    // MARK: – „Alle Nachrichten" (Gmail All Mail)
+
+    func testAllMailIsASystemFolder() {
+        // Gmail liefert „[Gmail]/All Mail" mit \All. Ohne eigene Rolle wäre
+        // der Ordner ein „eigener" Ordner und damit hinter der Paywall.
+        XCTAssertEqual(
+            MailFolderRole.detect(
+                name: "[Gmail]/All Mail",
+                attributes: [.all],
+                delimiter: "/"
+            ),
+            .all
+        )
+        XCTAssertTrue(MailFolderRole.all.isSystem)
+        XCTAssertFalse(MailFolder(name: "All Mail", role: .all).requiresPro)
+    }
+
+    func testAllMailNameFallbackWithoutAttribute() {
+        XCTAssertEqual(
+            MailFolderRole.detect(
+                name: "[Gmail]/All Mail",
+                attributes: [],
+                delimiter: "/"
+            ),
+            .all
+        )
+        XCTAssertEqual(
+            MailFolderRole.detect(name: "Alle Nachrichten", attributes: [], delimiter: "/"),
+            .all
         )
     }
 
