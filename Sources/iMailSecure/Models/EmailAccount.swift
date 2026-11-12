@@ -17,8 +17,12 @@ enum ConnectionSecurity: String, Codable, CaseIterable {
 
     var displayName: String {
         switch self {
-        case .implicit:  return "SSL/TLS (empfohlen)"
-        case .startTLS:  return "STARTTLS (erzwungen)"
+        case .implicit:
+            return String(localized: "security.implicit",
+                          defaultValue: "SSL/TLS (empfohlen)")
+        case .startTLS:
+            return String(localized: "security.starttls",
+                          defaultValue: "STARTTLS (erzwungen)")
         }
     }
 
@@ -74,9 +78,11 @@ struct EmailAccount: Identifiable, Codable, Equatable {
     var imapPortWarning: String? {
         switch imapSecurity {
         case .implicit  where imapPort != 993:
-            return "SSL/TLS verwendet üblicherweise Port 993."
+            return String(localized: "security.imap.port.implicit",
+                          defaultValue: "SSL/TLS verwendet üblicherweise Port 993.")
         case .startTLS  where imapPort != 143:
-            return "STARTTLS verwendet üblicherweise Port 143."
+            return String(localized: "security.imap.port.starttls",
+                          defaultValue: "STARTTLS verwendet üblicherweise Port 143.")
         default:
             return nil
         }
@@ -85,9 +91,11 @@ struct EmailAccount: Identifiable, Codable, Equatable {
     var smtpPortWarning: String? {
         switch smtpSecurity {
         case .implicit  where smtpPort != 465:
-            return "SSL/TLS verwendet üblicherweise Port 465."
+            return String(localized: "security.smtp.port.implicit",
+                          defaultValue: "SSL/TLS verwendet üblicherweise Port 465.")
         case .startTLS  where smtpPort != 587 && smtpPort != 25:
-            return "STARTTLS verwendet üblicherweise Port 587."
+            return String(localized: "security.smtp.port.starttls",
+                          defaultValue: "STARTTLS verwendet üblicherweise Port 587.")
         default:
             return nil
         }

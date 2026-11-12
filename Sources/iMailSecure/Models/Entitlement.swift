@@ -42,9 +42,12 @@ enum SubscriptionProduct {
     /// Anzeigename, unabhängig davon, ob StoreKit gerade Produkte liefert.
     static func periodLabel(for productID: String) -> String {
         switch productID {
-        case monthly: return "Monat"
-        case yearly:  return "Jahr"
-        default:      return ""
+        case monthly:
+            return String(localized: "period.month", defaultValue: "Monat")
+        case yearly:
+            return String(localized: "period.year", defaultValue: "Jahr")
+        default:
+            return ""
         }
     }
 }
@@ -72,20 +75,29 @@ enum Feature: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .multipleAccounts:  return "Mehrere E-Mail-Konten"
-        case .folderManagement:  return "Alle Ordner und Mailboxen"
-        case .unifiedInbox:      return "Gemeinsamer Posteingang"
+        case .multipleAccounts:
+            return String(localized: "feature.accounts.title",
+                          defaultValue: "Mehrere E-Mail-Konten")
+        case .folderManagement:
+            return String(localized: "feature.folders.title",
+                          defaultValue: "Alle Ordner und Mailboxen")
+        case .unifiedInbox:
+            return String(localized: "feature.unified.title",
+                          defaultValue: "Gemeinsamer Posteingang")
         }
     }
 
     var detail: String {
         switch self {
         case .multipleAccounts:
-            return "Privat- und Arbeitsadresse parallel, ohne ständiges Ab- und Anmelden."
+            return String(localized: "feature.accounts.detail",
+                          defaultValue: "Privat- und Arbeitsadresse parallel, ohne ständiges Ab- und Anmelden.")
         case .folderManagement:
-            return "Jeden Server-Ordner öffnen und eigene Ordner anlegen — nicht nur den Posteingang."
+            return String(localized: "feature.folders.detail",
+                          defaultValue: "Jeden Server-Ordner öffnen und eigene Ordner anlegen — nicht nur den Posteingang.")
         case .unifiedInbox:
-            return "Alle Konten in einer Liste, ohne zwischen Postfächern zu wechseln."
+            return String(localized: "feature.unified.detail",
+                          defaultValue: "Alle Konten in einer Liste, ohne zwischen Postfächern zu wechseln.")
         }
     }
 

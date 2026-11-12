@@ -23,7 +23,7 @@ Lizenz: PolyForm Noncommercial 1.0.0 — Quellcode einsehbar, keine kommerzielle
 ## Projektstruktur
 
 ```
-Fair-iMail/
+iMailSecure/
 ├── AGENTS.md                 Datenschutz-Leitsätze + Arbeitsregeln (verbindlich)
 ├── CLAUDE.md                 Claude-spezifische Hinweise (verweist auf AGENTS.md)
 ├── AUDIT_NOTES.md            Security-Audit N1…C1 mit Status
@@ -59,7 +59,7 @@ Fair-iMail/
 ### Projekt öffnen
 
 ```bash
-cd ~/XCODE/Fair-iMail
+cd ~/XCODE/iMailSecure   # oder dein lokaler Projektordner
 xcodegen generate
 open iMailSecure.xcodeproj
 ```

@@ -36,12 +36,26 @@ final class ComposeViewModel: ObservableObject {
     func prepareReply(to message: EmailMessage) {
         draft.toText  = message.from.formatted
         draft.subject = message.subject.hasPrefix("Re:") ? message.subject : "Re: \(message.subject)"
-        draft.body    = "\n\n---\nAm \(message.date.formatted()) schrieb \(message.from.formatted):\n\(message.body)"
+        let quoteHeader = String(
+            format: String(localized: "compose.reply.quote",
+                           defaultValue: "Am %1$@ schrieb %2$@:"),
+            message.date.formatted(),
+            message.from.formatted
+        )
+        draft.body    = "\n\n---\n\(quoteHeader)\n\(message.body)"
     }
 
     func sendDraft() {
-        guard !draft.to.isEmpty else { errorMessage = "Bitte mindestens einen Empfänger angeben."; return }
-        guard !draft.subject.isEmpty else { errorMessage = "Bitte einen Betreff angeben."; return }
+        guard !draft.to.isEmpty else {
+            errorMessage = String(localized: "compose.error.recipient",
+                                 defaultValue: "Bitte mindestens einen Empfänger angeben.")
+            return
+        }
+        guard !draft.subject.isEmpty else {
+            errorMessage = String(localized: "compose.error.subject",
+                                 defaultValue: "Bitte einen Betreff angeben.")
+            return
+        }
 
         isLoading    = true
         errorMessage = nil
@@ -51,7 +65,8 @@ final class ComposeViewModel: ObservableObject {
                 try await smtpManager.sendEmail(draft: draft)
                 let sentDraft = draft
                 isLoading      = false
-                successMessage = "E-Mail erfolgreich versendet!"
+                successMessage = String(localized: "compose.success.sent",
+                                        defaultValue: "E-Mail erfolgreich versendet!")
                 isSent         = true
                 onSent?(sentDraft)   // → in Gesendet speichern
                 draft          = Self.makeDraft(defaults: defaults)
@@ -64,6 +79,7 @@ final class ComposeViewModel: ObservableObject {
 
     func saveDraft() {
         draft.lastModified = Date()
-        successMessage = "Entwurf gespeichert"
+        successMessage = String(localized: "compose.success.draft",
+                                defaultValue: "Entwurf gespeichert")
     }
 }

@@ -31,15 +31,24 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
 
     var displayName: String {
         switch self {
-        case .inbox:   return "Posteingang"
-        case .flagged: return "Markiert"
-        case .drafts:  return "Entwürfe"
-        case .sent:    return "Gesendet"
-        case .archive: return "Archiv"
-        case .all:     return "Alle Nachrichten"
-        case .junk:    return "Spam"
-        case .trash:   return "Papierkorb"
-        case .custom:  return "Ordner"
+        case .inbox:
+            return String(localized: "folder.inbox", defaultValue: "Posteingang")
+        case .flagged:
+            return String(localized: "folder.flagged", defaultValue: "Markiert")
+        case .drafts:
+            return String(localized: "folder.drafts", defaultValue: "Entwürfe")
+        case .sent:
+            return String(localized: "folder.sent", defaultValue: "Gesendet")
+        case .archive:
+            return String(localized: "folder.archive", defaultValue: "Archiv")
+        case .all:
+            return String(localized: "folder.all", defaultValue: "Alle Nachrichten")
+        case .junk:
+            return String(localized: "folder.junk", defaultValue: "Spam")
+        case .trash:
+            return String(localized: "folder.trash", defaultValue: "Papierkorb")
+        case .custom:
+            return String(localized: "folder.custom", defaultValue: "Ordner")
         }
     }
 
@@ -307,21 +316,32 @@ enum MailFolderError: LocalizedError, Equatable {
     var errorDescription: String? {
         switch self {
         case .emptyName:
-            return "Bitte einen Ordnernamen eingeben."
+            return String(localized: "folder.error.empty",
+                          defaultValue: "Bitte einen Ordnernamen eingeben.")
         case .nameTooLong:
-            return "Der Name ist zu lang (höchstens 255 Zeichen)."
+            return String(localized: "folder.error.tooLong",
+                          defaultValue: "Der Name ist zu lang (höchstens 255 Zeichen).")
         case .invalidCharacters:
-            return "Der Name enthält Zeichen, die der Mailserver nicht erlaubt."
+            return String(localized: "folder.error.invalid",
+                          defaultValue: "Der Name enthält Zeichen, die der Mailserver nicht erlaubt.")
         case .usesDelimiter(let delimiter):
-            return "Der Name darf das Trennzeichen „\(delimiter)“ nicht enthalten."
+            return String(
+                format: String(localized: "folder.error.delimiter",
+                               defaultValue: "Der Name darf das Trennzeichen „%@“ nicht enthalten."),
+                delimiter
+            )
         case .alreadyExists:
-            return "Ein Ordner mit diesem Namen existiert bereits."
+            return String(localized: "folder.error.exists",
+                          defaultValue: "Ein Ordner mit diesem Namen existiert bereits.")
         case .noAccount:
-            return "Für dieses Konto besteht gerade keine Verbindung."
+            return String(localized: "folder.error.noAccount",
+                          defaultValue: "Für dieses Konto besteht gerade keine Verbindung.")
         case .systemFolder:
-            return "Systemordner lassen sich nicht umbenennen oder löschen."
+            return String(localized: "folder.error.system",
+                          defaultValue: "Systemordner lassen sich nicht umbenennen oder löschen.")
         case .folderNotFound:
-            return "Der Ordner existiert nicht mehr."
+            return String(localized: "folder.error.notFound",
+                          defaultValue: "Der Ordner existiert nicht mehr.")
         }
     }
 }
@@ -338,7 +358,8 @@ enum MailboxSelection: Hashable, Sendable {
     var title: String {
         switch self {
         case .unifiedInbox:
-            return "Gemeinsamer Posteingang"
+            return String(localized: "folder.unified",
+                          defaultValue: "Gemeinsamer Posteingang")
         case .folder(_, let folder):
             return folder.displayName
         }

@@ -1,0 +1,25 @@
+iMail Secure es un cliente de correo para iOS que pone la privacidad en primer lugar: compatibilidad completa con IMAP/SMTP, confirmaciones de lectura según RFC 8098, y sin rastreo, publicidad, telemetría ni SDK de terceros.
+
+PRIVACIDAD POR DEFECTO
+• Los correos se muestran como texto de forma predeterminada. El HTML solo se procesa al pulsar el botón, sin acceso a la red y sin JavaScript.
+• Las imágenes y hojas de estilo externas están bloqueadas. Puedes permitirlas para un correo concreto o de forma permanente para un remitente, y revocarlas cuando quieras.
+• Los parámetros de seguimiento se eliminan de los enlaces antes de abrirlos.
+• Las contraseñas se guardan únicamente en el llavero de iOS (ThisDeviceOnly).
+• Solo conexiones cifradas: TLS 1.2 o superior, con fijación de certificados.
+• Sin cuenta con nosotros y sin nube: tu correo permanece en tu proveedor y en tu dispositivo.
+
+FUNCIONES
+• IMAP y SMTP para todos los proveedores habituales (GMX, Web.de, Outlook, Gmail, T-Online, servidor propio)
+• Todas las carpetas del servidor, incluidas Papelera, Enviados, Borradores, Archivo y Spam
+• Solicitar y responder confirmaciones de lectura (MDN) y de entrega
+• Guardar y compartir adjuntos de forma segura
+• Búsqueda por asunto, remitente y texto
+• Varias cuentas y bandeja de entrada unificada (Pro)
+
+LO QUE TE PROTEGE SIGUE SIENDO GRATIS
+La versión gratuita incluye todas las funciones de privacidad y una cuenta. Si quieres más comodidad —cuentas adicionales, carpetas propias, bandeja unificada— puedes suscribirte a iMail Secure Pro. La primera semana es gratis; después, 1,99 € al mes o 17,99 € al año.
+
+Las funciones de privacidad nunca serán de pago.
+
+SOBRE IMAIL SECURE
+El código fuente puede consultarse (PolyForm Noncommercial 1.0.0). Así se puede comprobar lo que la app no hace: sin telemetría, sin SDK publicitarios, sin cesión de datos a terceros.

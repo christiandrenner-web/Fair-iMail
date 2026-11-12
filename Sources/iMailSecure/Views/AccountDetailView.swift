@@ -130,7 +130,11 @@ struct AccountDetailView: View {
         ) { target in
             Button("Pin für \(target.label) löschen", role: .destructive) {
                 CertificatePinner.shared.resetPin(host: target.host, port: target.port)
-                pinNotice = "Pin für \(target.label) gelöscht. Beim nächsten Verbinden wird der aktuelle Fingerabdruck ohne Vergleich übernommen."
+                pinNotice = String(
+                    format: String(localized: "cert.pin.resetDone",
+                                   defaultValue: "Pin für %@ gelöscht. Beim nächsten Verbinden wird der aktuelle Fingerabdruck ohne Vergleich übernommen."),
+                    target.label
+                )
                 pinToReset = nil
             }
             Button("Abbrechen", role: .cancel) { pinToReset = nil }
@@ -172,12 +176,17 @@ struct AccountDetailView: View {
             do {
                 try account.savePassword(newPassword)
             } catch {
-                saveError = "Keychain-Fehler: \(error.localizedDescription)"
+                saveError = String(
+                    format: String(localized: "account.error.keychain",
+                                   defaultValue: "Keychain-Fehler: %@"),
+                    error.localizedDescription
+                )
                 return
             }
         }
         accountStore.update(account)
-        saveMessage = "Gespeichert ✓"
+        saveMessage = String(localized: "account.success.savedShort",
+                             defaultValue: "Gespeichert ✓")
     }
 }
 

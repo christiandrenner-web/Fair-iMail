@@ -1,7 +1,7 @@
 # AUDIT_NOTES.md — iMail Secure
 **Erstellt:** 2026-10-31  
 **Auditor:** Claude (Anthropic) – pedantischer IT-Security-Auditor, Orientierung an FairEmail (Marcel Bockhorst)  
-**Projektpfad:** `/Users/christianrenner/XCODE/Fair-iMail/iMailSecure.xcodeproj`  
+**Projektpfad:** `/Users/christianrenner/XCODE/iMailSecure/iMailSecure.xcodeproj`  
 **Graph:** 312 Knoten, 574 Kanten, 15 Communities (graphify-out/graph.json)
 
 ---

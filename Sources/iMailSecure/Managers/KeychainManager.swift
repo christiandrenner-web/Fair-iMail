@@ -91,9 +91,18 @@ enum KeychainError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .encodingFailed:       return "Passwort konnte nicht kodiert werden."
-        case .saveFailed(let s):    return "Keychain-Fehler beim Speichern (Status \(s))."
-        case .retrieveFailed:       return "Passwort konnte nicht abgerufen werden."
+        case .encodingFailed:
+            return String(localized: "error.keychain.encoding",
+                          defaultValue: "Passwort konnte nicht kodiert werden.")
+        case .saveFailed(let s):
+            return String(
+                format: String(localized: "error.keychain.save",
+                               defaultValue: "Keychain-Fehler beim Speichern (Status %d)."),
+                Int(s)
+            )
+        case .retrieveFailed:
+            return String(localized: "error.keychain.retrieve",
+                          defaultValue: "Passwort konnte nicht abgerufen werden.")
         }
     }
 }

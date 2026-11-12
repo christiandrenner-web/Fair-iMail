@@ -1,0 +1,1 @@
+Primera versión: IMAP/SMTP, todas las carpetas del servidor, confirmaciones de lectura (MDN), funciones de privacidad e iMail Secure Pro.

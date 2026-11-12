@@ -11,6 +11,7 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 | 1 | — | Gmail-Login blockiert: `Invalid credentials` (App-Passwort fehlt), SMTP ungetestet | Google-App-Passwort erzeugen, IMAP im Konto aktivieren, dann `IMAPProbe --env gmail-test.env` | offen |
 | 2 | `imailsecure-site/terms.html` | Nutzungsbedingungen sind Entwurf, nicht anwaltlich geprüft | juristisch prüfen lassen, dann Badge + Hinweiskasten entfernen | Entwurf veröffentlicht |
 | 3 | App Store Connect | Produkte, Abo-Gruppe, 7-Tage-Offer und eigene EULA fehlen | mit Apple-Developer-Account anlegen | offen |
+| 5 | `imailsecure-site/*.html` | Website-Rechtstexte nur auf Deutsch | ES/FR/RU/TR ergänzen, wenn die Store-Einträge live gehen | offen |
 | 4 | `~/.config/opencode/opencode.jsonc` | OpenRouter-Guthaben 0 (Key-Limit 100 ist kein Guthaben) | aufladen oder DeepSeek-Ausfall akzeptieren | offen |
 
 ## Offene Entscheidungen
@@ -18,12 +19,21 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 - L1 Lizenz: entschieden (PolyForm Noncommercial 1.0.0), juristische Prüfung steht aus
 
 ## Zuletzt erledigt
+- 2026-11-12 Oberfläche in sechs Sprachen: `Localizable.xcstrings` (227 Einträge,
+  Quellsprache Deutsch) und `InfoPlist.xcstrings` (Face-ID-Text, Anzeigename).
+  Alle Modell- und Fehlertexte laufen über `String(localized:)`; Build enthält
+  `de/en/es/fr/ru/tr.lproj`, 121 Tests grün
+- 2026-11-12 `fastlane/metadata/` für de-DE, en-US, es-ES, fr-FR, ru, tr angelegt
+  (Name, Untertitel, Keywords, Beschreibung, Promotional Text, Release Notes, URLs)
+  plus `review_information/notes.txt`; Längenlimits geprüft
+- 2026-11-12 GitHub-Repo `Fair-iMail` → `iMailSecure` umbenannt (alte URL leitet
+  per 301 weiter), Quellcode-Link in App und Website angepasst
 - 2026-11-12 Echter IMAP-Test gegen `imap.gmx.net` bestanden (Tools/IMAPProbe):
   Ordner, Rollen, Umbenennen, MOVE, UID EXPUNGE. Dabei zwei Fehler gefunden und
   behoben: modified UTF-7 in Ordnernamen und doppelte Systemordner bei GMX
 - 2026-11-12 `terms.html` entworfen und veröffentlicht (AGB, Abo, Widerruf, Lizenz);
   Entwurf gekennzeichnet, anwaltliche Prüfung offen
-- 2026-11-12 GitHub veröffentlicht: `Fair-iMail` + `imailsecure-site`, Pages live,
+- 2026-11-12 GitHub veröffentlicht: `iMailSecure` + `imailsecure-site`, Pages live,
   Kontaktadresse `chr.renner@mein.gmx` eingesetzt (`cd00da4`, `240bf3d`)
 - 2026-11-11 `2db25c1` SwiftMail 1.16.0, Ordner umbenennen/löschen (109 Tests)
 - 2026-11-11 `c41fa69` `defaultRequestMDN` wirkt jetzt in `ComposeViewModel` (103 Tests)
@@ -31,6 +41,7 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 - 2026-11-02 `52f2d99` Free/Pro (StoreKit 2), Apple-Trial, Multi-Account-Fix
 
 ## Nächster Schritt
-1. Echten IMAP-Test mit einem Testkonto durchführen (Gmail und ein lokalisierter Server).
+1. Gmail-Test mit App-Passwort wiederholen; SMTP-Versand real prüfen.
 2. `terms.html` juristisch prüfen lassen und die Entwurfs-Kennzeichnung entfernen.
-3. App-Store-Produkte, Introductory Offer und EULA in App Store Connect anlegen.
+3. App-Store-Produkte, Introductory Offer und EULA in App Store Connect anlegen;
+   danach die sechs lokalisierten Store-Einträge aus `fastlane/metadata/` übernehmen.

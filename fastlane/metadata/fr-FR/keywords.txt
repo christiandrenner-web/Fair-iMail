@@ -1,0 +1,1 @@
+e-mail,mail,IMAP,SMTP,confidentialité,antipistage,accusé de lecture,MDN,sécurisé,trousseau

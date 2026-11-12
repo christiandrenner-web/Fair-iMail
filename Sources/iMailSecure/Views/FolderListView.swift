@@ -65,8 +65,8 @@ struct FolderListView: View {
                     } label: {
                         Label(
                             subscription.canUse(.folderManagement)
-                                ? "Ordner anlegen"
-                                : "Ordner anlegen (Pro)",
+                                ? String(localized: "folder.create", defaultValue: "Ordner anlegen")
+                                : String(localized: "folder.create.pro", defaultValue: "Ordner anlegen (Pro)"),
                             systemImage: subscription.canUse(.folderManagement)
                                 ? "folder.badge.plus"
                                 : "lock.circle.fill"

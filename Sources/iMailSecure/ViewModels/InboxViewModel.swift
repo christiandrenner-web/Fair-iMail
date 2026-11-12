@@ -23,6 +23,7 @@ final class InboxViewModel: ObservableObject {
     }
 
     func title(for store: MailStore) -> String {
-        store.selection?.title ?? "Posteingang"
+        store.selection?.title
+            ?? String(localized: "folder.inbox", defaultValue: "Posteingang")
     }
 }

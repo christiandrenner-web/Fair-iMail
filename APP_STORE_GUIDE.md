@@ -123,6 +123,43 @@ Datenschutz:    https://christiandrenner-web.github.io/imailsecure-site/privacy.
 Nutzungsbed.:   https://christiandrenner-web.github.io/imailsecure-site/terms.html
 ```
 
+### Lokalisierte Store-Einträge (6 Sprachen)
+
+Die App-Oberfläche ist auf Deutsch, Englisch, Spanisch, Französisch, Russisch und
+Türkisch lokalisiert (`Localizable.xcstrings`, `InfoPlist.xcstrings`). Die
+Store-Texte liegen fertig in `fastlane/metadata/`:
+
+| Ordner   | Sprache   | Untertitel                          |
+|----------|-----------|-------------------------------------|
+| `de-DE`  | Deutsch   | Datenschutz-E-Mail-Client           |
+| `en-US`  | Englisch  | Privacy-first email client          |
+| `es-ES`  | Spanisch  | Cliente de correo privado           |
+| `fr-FR`  | Französisch | Client e-mail confidentiel        |
+| `ru`     | Russisch  | Почта без слежки и трекинга         |
+| `tr`     | Türkisch  | Gizlilik odaklı e-posta             |
+
+Je Sprache: `name.txt`, `subtitle.txt`, `keywords.txt`, `description.txt`,
+`promotional_text.txt`, `release_notes.txt`, `support_url.txt`,
+`marketing_url.txt`, `privacy_url.txt`. Upload mit fastlane:
+
+```bash
+fastlane deliver --skip_binary_upload --skip_screenshots
+```
+
+Ohne fastlane: Inhalte in App Store Connect → App-Informationen →
+„Sprache hinzufügen" je Sprache einkopieren. Screenshots müssen pro Sprache
+und Geräteklasse separat hochgeladen werden (mindestens Deutsch und Englisch
+sind Pflicht, die übrigen Sprachen erhöhen die Sichtbarkeit in den Märkten).
+
+`fastlane/metadata/review_information/notes.txt` erklärt der Review, dass ein
+echtes IMAP-Konto nötig ist. **Vor der Einreichung** dort ein Testkonto
+eintragen (`demo_user.txt`, `demo_password.txt`, `email_address.txt`) — sonst
+kann Apple den Login nicht prüfen.
+
+Der Anzeigename bleibt in allen Sprachen „iMail Secure". Die Rechtstexte
+(`privacy.html`, `terms.html`) sind derzeit nur auf Deutsch; für die übrigen
+Märkte sollten sie vor dem Livegang übersetzt werden.
+
 ---
 
 ## 6. Build archivieren & hochladen
@@ -174,7 +211,7 @@ Apple prüft die App in der Regel innerhalb von 24–48 Stunden.
 
 ## 9. Nach der Veröffentlichung
 
-- [x] Quellcode veröffentlicht: <https://github.com/christiandrenner-web/Fair-iMail>
+- [x] Quellcode veröffentlicht: <https://github.com/christiandrenner-web/iMailSecure>
       (die PolyForm-Lizenz verpflichtet **nicht** dazu; ohne Veröffentlichung
       wäre die Aussage „nachprüfbar" aber unbelegt)
 - [ ] `CHANGELOG.md` pflegen

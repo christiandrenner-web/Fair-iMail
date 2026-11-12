@@ -10,7 +10,7 @@ Datenschutzfreundlicher E-Mail-Client für iOS (SwiftUI, IMAP/SMTP über SwiftMa
 Vorbild und Messlatte: **FairEmail** von Marcel Bokhorst.
 Ziel ist keine „E-Mail-App mit Privacy-Feature", sondern **Privacy als Architektur**.
 
-- Pfad: `~/XCODE/Fair-iMail`
+- Pfad: `~/XCODE/iMailSecure`
 - App-Target: `iMailSecure` (iOS, Bundle-ID `io.imailsecure.app`)
 - Projektdatei: `project.yml` ist die **Quelle der Wahrheit** (XcodeGen).
   `iMailSecure.xcodeproj` ist generiert — nicht von Hand editieren, außer es geht nicht anders,

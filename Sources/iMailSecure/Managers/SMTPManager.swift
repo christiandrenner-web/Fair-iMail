@@ -5,7 +5,10 @@ import SwiftMail
 
 enum SMTPError: LocalizedError {
     case noPassword
-    var errorDescription: String? { "Kein Passwort gespeichert. Bitte Konto bearbeiten." }
+    var errorDescription: String? {
+        String(localized: "error.smtp.noPassword",
+               defaultValue: "Kein Passwort gespeichert. Bitte Konto bearbeiten.")
+    }
 }
 
 final class SMTPManager {

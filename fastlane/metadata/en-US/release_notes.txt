@@ -1,0 +1,1 @@
+First release: IMAP/SMTP, all server folders, read receipts (MDN), privacy features and iMail Secure Pro.

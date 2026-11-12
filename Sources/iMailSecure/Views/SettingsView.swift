@@ -33,8 +33,12 @@ struct SettingsView: View {
                             showPaywall = true
                         }
                     } label: {
-                        Label(canAddAccount ? "Konto hinzufügen" : "Weiteres Konto (Pro)",
-                              systemImage: canAddAccount ? "plus.circle.fill" : "lock.circle.fill")
+                        Label(
+                            canAddAccount
+                                ? String(localized: "account.add", defaultValue: "Konto hinzufügen")
+                                : String(localized: "account.add.pro", defaultValue: "Weiteres Konto (Pro)"),
+                            systemImage: canAddAccount ? "plus.circle.fill" : "lock.circle.fill"
+                        )
                     }
                 }
 
@@ -58,8 +62,10 @@ struct SettingsView: View {
                     Text("Abo")
                 } footer: {
                     Text(subscription.isPro
-                         ? "Alle Pro-Funktionen sind freigeschaltet. Kündigung jederzeit in den App-Store-Einstellungen."
-                         : "Die kostenlose Version unterstützt ein Konto. Alle Datenschutzfunktionen sind darin enthalten.")
+                         ? String(localized: "settings.pro.activeFooter",
+                                  defaultValue: "Alle Pro-Funktionen sind freigeschaltet. Kündigung jederzeit in den App-Store-Einstellungen.")
+                         : String(localized: "settings.free.footer",
+                                  defaultValue: "Die kostenlose Version unterstützt ein Konto. Alle Datenschutzfunktionen sind darin enthalten."))
                 }
 
                 // Datenschutz

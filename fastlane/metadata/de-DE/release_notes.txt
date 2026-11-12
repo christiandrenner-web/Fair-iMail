@@ -1,0 +1,1 @@
+Erste Veröffentlichung: IMAP/SMTP, alle Serverordner, Lesebestätigungen (MDN), Datenschutzfunktionen und iMail Secure Pro.

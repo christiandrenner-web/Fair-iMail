@@ -202,7 +202,10 @@ struct AccountSetupView: View {
         // Limits direkt die Paywall. Falls das Sheet trotzdem offen ist,
         // wird hier abgebrochen — kein Konto ohne Berechtigung.
         guard subscription.canAddAccount(currentCount: accountStore.accounts.count) else {
-            errorMessage = "Die kostenlose Version unterstützt ein Konto. iMail Secure Pro hebt die Beschränkung auf."
+            errorMessage = String(
+                localized: "account.error.limit",
+                defaultValue: "Die kostenlose Version unterstützt ein Konto. iMail Secure Pro hebt die Beschränkung auf."
+            )
             return
         }
 
@@ -226,7 +229,8 @@ struct AccountSetupView: View {
             // Passwort sicher im Keychain ablegen
             try account.savePassword(password)
             accountStore.add(account)
-            successMessage = "Konto gespeichert ✓ Passwort im Schlüsselbund."
+            successMessage = String(localized: "account.success.saved",
+                                   defaultValue: "Konto gespeichert ✓ Passwort im Schlüsselbund.")
             // Neues Konto sofort abgleichen, damit Ordner und Posteingang
             // ohne manuelles Aktualisieren erscheinen.
             Task {
@@ -235,7 +239,11 @@ struct AccountSetupView: View {
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { dismiss() }
         } catch {
-            errorMessage = "Keychain-Fehler: \(error.localizedDescription)"
+            errorMessage = String(
+                format: String(localized: "account.error.keychain",
+                               defaultValue: "Keychain-Fehler: %@"),
+                error.localizedDescription
+            )
         }
         isSaving = false
     }

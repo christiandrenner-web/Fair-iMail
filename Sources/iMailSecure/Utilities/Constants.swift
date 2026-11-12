@@ -12,7 +12,7 @@ enum AppConstants {
     static let supportEmail     = "chr.renner@mein.gmx"
     static let privacyPolicyURL = "https://christiandrenner-web.github.io/imailsecure-site/privacy.html"
     static let termsOfUseURL    = "https://christiandrenner-web.github.io/imailsecure-site/terms.html"
-    static let sourceCodeURL    = "https://github.com/christiandrenner-web/Fair-iMail"
+    static let sourceCodeURL    = "https://github.com/christiandrenner-web/iMailSecure"
 
     enum Keychain {
         static let service = "io.imailsecure.keychain"

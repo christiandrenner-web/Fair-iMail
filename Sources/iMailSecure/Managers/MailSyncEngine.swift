@@ -23,7 +23,9 @@ enum MailSyncError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .missingPassword: return "Kein Passwort gespeichert."
+        case .missingPassword:
+            return String(localized: "error.sync.missingPassword",
+                          defaultValue: "Kein Passwort gespeichert.")
         }
     }
 }
@@ -362,7 +364,8 @@ final class MailSyncEngine {
             from: EmailAddress(name: nil, address: senderAddress),
             to: toRecipients,
             cc: ccRecipients,
-            subject: msg.subject ?? "(kein Betreff)",
+            subject: msg.subject ?? String(localized: "message.noSubject",
+                                           defaultValue: "(kein Betreff)"),
             date: msg.date ?? Date(),
             body: body,
             htmlBody: htmlBody,

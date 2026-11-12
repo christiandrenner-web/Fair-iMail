@@ -92,7 +92,14 @@ struct MessageDetailView: View {
         }
         // Anhang-Aktions-Dialog
         .confirmationDialog(
-            selectedAttachment.map { "Anhang: \($0.filename)" } ?? "Anhang",
+            selectedAttachment.map {
+                String(
+                    format: String(localized: "detail.attachmentTitle",
+                                   defaultValue: "Anhang: %@"),
+                    $0.filename
+                )
+            } ?? String(localized: "detail.attachment",
+                        defaultValue: "Anhang"),
             isPresented: $showAttachmentSheet,
             titleVisibility: .visible
         ) {
@@ -186,8 +193,10 @@ struct MessageDetailView: View {
                           ? "exclamationmark.shield.fill" : "shield.lefthalf.filled")
                         .foregroundStyle(remoteContentAllowed ? .orange : .green)
                     Text(remoteContentAllowed
-                         ? "HTML-Ansicht · externe Inhalte geladen"
-                         : "HTML-Ansicht · externe Inhalte blockiert")
+                         ? String(localized: "detail.html.remoteLoaded",
+                                  defaultValue: "HTML-Ansicht · externe Inhalte geladen")
+                         : String(localized: "detail.html.remoteBlocked",
+                                  defaultValue: "HTML-Ansicht · externe Inhalte blockiert"))
                         .font(.caption2.bold())
                         .foregroundStyle(.secondary)
                     Spacer()
@@ -365,7 +374,7 @@ struct MessageDetailView: View {
                     .lineLimit(2)
             }
             if !message.cc.isEmpty {
-                Label("CC: " + message.cc.map(\.formatted).joined(separator: ", "), systemImage: "arrow.right")
+                Label(String(localized: "compose.cc") + ": " + message.cc.map(\.formatted).joined(separator: ", "), systemImage: "arrow.right")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
@@ -392,7 +401,12 @@ struct MessageDetailView: View {
         let nameDomain    = etld(lowerName.components(separatedBy: "/").first ?? lowerName)
         let addressDomain = etld(senderDomain)
         if nameDomain != addressDomain {
-            return "Anzeigename („\(displayName)“) passt nicht zur Absender-Domain (\(senderDomain))."
+            return String(
+                format: String(localized: "detail.warning.spoofed",
+                               defaultValue: "Anzeigename („%@“) passt nicht zur Absender-Domain (%@)."),
+                displayName,
+                senderDomain
+            )
         }
         return nil
     }
@@ -507,7 +521,9 @@ struct MessageDetailView: View {
                     .union(CharacterSet(charactersIn: ".-_"))
                     .inverted)
             .joined(separator: "_")
-        let fileName = safeName.isEmpty ? "Anhang" : safeName
+        let fileName = safeName.isEmpty
+            ? String(localized: "detail.attachment", defaultValue: "Anhang")
+            : safeName
 
         // 2. Eigener UUID-Unterordner verhindert Pfad-Kollisionen
         let tmpBase = FileManager.default.temporaryDirectory

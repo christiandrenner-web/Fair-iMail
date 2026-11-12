@@ -86,10 +86,7 @@ struct PaywallView: View {
                 .font(.caption.bold())
                 .foregroundStyle(.secondary)
 
-            ForEach(["Text- und HTML-Anzeige mit Blockierung externer Inhalte",
-                     "Tracking-Parameter entfernen, Links nur nach Bestätigung",
-                     "TLS mit Zertifikat-Pinning, Passwörter im Keychain",
-                     "Kein Tracking, keine Telemetrie, keine Werbung"], id: \.self) { item in
+            ForEach(Self.freeFeatures, id: \.self) { item in
                 HStack(alignment: .top, spacing: 8) {
                     Image(systemName: "checkmark")
                         .font(.caption.bold())
@@ -180,16 +177,49 @@ struct PaywallView: View {
     private func trialLabel(for product: Product) -> String? {
         guard let offer = product.subscription?.introductoryOffer else { return nil }
         let period = offer.period
-        let unit: String
+
+        let components: DateComponents
+        let unit: NSCalendar.Unit
         switch period.unit {
-        case .day:   unit = period.value == 1 ? "Tag"   : "Tage"
-        case .week:  unit = period.value == 1 ? "Woche" : "Wochen"
-        case .month: unit = period.value == 1 ? "Monat" : "Monate"
-        case .year:  unit = period.value == 1 ? "Jahr"  : "Jahre"
-        @unknown default: return "Testphase gratis"
+        case .day:   components = DateComponents(day: period.value);        unit = .day
+        case .week:  components = DateComponents(weekOfMonth: period.value); unit = .weekOfMonth
+        case .month: components = DateComponents(month: period.value);      unit = .month
+        case .year:  components = DateComponents(year: period.value);       unit = .year
+        @unknown default:
+            return String(localized: "paywall.trialFallback",
+                          defaultValue: "Testphase gratis")
         }
-        return "\(period.value) \(unit) gratis, danach automatisch"
+
+        // DateComponentsFormatter bildet die Mehrzahl in jeder Sprache richtig
+        // („1 Tag", „7 Tage", „7 дней", „7 gün").
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .full
+        formatter.allowedUnits = unit
+        formatter.maximumUnitCount = 1
+        guard let amount = formatter.string(from: components) else {
+            return String(localized: "paywall.trialFallback",
+                          defaultValue: "Testphase gratis")
+        }
+        return String(
+            format: String(localized: "paywall.trial",
+                           defaultValue: "%@ gratis, danach automatisch"),
+            amount
+        )
     }
+
+    /// Was in der Gratisversion bleibt. Bewusst als Eigenschaft, damit die
+    /// Texte über `String(localized:)` übersetzt werden — ein Array aus
+    /// String-Literalen würde SwiftUI unübersetzt anzeigen.
+    private static let freeFeatures: [String] = [
+        String(localized: "paywall.free.html",
+               defaultValue: "Text- und HTML-Anzeige mit Blockierung externer Inhalte"),
+        String(localized: "paywall.free.links",
+               defaultValue: "Tracking-Parameter entfernen, Links nur nach Bestätigung"),
+        String(localized: "paywall.free.tls",
+               defaultValue: "TLS mit Zertifikat-Pinning, Passwörter im Keychain"),
+        String(localized: "paywall.free.noTracking",
+               defaultValue: "Kein Tracking, keine Telemetrie, keine Werbung")
+    ]
 
     // MARK: – Wiederherstellen
 

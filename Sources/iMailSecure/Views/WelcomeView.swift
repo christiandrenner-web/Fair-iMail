@@ -25,10 +25,18 @@ struct WelcomeView: View {
 
             // Features
             VStack(alignment: .leading, spacing: 16) {
-                featureRow("Kein Tracking, keine Werbung", icon: "hand.raised.fill", color: .green)
-                featureRow("Lesebestätigungen (MDN/RFC 8098)", icon: "checkmark.seal.fill", color: .blue)
-                featureRow("Passwörter im Keychain gespeichert", icon: "lock.fill", color: .orange)
-                featureRow("Quellcode einsehbar, nicht kommerziell", icon: "chevron.left.forwardslash.chevron.right", color: .purple)
+                featureRow(String(localized: "welcome.feature.noTracking",
+                                  defaultValue: "Kein Tracking, keine Werbung"),
+                           icon: "hand.raised.fill", color: .green)
+                featureRow(String(localized: "welcome.feature.mdn",
+                                  defaultValue: "Lesebestätigungen (MDN/RFC 8098)"),
+                           icon: "checkmark.seal.fill", color: .blue)
+                featureRow(String(localized: "welcome.feature.keychain",
+                                  defaultValue: "Passwörter im Keychain gespeichert"),
+                           icon: "lock.fill", color: .orange)
+                featureRow(String(localized: "welcome.feature.source",
+                                  defaultValue: "Quellcode einsehbar, nicht kommerziell"),
+                           icon: "chevron.left.forwardslash.chevron.right", color: .purple)
             }
             .padding(.horizontal)
 

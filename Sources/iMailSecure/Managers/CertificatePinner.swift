@@ -33,21 +33,29 @@ enum PinningError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .noCertificate:
-            return "Kein TLS-Zertifikat vom Server erhalten."
+            return String(localized: "error.tls.noCertificate",
+                          defaultValue: "Kein TLS-Zertifikat vom Server erhalten.")
         case .probeTimeout:
-            return "TLS-Probe zum Server hat das Zeitlimit überschritten."
+            return String(localized: "error.tls.timeout",
+                          defaultValue: "TLS-Probe zum Server hat das Zeitlimit überschritten.")
         case let .fingerprintMismatch(host, port, stored, received):
-            return """
-            ⚠️ Zertifikat-Fingerabdruck für \(host):\(port) hat sich geändert!
+            return String(
+                format: String(
+                    localized: "error.tls.fingerprintMismatch",
+                    defaultValue: """
+                    ⚠️ Zertifikat-Fingerabdruck für %1$@:%2$lld hat sich geändert!
 
-            Gespeichert: \(stored.prefix(23))…
-            Aktuell:     \(received.prefix(23))…
+                    Gespeichert: %3$@…
+                    Aktuell:     %4$@…
 
-            Das kann auf einen Man-in-the-Middle-Angriff hinweisen. \
-            Die Verbindung wurde abgebrochen. \
-            Wenn du das Zertifikat neu vertrauen möchtest, tippe unter \
-            Einstellungen → Konto → „Zertifikat zurücksetzen" auf den Server.
-            """
+                    Das kann auf einen Man-in-the-Middle-Angriff hinweisen. Die Verbindung wurde abgebrochen. Wenn du dem Zertifikat neu vertrauen möchtest, tippe unter Einstellungen → Konto → „Zertifikat zurücksetzen“ auf den Server.
+                    """
+                ),
+                host,
+                port,
+                String(stored.prefix(23)),
+                String(received.prefix(23))
+            )
         }
     }
 }

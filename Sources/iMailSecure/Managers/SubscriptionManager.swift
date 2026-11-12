@@ -98,7 +98,8 @@ final class SubscriptionManager: ObservableObject {
             products = loaded.sorted { $0.price < $1.price }
         } catch {
             products = []
-            message = "Preise konnten nicht geladen werden."
+            message = String(localized: "subscription.error.load",
+                             defaultValue: "Preise konnten nicht geladen werden.")
         }
     }
 
@@ -123,7 +124,11 @@ final class SubscriptionManager: ObservableObject {
                 break
             }
         } catch {
-            message = "Kauf fehlgeschlagen: \(error.localizedDescription)"
+            message = String(
+                format: String(localized: "subscription.error.purchase",
+                               defaultValue: "Kauf fehlgeschlagen: %@"),
+                error.localizedDescription
+            )
         }
     }
 
@@ -131,9 +136,14 @@ final class SubscriptionManager: ObservableObject {
         do {
             try await AppStore.sync()
             await refreshEntitlements()
-            message = isPro ? "Kauf wiederhergestellt." : "Kein aktives Abo gefunden."
+            message = isPro
+                ? String(localized: "subscription.message.restored",
+                         defaultValue: "Kauf wiederhergestellt.")
+                : String(localized: "subscription.message.none",
+                         defaultValue: "Kein aktives Abo gefunden.")
         } catch {
-            message = "Wiederherstellen fehlgeschlagen."
+            message = String(localized: "subscription.error.restore",
+                             defaultValue: "Wiederherstellen fehlgeschlagen.")
         }
     }
 

@@ -96,8 +96,13 @@ struct InboxView: View {
             systemImage: "tray",
             description: Text(
                 vm.searchText.isEmpty
-                    ? "In diesem Ordner liegen keine E-Mails."
-                    : "Keine Treffer für „\(vm.searchText)“."
+                    ? String(localized: "inbox.empty.folder",
+                             defaultValue: "In diesem Ordner liegen keine E-Mails.")
+                    : String(
+                        format: String(localized: "inbox.empty.search",
+                                       defaultValue: "Keine Treffer für „%@“."),
+                        vm.searchText
+                      )
             )
         )
     }

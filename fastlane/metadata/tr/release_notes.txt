@@ -1,0 +1,1 @@
+İlk sürüm: IMAP/SMTP, tüm sunucu klasörleri, okundu bilgileri (MDN), gizlilik özellikleri ve iMail Secure Pro.

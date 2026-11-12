@@ -1,0 +1,1 @@
+Première version : IMAP/SMTP, tous les dossiers du serveur, accusés de lecture (MDN), fonctions de confidentialité et iMail Secure Pro.

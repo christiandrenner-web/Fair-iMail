@@ -1,0 +1,1 @@
+e-posta,mail,IMAP,SMTP,gizlilik,izleme engelleme,okundu bilgisi,MDN,güvenli,anahtarlık

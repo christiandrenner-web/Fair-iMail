@@ -44,7 +44,7 @@ extension Date {
         if isToday {
             return formatted(date: .omitted, time: .shortened)
         } else if isYesterday {
-            return "Gestern"
+            return String(localized: "date.yesterday", defaultValue: "Gestern")
         } else {
             return formatted(date: .abbreviated, time: .omitted)
         }
