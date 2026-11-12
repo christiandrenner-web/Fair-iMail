@@ -299,6 +299,45 @@ struct IMAPProbe {
         head("Abmelden")
         try? await server.logout()
         say("  ✅ Verbindung geschlossen")
+
+        if CommandLine.arguments.contains("--smtp") {
+            await smtpTests(credentials: credentials)
+        }
+    }
+
+    // MARK: – SMTP-Versand
+
+    /// Prüft den Versandpfad mit denselben Zugangsdaten. Sendet eine
+    /// Testnachricht an das eigene Konto (Gmail: 587 STARTTLS, 465 implizit).
+    static func smtpTests(credentials: Credentials) async {
+        head("SMTP-Versand")
+
+        let host = ProcessInfo.processInfo.environment["SMTP_HOST"] ?? "smtp.gmail.com"
+        let port = Int(ProcessInfo.processInfo.environment["SMTP_PORT"] ?? "587") ?? 587
+        let transport: MailTransportSecurity = port == 465 ? .implicitTLS : .startTLS
+
+        let sender = EmailAddress(name: "iMail Secure Test", address: credentials.user)
+        let email = Email(
+            sender: sender,
+            recipients: [sender],
+            subject: "iMail Secure SMTP-Test \(Int(Date().timeIntervalSince1970))",
+            textBody: "Automatischer Test des Versandpfads. Diese Nachricht kann gelöscht werden."
+        )
+
+        let server = SMTPServer(host: host, port: port, transportSecurity: transport)
+        do {
+            try await server.connect()
+            say("  ✅ Verbindung aufgebaut (\(host):\(port), "
+                + "\(port == 465 ? "implizites TLS" : "STARTTLS"))")
+            try await server.login(username: credentials.user, password: credentials.password)
+            say("  ✅ Anmeldung akzeptiert")
+            _ = try await server.sendEmail(email)
+            say("  ✅ Testnachricht an \(credentials.user) übergeben")
+            try? await server.disconnect()
+            check(true, "SMTP-Versand erfolgreich")
+        } catch {
+            check(false, "SMTP-Versand fehlgeschlagen", detail: String(describing: error))
+        }
     }
 
     // MARK: – Schreibtest

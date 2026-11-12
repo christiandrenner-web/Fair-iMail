@@ -19,6 +19,9 @@ import SwiftMail
 enum MailFolderRole: String, CaseIterable, Codable, Sendable {
     case inbox
     case flagged
+    /// „Wichtig" (RFC 8457 \Important, z. B. Gmail). Bewusst getrennt von
+    /// „Markiert": Gmail führt beide Ordner parallel.
+    case important
     case drafts
     case sent
     case archive
@@ -35,6 +38,8 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
             return String(localized: "folder.inbox", defaultValue: "Posteingang")
         case .flagged:
             return String(localized: "folder.flagged", defaultValue: "Markiert")
+        case .important:
+            return String(localized: "folder.important", defaultValue: "Wichtig")
         case .drafts:
             return String(localized: "folder.drafts", defaultValue: "Entwürfe")
         case .sent:
@@ -55,15 +60,16 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
     /// Systemordner zuerst, eigene Ordner zuletzt.
     var sortOrder: Int {
         switch self {
-        case .inbox:   return 0
-        case .flagged: return 1
-        case .drafts:  return 2
-        case .sent:    return 3
-        case .archive: return 4
-        case .all:     return 5
-        case .junk:    return 6
-        case .trash:   return 7
-        case .custom:  return 8
+        case .inbox:     return 0
+        case .flagged:   return 1
+        case .important: return 2
+        case .drafts:    return 3
+        case .sent:      return 4
+        case .archive:   return 5
+        case .all:       return 6
+        case .junk:      return 7
+        case .trash:     return 8
+        case .custom:    return 9
         }
     }
 
@@ -89,6 +95,7 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
         if attributes.contains(.archive) { return .archive }
         if attributes.contains(.all)     { return .all }
         if attributes.contains(.flagged) { return .flagged }
+        if attributes.contains(.important) { return .important }
 
         let candidates = nameCandidates(name: name, delimiter: delimiter)
         if candidates.contains(where: inboxNames.contains)   { return .inbox }
@@ -99,6 +106,7 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
         if candidates.contains(where: archiveNames.contains) { return .archive }
         if candidates.contains(where: allNames.contains)     { return .all }
         if candidates.contains(where: flaggedNames.contains) { return .flagged }
+        if candidates.contains(where: importantNames.contains) { return .important }
         return .custom
     }
 
@@ -144,7 +152,11 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
     ]
 
     private static let flaggedNames: Set<String> = [
-        "flagged", "starred", "markiert", "wichtig"
+        "flagged", "starred", "markiert"
+    ]
+
+    private static let importantNames: Set<String> = [
+        "important", "wichtig"
     ]
 
     private static let allNames: Set<String> = [
@@ -237,7 +249,7 @@ struct MailFolder: Identifiable, Hashable, Sendable {
 
     /// Die Attribute, die einen Systemordner auszeichnen (RFC 6154).
     static let specialUseAttributes: Mailbox.Info.Attributes = [
-        .inbox, .sent, .drafts, .trash, .junk, .archive, .flagged, .all
+        .inbox, .sent, .drafts, .trash, .junk, .archive, .flagged, .all, .important
     ]
 
     /// Wählt unter mehreren Ordnern derselben Rolle den vom Server

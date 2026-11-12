@@ -40,6 +40,7 @@ Alternativ Umgebungsvariablen `IMAP_HOST`, `IMAP_PORT`, `IMAP_USER`,
 cd Tools/IMAPProbe
 swift run IMAPProbe            # nur lesen
 swift run IMAPProbe --write    # zusätzlich Schreibtest
+swift run IMAPProbe --smtp     # zusätzlich SMTP-Versand (Testmail an das eigene Konto)
 ```
 
 ## Was geprüft wird
@@ -58,6 +59,13 @@ swift run IMAPProbe --write    # zusätzlich Schreibtest
 - Testnachricht per APPEND schreiben
 - MOVE in den Papierkorb, neue UID über COPYUID prüfen
 - Testnachricht per `STORE \Deleted` + `UID EXPUNGE` entfernen
+
+**Versand (`--smtp`)**
+
+- Verbindung zum SMTP-Server (587 STARTTLS bzw. 465 implizites TLS,
+  überschreibbar per `SMTP_HOST`/`SMTP_PORT`)
+- Anmeldung mit denselben Zugangsdaten
+- Testnachricht an das eigene Konto senden
 - Testordner löschen und Vollständigkeit prüfen
 
 Der Schreibtest fasst ausschließlich Ordner mit dem Präfix `iMail-Test-` an.

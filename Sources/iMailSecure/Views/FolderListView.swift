@@ -237,6 +237,7 @@ struct FolderListView: View {
         switch role {
         case .inbox:   return "tray.fill"
         case .flagged: return "flag.fill"
+        case .important: return "exclamationmark.circle.fill"
         case .drafts:  return "doc.text.fill"
         case .sent:    return "paperplane.fill"
         case .archive: return "archivebox.fill"

@@ -20,7 +20,8 @@ final class MailFolderTests: XCTestCase {
             (.junk, .junk),
             (.archive, .archive),
             (.all, .all),
-            (.flagged, .flagged)
+            (.flagged, .flagged),
+            (.important, .important)
         ]
 
         for (attributes, expected) in cases {
@@ -53,6 +54,7 @@ final class MailFolderTests: XCTestCase {
         XCTAssertEqual(role(for: "Spam"), .junk)
         XCTAssertEqual(role(for: "Archiv"), .archive)
         XCTAssertEqual(role(for: "Markiert"), .flagged)
+        XCTAssertEqual(role(for: "Wichtig"), .important)
     }
 
     func testEnglishNamesAreCaseInsensitive() {

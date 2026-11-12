@@ -8,7 +8,7 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 ## Offen (max. 5, nach Schwere)
 | # | Datei:Zeile | Symptom | Soll | Status |
 |---|---|---|---|---|
-| 1 | — | Gmail-Login blockiert: `Invalid credentials` (App-Passwort fehlt), SMTP ungetestet | Google-App-Passwort erzeugen, IMAP im Konto aktivieren, dann `IMAPProbe --env gmail-test.env` | offen |
+| 1 | `MailSyncEngine` | Gmail-Labels und Deduplizierung über `listID` noch nicht real geprüft | mit dem Testkonto Labels/MOVE verifizieren | offen |
 | 2 | `imailsecure-site/terms.html` | Nutzungsbedingungen sind Entwurf, nicht anwaltlich geprüft | juristisch prüfen lassen, dann Badge + Hinweiskasten entfernen | Entwurf veröffentlicht |
 | 3 | App Store Connect | Produkte, Abo-Gruppe, 7-Tage-Offer und eigene EULA fehlen | mit Apple-Developer-Account anlegen | offen |
 | 5 | `imailsecure-site/*.html` | Website-Rechtstexte nur auf Deutsch | ES/FR/RU/TR ergänzen, wenn die Store-Einträge live gehen | offen |
@@ -19,6 +19,13 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 - L1 Lizenz: entschieden (PolyForm Noncommercial 1.0.0), juristische Prüfung steht aus
 
 ## Zuletzt erledigt
+- 2026-11-12 Gmail-End-to-End bestanden (`mailprivacy.imail@gmail.com`, App-Passwort):
+  TLS 1.2, Login, 9 Ordner, 5 Nachrichten, Anlegen/Umbenennen/Löschen mit Umlaut,
+  APPEND, MOVE in `[Gmail]/Papierkorb`, UID EXPUNGE, keine Testordner zurück
+- 2026-11-12 SMTP-Versand real bestätigt (`Tools/IMAPProbe --smtp`, 587 STARTTLS)
+- 2026-11-12 Fehler gefunden und behoben: `[Gmail]/Wichtig` (\Important) wurde als
+  „Markiert" erkannt; neue Rolle `.important` („Wichtig") statt Namens-Fallback
+  auf `flagged`, 121 Tests grün
 - 2026-11-12 Oberfläche in sechs Sprachen: `Localizable.xcstrings` (227 Einträge,
   Quellsprache Deutsch) und `InfoPlist.xcstrings` (Face-ID-Text, Anzeigename).
   Alle Modell- und Fehlertexte laufen über `String(localized:)`; Build enthält
