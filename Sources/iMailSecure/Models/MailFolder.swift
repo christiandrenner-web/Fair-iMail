@@ -64,6 +64,9 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
         attributes: Mailbox.Info.Attributes,
         delimiter: String?
     ) -> MailFolderRole {
+        // Servernamen sind modified UTF-7: „Entw&APw-rfe" ist „Entwürfe".
+        // Der Namens-Fallback muss deshalb den lesbaren Namen vergleichen.
+        let name = ModifiedUTF7.decode(name)
         if attributes.contains(.inbox)   { return .inbox }
         if attributes.contains(.sent)    { return .sent }
         if attributes.contains(.drafts)  { return .drafts }
@@ -112,12 +115,12 @@ enum MailFolderRole: String, CaseIterable, Codable, Sendable {
 
     private static let trashNames: Set<String> = [
         "trash", "trash bin", "deleted", "deleted items", "deleted messages",
-        "papierkorb", "gelöschte objekte", "gelöschte elemente"
+        "papierkorb", "gelöscht", "gelöschte objekte", "gelöschte elemente"
     ]
 
     private static let junkNames: Set<String> = [
         "junk", "junk e-mail", "junk email", "spam", "bulk mail",
-        "unerwünscht", "unerwünschte post"
+        "unerwünscht", "unerwünschte post", "spamverdacht"
     ]
 
     private static let archiveNames: Set<String> = [
@@ -137,6 +140,10 @@ struct MailFolder: Identifiable, Hashable, Sendable {
     let role: MailFolderRole
     let delimiter: String?
     let isSelectable: Bool
+    /// Ob die Rolle aus einem Special-Use-Attribut des Servers stammt.
+    /// GMX führt alte und neue Systemordner parallel („Trash" und
+    /// „Gelöscht"); bei Gleichstand gewinnt die markierte Fassung.
+    let hasSpecialUse: Bool
 
     var id: String { name }
 
@@ -145,12 +152,20 @@ struct MailFolder: Identifiable, Hashable, Sendable {
 
     var displayName: String {
         guard role == .custom else { return role.displayName }
-        guard let delimiter, !delimiter.isEmpty else { return name }
-        return name.replacingOccurrences(of: delimiter, with: " › ")
+        guard let delimiter, !delimiter.isEmpty else { return readableName }
+        return readableName.replacingOccurrences(of: delimiter, with: " › ")
     }
+
+    /// Servername als lesbarer Text. Der rohe `name` bleibt unverändert,
+    /// weil jede IMAP-Aktion exakt die Bytes des Servers braucht.
+    var readableName: String { ModifiedUTF7.decode(name) }
+
+    /// Letztes Segment als lesbarer Text — für Umbenennen und Duplikate.
+    var readableLeafName: String { ModifiedUTF7.decode(leafName()) }
 
     /// Letztes Segment des Servernamens. Wird beim Umbenennen angezeigt,
     /// damit der Nutzer nicht den kompletten Pfad bearbeiten muss.
+    /// Rohes letztes Pfadsegment — so, wie der Server es erwartet.
     func leafName(delimiter: String? = nil) -> String {
         let delimiter = delimiter ?? self.delimiter
         guard let delimiter, !delimiter.isEmpty else { return name }
@@ -162,11 +177,13 @@ struct MailFolder: Identifiable, Hashable, Sendable {
     func renamedPath(to leaf: String, delimiter: String? = nil) throws -> String {
         let delimiter = delimiter ?? self.delimiter
         let validatedLeaf = try MailFolder.validatedName(leaf, delimiter: delimiter)
-        guard let delimiter, !delimiter.isEmpty else { return validatedLeaf }
+        // Der Server erwartet modified UTF-7; der Nutzer tippt Klartext.
+        let encodedLeaf = ModifiedUTF7.encode(validatedLeaf)
+        guard let delimiter, !delimiter.isEmpty else { return encodedLeaf }
 
         var components = name.components(separatedBy: delimiter)
-        guard !components.isEmpty else { return validatedLeaf }
-        components[components.count - 1] = validatedLeaf
+        guard !components.isEmpty else { return encodedLeaf }
+        components[components.count - 1] = encodedLeaf
         return components.joined(separator: delimiter)
     }
 
@@ -174,12 +191,14 @@ struct MailFolder: Identifiable, Hashable, Sendable {
         name: String,
         role: MailFolderRole,
         delimiter: String? = nil,
-        isSelectable: Bool = true
+        isSelectable: Bool = true,
+        hasSpecialUse: Bool = false
     ) {
         self.name = name
         self.role = role
         self.delimiter = delimiter
         self.isSelectable = isSelectable
+        self.hasSpecialUse = hasSpecialUse
     }
 
     init(info: Mailbox.Info) {
@@ -191,6 +210,24 @@ struct MailFolder: Identifiable, Hashable, Sendable {
         )
         self.delimiter = info.hierarchyDelimiter
         self.isSelectable = info.isSelectable
+        self.hasSpecialUse = MailFolder.specialUseAttributes
+            .intersection(info.attributes)
+            .isEmpty == false
+    }
+
+    /// Die Attribute, die einen Systemordner auszeichnen (RFC 6154).
+    static let specialUseAttributes: Mailbox.Info.Attributes = [
+        .inbox, .sent, .drafts, .trash, .junk, .archive, .flagged, .all
+    ]
+
+    /// Wählt unter mehreren Ordnern derselben Rolle den vom Server
+    /// ausgezeichneten. Ohne Attribut bleibt die erste Fundstelle.
+    static func preferred(
+        role: MailFolderRole,
+        in folders: [MailFolder]
+    ) -> MailFolder? {
+        let matches = folders.filter { $0.role == role }
+        return matches.first(where: \.hasSpecialUse) ?? matches.first
     }
 
     // MARK: Sortierung

@@ -1,0 +1,1 @@
+../../../../Sources/iMailSecure/Models/MailFolder.swift

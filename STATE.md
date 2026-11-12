@@ -1,5 +1,5 @@
 # STATE — iMail Secure
-Stand: 2026-11-12 · Branch: `main` · Letzter Code-Commit: `240bf3d` · Build: **SUCCEEDED**
+Stand: 2026-11-12 · Branch: `main` · Letzter Code-Commit: `d89c02d` · Build: **SUCCEEDED**
 
 ## Ziel
 App-Store-fähige Version: echte IMAP-Ordner, Datenschutz nach D2, Free/Pro ohne
@@ -8,7 +8,7 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 ## Offen (max. 5, nach Schwere)
 | # | Datei:Zeile | Symptom | Soll | Status |
 |---|---|---|---|---|
-| 1 | — | Kein echter IMAP-End-to-End-Test mit realem Konto | Ordnerliste, Ordnerwechsel, Anlegen/Umbenennen/Löschen, MOVE in Papierkorb, Gmail-Labels prüfen | offen |
+| 1 | — | Gmail-Labels und SMTP-Versand nicht real getestet (GMX-IMAP bestanden) | Gmail-Konto mit `All Mail`/Labels prüfen, Testmail über SMTP senden | offen |
 | 2 | `imailsecure-site/terms.html` | Nutzungsbedingungen sind Entwurf, nicht anwaltlich geprüft | juristisch prüfen lassen, dann Badge + Hinweiskasten entfernen | Entwurf veröffentlicht |
 | 3 | App Store Connect | Produkte, Abo-Gruppe, 7-Tage-Offer und eigene EULA fehlen | mit Apple-Developer-Account anlegen | offen |
 | 4 | `~/.config/opencode/opencode.jsonc` | OpenRouter-Guthaben 0 (Key-Limit 100 ist kein Guthaben) | aufladen oder DeepSeek-Ausfall akzeptieren | offen |
@@ -18,6 +18,9 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 - L1 Lizenz: entschieden (PolyForm Noncommercial 1.0.0), juristische Prüfung steht aus
 
 ## Zuletzt erledigt
+- 2026-11-12 Echter IMAP-Test gegen `imap.gmx.net` bestanden (Tools/IMAPProbe):
+  Ordner, Rollen, Umbenennen, MOVE, UID EXPUNGE. Dabei zwei Fehler gefunden und
+  behoben: modified UTF-7 in Ordnernamen und doppelte Systemordner bei GMX
 - 2026-11-12 `terms.html` entworfen und veröffentlicht (AGB, Abo, Widerruf, Lizenz);
   Entwurf gekennzeichnet, anwaltliche Prüfung offen
 - 2026-11-12 GitHub veröffentlicht: `Fair-iMail` + `imailsecure-site`, Pages live,

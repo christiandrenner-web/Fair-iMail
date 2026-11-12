@@ -47,7 +47,7 @@ struct FolderListView: View {
                                 .foregroundStyle(.secondary)
                         } else {
                             ForEach(folders) { folder in
-                                folderRow(folder, account: account)
+                                folderRow(folder, account: account, all: folders)
                             }
                         }
                     } header: {
@@ -154,7 +154,25 @@ struct FolderListView: View {
         )
     }
 
-    private func folderRow(_ folder: MailFolder, account: EmailAccount) -> some View {
+    /// GMX und andere Server führen alte und neue Systemordner parallel
+    /// („Trash" und „Gelöscht"). Ohne Zusatz stünden zwei Zeilen „Papierkorb"
+    /// untereinander; der Server-Name macht sichtbar, welche gemeint ist.
+    private func label(for folder: MailFolder, all: [MailFolder]) -> String {
+        guard folder.role.isSystem else { return folder.displayName }
+        let sameRole = all.filter { $0.role == folder.role }
+        guard sameRole.count > 1 else { return folder.displayName }
+        let leaf = folder.readableLeafName
+        guard leaf.caseInsensitiveCompare(folder.displayName) != .orderedSame else {
+            return folder.displayName
+        }
+        return "\(folder.displayName) (\(leaf))"
+    }
+
+    private func folderRow(
+        _ folder: MailFolder,
+        account: EmailAccount,
+        all: [MailFolder]
+    ) -> some View {
         let locked = folder.requiresPro && !subscription.canUse(.folderManagement)
         let selected = mailStore.selection == .folder(accountID: account.id, folder: folder)
 
@@ -167,7 +185,7 @@ struct FolderListView: View {
             dismiss()
         } label: {
             HStack {
-                Label(folder.displayName, systemImage: icon(for: folder.role))
+                Label(label(for: folder, all: all), systemImage: icon(for: folder.role))
                 Spacer()
                 if locked {
                     Image(systemName: "lock.fill")
@@ -333,7 +351,7 @@ struct RenameFolderView: View {
         self.folder = folder
         // Nur das letzte Segment bearbeiten: Ein verschachtelter Ordner
         // bleibt im selben Elternordner, statt nach oben zu wandern.
-        _name = State(initialValue: folder.leafName())
+        _name = State(initialValue: folder.readableLeafName)
     }
 
     private var trimmedName: String {

@@ -461,4 +461,33 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
 
 ---
 
+## Änderungen 2026-11-12 (OpenCode, echter IMAP-Test)
+
+Test gegen `imap.gmx.net` mit einem realen Konto, über
+`Tools/IMAPProbe` (nutzt SwiftMail 1.16.0 und `MailFolder.swift` per Symlink).
+
+**Bestanden:** TLS, Anmeldung, Ordnerliste, Rollenerkennung, Nachrichtenladen
+(Betreff/Absender/Datum), Anlegen, verschachteln, umbenennen, löschen,
+APPEND, MOVE in den Papierkorb, UID EXPUNGE.
+
+**Dabei gefundene Fehler:**
+
+1. **Ordnernamen waren modified UTF-7.** `Mailbox.Info.name` liefert die rohen
+   Bytes; `Entw&APw-rfe` stand so in der Liste, und ein eingegebener Name mit
+   Umlaut ging als UTF-8 an den Server. Neu: `Utilities/ModifiedUTF7.swift`
+   dekodiert für Anzeige und Rollen-Fallback und kodiert vor
+   `CREATE`/`RENAME`. Der rohe Name bleibt für alle IMAP-Befehle erhalten.
+2. **Doppelte Systemordner.** GMX führt `Drafts`/`Entw&APw-rfe`,
+   `Sent`/`Gesendet`, `Trash`/`Gel&APY-scht` parallel. `MailFolder` merkt sich
+   jetzt `hasSpecialUse`; `MailFolder.preferred` wählt für Rollenabfragen den
+   ausgezeichneten Ordner, die Liste hängt bei Duplikaten den Servernamen an.
+   Ohne diese Regel konnte „Löschen" im leeren `Trash` statt im gefüllten
+   `Gel&APY-scht` landen.
+3. **Namens-Fallback kannte „Gelöscht" nicht.** `trashNames` ergänzt
+   `gelöscht`, `junkNames` ergänzt `spamverdacht` (GMX-Bezeichnungen).
+
+**119 Tests, 0 Fehler** (10 neue: 6 `ModifiedUTF7Tests`, 4 in `MailFolderTests`).
+
+**Nicht abgedeckt:** Gmail-Labels, SMTP-Versand, Keychain/StoreKit auf Gerät.
+
 *Letzte Aktualisierung: 2026-11-12 (OpenCode) — siehe Änderungsprotokoll oben*

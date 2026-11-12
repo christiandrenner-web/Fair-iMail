@@ -186,6 +186,58 @@ final class MailFolderTests: XCTestCase {
         XCTAssertFalse(MailFolder(name: "Projekte", role: .custom).role.isSystem)
     }
 
+    // MARK: – Modified UTF-7 (echte GMX-Namen)
+
+    func testRoleFallbackUsesDecodedName() {
+        // Ohne Special-Use-Attribut muss der lesbare Name entscheiden.
+        XCTAssertEqual(
+            MailFolderRole.detect(name: "Entw&APw-rfe", attributes: [], delimiter: "/"),
+            .drafts
+        )
+        XCTAssertEqual(
+            MailFolderRole.detect(name: "Gel&APY-scht", attributes: [], delimiter: "/"),
+            .trash
+        )
+    }
+
+    func testDisplayNameDecodesServerName() {
+        let folder = MailFolder(
+            name: "Projekte/Pr&APw-fung",
+            role: .custom,
+            delimiter: "/"
+        )
+        XCTAssertEqual(folder.name, "Projekte/Pr&APw-fung")
+        XCTAssertEqual(folder.readableName, "Projekte/Prüfung")
+        XCTAssertEqual(folder.displayName, "Projekte › Prüfung")
+        XCTAssertEqual(folder.readableLeafName, "Prüfung")
+    }
+
+    func testRenamingEncodesUmlautsForServer() throws {
+        let folder = MailFolder(
+            name: "Projekte/Pr&APw-fung",
+            role: .custom,
+            delimiter: "/"
+        )
+        XCTAssertEqual(try folder.renamedPath(to: "Planung"), "Projekte/Planung")
+        // Servername muss kodiert zurückgehen, nicht als UTF-8.
+        XCTAssertEqual(try folder.renamedPath(to: "Prüfung"), "Projekte/Pr&APw-fung")
+    }
+
+    func testPreferredFolderUsesSpecialUseFlag() {
+        let alias = MailFolder(name: "Trash", role: .trash, hasSpecialUse: false)
+        let canonical = MailFolder(name: "Gel&APY-scht", role: .trash, hasSpecialUse: true)
+
+        XCTAssertEqual(
+            MailFolder.preferred(role: .trash, in: [alias, canonical])?.name,
+            "Gel&APY-scht"
+        )
+        XCTAssertEqual(
+            MailFolder.preferred(role: .trash, in: [alias])?.name,
+            "Trash"
+        )
+        XCTAssertNil(MailFolder.preferred(role: .sent, in: [alias]))
+    }
+
     // MARK: – Namensvalidierung
 
     func testValidNameIsTrimmed() throws {

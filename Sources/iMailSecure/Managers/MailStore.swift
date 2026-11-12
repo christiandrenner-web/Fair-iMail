@@ -167,8 +167,11 @@ final class MailStore: ObservableObject {
         foldersByAccount[accountID] ?? []
     }
 
+    /// Bevorzugt den vom Server ausgezeichneten Ordner. GMX führt alte und
+    /// neue Systemordner parallel („Trash" und „Gelöscht"); ohne diese Regel
+    /// landet eine gelöschte Mail je nach Reihenfolge im falschen Papierkorb.
     func folder(for accountID: UUID, role: MailFolderRole) -> MailFolder? {
-        foldersByAccount[accountID]?.first { $0.role == role }
+        MailFolder.preferred(role: role, in: foldersByAccount[accountID] ?? [])
     }
 
     func folder(for accountID: UUID, name: String) -> MailFolder? {

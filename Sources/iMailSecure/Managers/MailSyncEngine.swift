@@ -113,18 +113,21 @@ final class MailSyncEngine {
             mailStore?.folderDelimiter(for: account.id)
         }
         let name = try MailFolder.validatedName(rawName, delimiter: delimiter)
+        // Der Nutzer tippt Klartext, der Server erwartet modified UTF-7.
+        let serverName = ModifiedUTF7.encode(name)
 
         let existing = await MainActor.run {
             mailStore?.folders(for: account.id) ?? []
         }
         guard !existing.contains(where: {
-            $0.name.caseInsensitiveCompare(name) == .orderedSame
+            $0.name.caseInsensitiveCompare(serverName) == .orderedSame
+                || $0.readableName.caseInsensitiveCompare(name) == .orderedSame
         }) else {
             throw MailFolderError.alreadyExists
         }
 
         let folders = try await withServer { server -> [MailFolder] in
-            try await server.createMailbox(name)
+            try await server.createMailbox(serverName)
             return try await listFolders(from: server)
         }
 
@@ -132,7 +135,7 @@ final class MailSyncEngine {
             mailStore?.setFolders(folders, for: account.id)
             mailStore?.lastSyncError = nil
         }
-        return folders.first { $0.name == name }
+        return folders.first { $0.name == serverName }
     }
 
     /// Benennt einen eigenen Ordner auf dem Server um. Der neue Name gilt nur
@@ -154,8 +157,10 @@ final class MailSyncEngine {
         let existing = await MainActor.run {
             mailStore?.folders(for: account.id) ?? []
         }
+        let readableNewName = ModifiedUTF7.decode(newName)
         guard !existing.contains(where: {
             $0.name.caseInsensitiveCompare(newName) == .orderedSame
+                || $0.readableName.caseInsensitiveCompare(readableNewName) == .orderedSame
         }) else {
             throw MailFolderError.alreadyExists
         }
