@@ -16,27 +16,42 @@ import Foundation
 enum Tier: String, Codable, CaseIterable, Comparable {
     case free
     case pro
+    case lifetime
 
     private var rank: Int {
         switch self {
-        case .free: return 0
-        case .pro:  return 1
+        case .free:     return 0
+        case .pro:      return 1
+        case .lifetime: return 2
         }
     }
 
     static func < (lhs: Tier, rhs: Tier) -> Bool { lhs.rank < rhs.rank }
+
+    /// Für UI: Lifetime optisch wie Pro, aber unterscheidbar.
+    var isEffectivelyPro: Bool { self >= .pro }
 }
 
 // MARK: – Produkte
 
 enum SubscriptionProduct {
-    static let monthly = "io.imailsecure.pro.monthly"
-    static let yearly  = "io.imailsecure.pro.yearly"
+    static let monthly   = "io.imailsecure.pro.monthly"
+    static let yearly    = "io.imailsecure.pro.yearly"
+    static let lifetime  = "io.imailsecure.pro.lifetime"
 
-    static let allIDs: Set<String> = [monthly, yearly]
+    static let subscriptionIDs: Set<String> = [monthly, yearly]
+    static let allIDs: Set<String> = [monthly, yearly, lifetime]
 
     static func isKnown(_ productID: String) -> Bool {
         allIDs.contains(productID)
+    }
+
+    static func isSubscription(_ productID: String) -> Bool {
+        subscriptionIDs.contains(productID)
+    }
+
+    static func isLifetime(_ productID: String) -> Bool {
+        productID == lifetime
     }
 
     /// Anzeigename, unabhängig davon, ob StoreKit gerade Produkte liefert.
@@ -46,6 +61,8 @@ enum SubscriptionProduct {
             return String(localized: "period.month", defaultValue: "Monat")
         case yearly:
             return String(localized: "period.year", defaultValue: "Jahr")
+        case lifetime:
+            return String(localized: "period.lifetime", defaultValue: "Einmalig")
         default:
             return ""
         }
@@ -130,7 +147,10 @@ enum Entitlement {
     ///
     /// Unbekannte Produkt-IDs werden ignoriert — ein fremdes Abo darf keine
     /// Pro-Freischaltung bewirken.
+    /// Lifetime (Non-Consumable) hat Vorrang vor Abo.
     static func tier(forActiveProductIDs productIDs: Set<String>) -> Tier {
-        productIDs.contains(where: SubscriptionProduct.isKnown) ? .pro : .free
+        if productIDs.contains(where: SubscriptionProduct.isLifetime) { return .lifetime }
+        if productIDs.contains(where: SubscriptionProduct.isSubscription) { return .pro }
+        return .free
     }
 }

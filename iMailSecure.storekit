@@ -4,7 +4,26 @@
 
   ],
   "products" : [
-
+    {
+      "displayPrice" : "39.99",
+      "familyShareable" : false,
+      "internalID" : "6D0F1B83",
+      "localizations" : [
+        {
+          "description" : "Einmalig zahlen, dauerhaft Pro — keine monatlichen Kosten.",
+          "displayName" : "iMail Secure Pro (Lifetime)",
+          "locale" : "de_DE"
+        },
+        {
+          "description" : "Pay once, use Pro forever — no recurring charges.",
+          "displayName" : "iMail Secure Pro (Lifetime)",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "io.imailsecure.pro.lifetime",
+      "referenceName" : "Pro Lifetime",
+      "type" : "NonConsumable"
+    }
   ],
   "settings" : {
     "_failTransactionsEnabled" : false,
@@ -29,8 +48,8 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "1.99",
-          "familyShareable" : false,
+          "displayPrice" : "2.99",
+          "familyShareable" : true,
           "groupNumber" : 1,
           "internalID" : "4B8D2F61",
           "introductoryOffer" : {
@@ -63,8 +82,8 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "17.99",
-          "familyShareable" : false,
+          "displayPrice" : "24.99",
+          "familyShareable" : true,
           "groupNumber" : 1,
           "internalID" : "5C9E3A72",
           "introductoryOffer" : {

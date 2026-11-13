@@ -133,22 +133,57 @@ struct PaywallView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
+
+            // Lifetime-Hinweis, falls bereits Lifetime gekauft
+            if subscription.tier == .lifetime {
+                HStack(spacing: 8) {
+                    Image(systemName: "crown.fill")
+                        .foregroundStyle(.yellow)
+                    Text(String(localized: "paywall.lifetime.active",
+                               defaultValue: "Du hast Lifetime-Zugang — einmalig gezahlt, dauerhaft Pro."))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .padding(10)
+                .background(Color.yellow.opacity(0.1), in: RoundedRectangle(cornerRadius: 8))
+            }
         }
     }
 
     private func planButton(_ product: Product) -> some View {
-        Button {
+        let isLifetime = SubscriptionProduct.isLifetime(product.id)
+        let isActiveLifetime = subscription.tier == .lifetime
+
+        return Button {
+            if isLifetime && isActiveLifetime { return }
             Task { await subscription.purchase(product) }
         } label: {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(product.displayName)
-                        .font(.subheadline.bold())
-                        .foregroundStyle(.primary)
-                    if let trial = trialLabel(for: product) {
+                    HStack(spacing: 6) {
+                        Text(product.displayName)
+                            .font(.subheadline.bold())
+                            .foregroundStyle(.primary)
+                        if isLifetime {
+                            Image(systemName: "crown.fill")
+                                .font(.caption)
+                                .foregroundStyle(.yellow)
+                        }
+                    }
+                    if isLifetime && isActiveLifetime {
+                        Text(String(localized: "paywall.lifetime.owned",
+                                   defaultValue: "Bereits gekauft"))
+                            .font(.caption)
+                            .foregroundStyle(.green)
+                    } else if let trial = trialLabel(for: product) {
                         Text(trial)
                             .font(.caption)
                             .foregroundStyle(.green)
+                    } else if isLifetime {
+                        Text(String(localized: "paywall.lifetime.onetime",
+                                   defaultValue: "Einmalig zahlen, dauerhaft nutzen"))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
                     } else {
                         Text("Jederzeit kündbar")
                             .font(.caption)
@@ -168,9 +203,10 @@ struct PaywallView: View {
             .padding(14)
             .background(Color(uiColor: .secondarySystemBackground),
                         in: RoundedRectangle(cornerRadius: 12))
+            .opacity(isLifetime && isActiveLifetime ? 0.6 : 1.0)
         }
         .buttonStyle(.plain)
-        .disabled(subscription.isPurchasing)
+        .disabled(subscription.isPurchasing || (isLifetime && isActiveLifetime))
     }
 
     /// „7 Tage gratis" nur, wenn Apple wirklich ein Introductory Offer liefert.

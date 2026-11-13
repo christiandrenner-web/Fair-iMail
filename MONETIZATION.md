@@ -12,7 +12,7 @@
 |---|---|
 | Modell | Freemium: dauerhaft nutzbare Gratisversion + Pro-Abo |
 | Testphase | **7 Tage gratis über Apples Introductory Offer** — kein eigener Trial-Code |
-| Preis | 1,99 €/Monat, 17,99 €/Jahr (Apple-Kleinstunternehmerprogramm: 15 % Provision) |
+| Preis | 2,99 €/Monat, 24,99 €/Jahr, **39,99 € Lifetime** (Apple-Kleinstunternehmer: 15 % Provision) |
 | Pro-Inhalt | Mehrere Konten, alle Server-Ordner, eigene Ordner anlegen/umbenennen/löschen, gemeinsamer Posteingang |
 | Nie Pro | Datenschutzfunktionen (siehe Leitsatz 11 in `AGENTS.md`) |
 | Technik | StoreKit 2, Prüfung auf dem Gerät, **kein Backend**, keine Drittanbieter-SDKs |
@@ -36,11 +36,14 @@ selbst, und die App kennt nur zwei Zustände: `free` oder `pro`. Der Code enthä
 Einzustellen in App Store Connect → Abonnements → Produkt → **Einführungsangebot**:
 Typ „Kostenlose Testphase", Dauer 1 Woche, für alle Neukunden.
 
+**Lifetime (neu):** Non-Consumable `io.imailsecure.pro.lifetime` 39,99 € anlegen.
+**Family Sharing:** In App Store Connect → Abonnement-Gruppe → „Familienfreigabe" aktivieren.
+
 ---
 
 ## 2. Free vs. Pro
 
-| Kostenlos, dauerhaft | Pro |
+| Kostenlos, dauerhaft | Pro / Lifetime |
 |---|---|
 | 1 Konto | beliebig viele Konten |
 | Posteingang und Systemordner (Gesendet, Entwürfe, Papierkorb, Spam, Archiv) | alle Server-Ordner einschließlich eigener |
@@ -50,6 +53,7 @@ Typ „Kostenlose Testphase", Dauer 1 Woche, für alle Neukunden.
 | Tracking-Parameter entfernen, Links bestätigen | |
 | TLS + Zertifikat-Pinning, Keychain | |
 | Anhänge, Suche im Posteingang, MDN | |
+| **Familienfreigabe** | ✅ (bis 5 Familienmitglieder) |
 
 **Ordnergrenze:** Systemordner bleiben frei, damit ein Konto auch ohne Abo vollständig
 nutzbar ist. Nur eigene Ordner und der gemeinsame Posteingang verlangen Pro. Eigene Ordner
@@ -85,6 +89,8 @@ PaywallView           erscheint nur am Ort des Bedarfs
   beim App-Start.
 - **Produkt-IDs:** `io.imailsecure.pro.monthly`, `io.imailsecure.pro.yearly`
   (eine Subscription Group, damit Jahres-/Monatsabo sich gegenseitig ablösen).
+- **Lifetime:** `io.imailsecure.pro.lifetime` (Non-Consumable, eigene Produkt-ID,
+  **nicht** in der Abo-Gruppe — einmalig kaufen, dauerhaft Pro).
 - **Testen ohne Developer-Account:** `iMailSecure.storekit` ist im Schema hinterlegt.
   Produkte, Kauf, Kündigung und Rückerstattung lassen sich im Simulator durchspielen.
 
@@ -99,19 +105,25 @@ PaywallView           erscheint nur am Ort des Bedarfs
 | `InboxView` / `MailStore.selection` | die Nachrichtenliste folgt der Ordnerauswahl |
 | `MainTabView` | fragt bei mehreren Konten, von welchem gesendet wird |
 
-### Verhalten beim Downgrade
+### Verhalten beim Downgrade / Lifetime
 
 Läuft das Abo aus, wird **nichts gelöscht**. Zusatzkonten bleiben gespeichert und lesbar,
 aber sie werden nicht mehr synchronisiert. Ordner und Nachrichten bleiben erhalten. Ein
 Abo-Ende darf nie Datenvernichtung bedeuten — das wäre ein Support-Alptraum und ein
 Review-Risiko.
 
+**Lifetime-Kauf** = dauerhaft `pro` Tier. Kein Ablauf, keine Wiederherstellung nötig
+(Non-Consumable bleibt in `Transaction.currentEntitlements`).
+
 ---
 
 ## 4. Pflichten im App Store
 
-1. **Produkte in App Store Connect** anlegen (Abo-Gruppe „iMail Secure Pro", zwei Laufzeiten),
-   Introductory Offer 1 Woche hinterlegen.
+1. **Produkte in App Store Connect** anlegen:
+   - Abo-Gruppe „iMail Secure Pro": `monthly` 2,99 €, `yearly` 24,99 €
+   - Introductory Offer 1 Woche hinterlegen
+   - **Non-Consumable**: `io.imailsecure.pro.lifetime` 39,99 €
+   - **Familienfreigabe** für die Abo-Gruppe aktivieren
 2. **Nutzungsbedingungen** (EULA) hinterlegen — sonst gilt Apples Standard-EULA und die
    Nicht-kommerziell-Klausel der PolyForm-Lizenz greift gegenüber App-Store-Nutzern nicht
    (siehe `LICENSING.md`, Abschnitt 3.1).
@@ -132,10 +144,9 @@ Review-Risiko.
 
 ## 5. Offen
 
-- [ ] Produkte + Introductory Offer in App Store Connect anlegen (braucht Developer-Account)
+- [x] Preise angehoben: 2,99 € / 24,99 € + Lifetime 39,99 €
+- [ ] Produkte + Introductory Offer + Lifetime in App Store Connect anlegen
+- [ ] Familienfreigabe in App Store Connect aktivieren
 - [x] `terms.html` entworfen und veröffentlicht (Entwurf, juristische Prüfung offen)
 - [ ] EULA in App Store Connect hinterlegen
-- [ ] Preise gegen den Markt prüfen (Wettbewerb: 1,99–4,99 €/Monat)
-- [ ] Entscheiden, ob Familienfreigabe für das Abo aktiviert wird
-- [ ] Prüfen, ob ein Lifetime-Kauf angeboten werden soll (deckt laufende Kosten nicht)
 - [ ] Steuer- und Bankdaten in App Store Connect hinterlegen (Voraussetzung für Auszahlung)
