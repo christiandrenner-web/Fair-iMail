@@ -75,8 +75,10 @@ Empfohlen: Simulator-Screenshots + [Previewed.app](https://previewed.app) für s
 Details und Begründung: `MONETIZATION.md`.
 
 - [ ] Abo-Gruppe **„iMail Secure Pro"** anlegen
-- [ ] Produkt `io.imailsecure.pro.monthly` — 1,99 €, Laufzeit 1 Monat
-- [ ] Produkt `io.imailsecure.pro.yearly` — 17,99 €, Laufzeit 1 Jahr
+- [ ] Produkt `io.imailsecure.pro.monthly` — 2,99 €, Laufzeit 1 Monat
+- [ ] Produkt `io.imailsecure.pro.yearly` — 24,99 €, Laufzeit 1 Jahr
+- [ ] Non-Consumable `io.imailsecure.pro.lifetime` — 39,99 €, einmalig
+- [ ] Familienfreigabe für Abo-Gruppe und Lifetime aktivieren
 - [ ] Einführungsangebot je Produkt: **kostenlose Testphase, 1 Woche**
       (Apple macht den Trial — die App enthält bewusst keine Trial-Logik)
 - [ ] Beide Produkte zum Review einreichen, Screenshot der Paywall beilegen
@@ -140,10 +142,10 @@ Store-Texte liegen fertig in `fastlane/metadata/`:
 
 Je Sprache: `name.txt`, `subtitle.txt`, `keywords.txt`, `description.txt`,
 `promotional_text.txt`, `release_notes.txt`, `support_url.txt`,
-`marketing_url.txt`, `privacy_url.txt`. Upload mit fastlane:
+`marketing_url.txt`, `privacy_url.txt`. Upload mit fastlane (einmalig `brew install fastlane`):
 
 ```bash
-fastlane deliver --skip_binary_upload --skip_screenshots
+fastlane run deliver --skip_binary_upload --skip_screenshots
 ```
 
 Ohne fastlane: Inhalte in App Store Connect → App-Informationen →

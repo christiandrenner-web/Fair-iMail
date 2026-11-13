@@ -37,7 +37,9 @@ Einzustellen in App Store Connect → Abonnements → Produkt → **Einführungs
 Typ „Kostenlose Testphase", Dauer 1 Woche, für alle Neukunden.
 
 **Lifetime (neu):** Non-Consumable `io.imailsecure.pro.lifetime` 39,99 € anlegen.
-**Family Sharing:** In App Store Connect → Abonnement-Gruppe → „Familienfreigabe" aktivieren.
+**Family Sharing:** In App Store Connect → Abonnement-Gruppe → „Familienfreigabe"
+aktivieren; für das Lifetime-Produkt zusätzlich beim Produkt selbst. Gilt für bis zu
+fünf Familienmitglieder, auch für den Einmalkauf.
 
 ---
 
@@ -53,7 +55,10 @@ Typ „Kostenlose Testphase", Dauer 1 Woche, für alle Neukunden.
 | Tracking-Parameter entfernen, Links bestätigen | |
 | TLS + Zertifikat-Pinning, Keychain | |
 | Anhänge, Suche im Posteingang, MDN | |
-| **Familienfreigabe** | ✅ (bis 5 Familienmitglieder) |
+
+**Familienfreigabe:** Pro-Abos und Lifetime lassen sich mit der Apple-Familie teilen
+(bis zu fünf Mitglieder). Das ist kein eigener Code: StoreKit liefert die geteilten
+Käufe über `Transaction.currentEntitlements`, die App behandelt sie wie eigene.
 
 **Ordnergrenze:** Systemordner bleiben frei, damit ein Konto auch ohne Abo vollständig
 nutzbar ist. Nur eigene Ordner und der gemeinsame Posteingang verlangen Pro. Eigene Ordner

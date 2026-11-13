@@ -7303,6 +7303,166 @@
         }
       }
     },
+    "paywall.legal.lifetime": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lifetime ist ein Einmalkauf: keine Verlängerung, keine wiederkehrenden Kosten."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lifetime is a one-time purchase: no renewal, no recurring charges."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lifetime es una compra única: sin renovación ni cargos recurrentes."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lifetime est un achat unique : pas de renouvellement, pas de frais récurrents."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lifetime — разовая покупка: без продления и повторных списаний."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ömür boyu, tek seferlik bir satın almadır: yenileme ve tekrarlayan ücret yok."
+          }
+        }
+      }
+    },
+    "paywall.lifetime.active": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du hast Lifetime-Zugang — einmalig gezahlt, dauerhaft Pro."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You have Lifetime access — paid once, Pro forever."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tienes acceso de por vida — pago único, Pro para siempre."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous avez un accès à vie — paiement unique, Pro pour toujours."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У вас пожизненный доступ — оплачено разово, Pro навсегда."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ömür boyu erişiminiz var — tek ödeme, sürekli Pro."
+          }
+        }
+      }
+    },
+    "paywall.lifetime.onetime": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einmalig zahlen, dauerhaft nutzen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pay once, use forever"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paga una vez, usa para siempre"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Payez une fois, utilisez pour toujours"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оплатите разово, используйте навсегда"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tek ödeyin, ömür boyu kullanın"
+          }
+        }
+      }
+    },
+    "paywall.lifetime.owned": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereits gekauft"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already purchased"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ya comprado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déjà acheté"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уже куплено"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zaten satın alındı"
+          }
+        }
+      }
+    },
     "paywall.trial": {
       "localizations": {
         "de": {
@@ -7379,6 +7539,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ücretsiz deneme"
+          }
+        }
+      }
+    },
+    "period.lifetime": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einmalig"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "lifetime"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "de por vida"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "à vie"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "навсегда"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tek seferlik"
           }
         }
       }
@@ -7948,37 +8148,37 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kein aktives Abo gefunden."
+            "value": "Kein aktiver Kauf gefunden."
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "No active subscription found."
+            "value": "No active purchase found."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "No se encontró ninguna suscripción activa."
+            "value": "No se encontró ninguna compra activa."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aucun abonnement actif trouvé."
+            "value": "Aucun achat actif trouvé."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Активная подписка не найдена."
+            "value": "Активная покупка не найдена."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Etkin abonelik bulunamadı."
+            "value": "Etkin satın alma bulunamadı."
           }
         }
       }
@@ -8247,166 +8447,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "“%@” öğesini sil"
-          }
-        }
-      }
-    },
-    "period.lifetime": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Einmalig"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "lifetime"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "de por vida"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "à vie"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "навсегда"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "öम्र भर"
-          }
-        }
-      }
-    },
-    "paywall.lifetime.active": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du hast Lifetime-Zugang — einmalig gezahlt, dauerhaft Pro."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You have Lifetime access — paid once, Pro forever."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tienes acceso de por vida — pago único, Pro para siempre."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vous avez un accès à vie — paiement unique, Pro pour toujours."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "У вас пожизненный доступ — оплачено разово, Pro навсегда."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ömür boyu erişiminiz var — tek ödeme, sürekli Pro."
-          }
-        }
-      }
-    },
-    "paywall.lifetime.owned": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bereits gekauft"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Already purchased"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ya comprado"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Déjà acheté"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Уже куплено"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zaten satın alındı"
-          }
-        }
-      }
-    },
-    "paywall.lifetime.onetime": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Einmalig zahlen, dauerhaft nutzen"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pay once, use forever"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Paga una vez, usa para siempre"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Payez une fois, utilisez pour toujours"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Оплатите разово, используйте навсегда"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tek ödeyin, ömür boyu kullanın"
           }
         }
       }

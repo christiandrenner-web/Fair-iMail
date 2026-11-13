@@ -195,9 +195,12 @@ struct PaywallView: View {
                     Text(product.displayPrice)
                         .font(.headline)
                         .foregroundStyle(.primary)
-                    Text("pro \(SubscriptionProduct.periodLabel(for: product.id))")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
+                    // „pro Monat" ergibt beim Einmalkauf keinen Sinn.
+                    if !isLifetime {
+                        Text("pro \(SubscriptionProduct.periodLabel(for: product.id))")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
             .padding(14)
@@ -271,11 +274,31 @@ struct PaywallView: View {
 
     // MARK: – Rechtliches
 
+    /// Ohne geladene Produkte wird der Abo-Hinweis gezeigt — er ist die
+    /// konservative Annahme, weil das Standardangebot ein Abo ist.
+    private var showsSubscriptionDisclosure: Bool {
+        subscription.products.isEmpty
+            || subscription.products.contains { $0.subscription != nil }
+    }
+
+    private var showsLifetimeDisclosure: Bool {
+        subscription.tier == .lifetime
+            || subscription.products.contains { SubscriptionProduct.isLifetime($0.id) }
+    }
+
     private var legalSection: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Das Abo verlängert sich automatisch, bis du es in den App-Store-Einstellungen kündigst. Die Testphase endet automatisch mit dem Abschluss des Abos, wenn du nicht vorher kündigst.")
-                .font(.caption2)
-                .foregroundStyle(.secondary)
+            if showsSubscriptionDisclosure {
+                Text("Das Abo verlängert sich automatisch, bis du es in den App-Store-Einstellungen kündigst. Die Testphase endet automatisch mit dem Abschluss des Abos, wenn du nicht vorher kündigst.")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
+            if showsLifetimeDisclosure {
+                Text(String(localized: "paywall.legal.lifetime",
+                           defaultValue: "Lifetime ist ein Einmalkauf: keine Verlängerung, keine wiederkehrenden Kosten."))
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
 
             HStack(spacing: 16) {
                 if let privacy = URL(string: AppConstants.privacyPolicyURL) {

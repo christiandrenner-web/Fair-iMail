@@ -1,119 +1,165 @@
 {
-  "identifier" : "9F1C4A20-6B7D-4E31-9C8A-2D5E7B3F1A64",
-  "nonRenewingSubscriptions" : [
-
-  ],
-  "products" : [
+  "identifier": "9F1C4A20-6B7D-4E31-9C8A-2D5E7B3F1A64",
+  "nonRenewingSubscriptions": [],
+  "products": [
     {
-      "displayPrice" : "39.99",
-      "familyShareable" : false,
-      "internalID" : "6D0F1B83",
-      "localizations" : [
+      "displayPrice": "39.99",
+      "familyShareable": true,
+      "internalID": "6D0F1B83",
+      "localizations": [
         {
-          "description" : "Einmalig zahlen, dauerhaft Pro — keine monatlichen Kosten.",
-          "displayName" : "iMail Secure Pro (Lifetime)",
-          "locale" : "de_DE"
+          "description": "Einmalig zahlen, dauerhaft Pro — keine monatlichen Kosten.",
+          "displayName": "iMail Secure Pro (Lifetime)",
+          "locale": "de_DE"
         },
         {
-          "description" : "Pay once, use Pro forever — no recurring charges.",
-          "displayName" : "iMail Secure Pro (Lifetime)",
-          "locale" : "en_US"
+          "description": "Pay once, use Pro forever — no recurring charges.",
+          "displayName": "iMail Secure Pro (Lifetime)",
+          "locale": "en_US"
+        },
+        {
+          "description": "Paga una vez y usa Pro para siempre, sin cargos mensuales.",
+          "displayName": "iMail Secure Pro (de por vida)",
+          "locale": "es_ES"
+        },
+        {
+          "description": "Payez une fois et profitez de Pro pour toujours, sans frais mensuels.",
+          "displayName": "iMail Secure Pro (à vie)",
+          "locale": "fr_FR"
+        },
+        {
+          "description": "Одна оплата — Pro навсегда, без ежемесячных платежей.",
+          "displayName": "iMail Secure Pro (навсегда)",
+          "locale": "ru"
+        },
+        {
+          "description": "Bir kez ödeyin, aylık ücret olmadan Pro’yu sonsuza kadar kullanın.",
+          "displayName": "iMail Secure Pro (ömür boyu)",
+          "locale": "tr"
         }
       ],
-      "productID" : "io.imailsecure.pro.lifetime",
-      "referenceName" : "Pro Lifetime",
-      "type" : "NonConsumable"
+      "productID": "io.imailsecure.pro.lifetime",
+      "referenceName": "Pro Lifetime",
+      "type": "NonConsumable"
     }
   ],
-  "settings" : {
-    "_failTransactionsEnabled" : false,
-    "_locale" : "de_DE",
-    "_storefront" : "DEU",
-    "_storeKitErrors" : [
-
-    ]
+  "settings": {
+    "_failTransactionsEnabled": false,
+    "_locale": "de_DE",
+    "_storefront": "DEU",
+    "_storeKitErrors": []
   },
-  "subscriptionGroups" : [
+  "subscriptionGroups": [
     {
-      "id" : "2A7C5E10",
-      "localizations" : [
-
-      ],
-      "name" : "iMail Secure Pro",
-      "subscriptions" : [
+      "id": "2A7C5E10",
+      "localizations": [],
+      "name": "iMail Secure Pro",
+      "subscriptions": [
         {
-          "adHocOffers" : [
-
-          ],
-          "codeOffers" : [
-
-          ],
-          "displayPrice" : "2.99",
-          "familyShareable" : true,
-          "groupNumber" : 1,
-          "internalID" : "4B8D2F61",
-          "introductoryOffer" : {
-            "internalID" : "7C3E9A42",
-            "paymentMode" : "free",
-            "subscriptionPeriod" : "P1W"
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "2.99",
+          "familyShareable": true,
+          "groupNumber": 1,
+          "internalID": "4B8D2F61",
+          "introductoryOffer": {
+            "internalID": "7C3E9A42",
+            "paymentMode": "free",
+            "subscriptionPeriod": "P1W"
           },
-          "localizations" : [
+          "localizations": [
             {
-              "description" : "Mehrere Konten, alle Ordner und gemeinsamer Posteingang.",
-              "displayName" : "iMail Secure Pro (monatlich)",
-              "locale" : "de_DE"
+              "description": "Mehrere Konten, alle Ordner und gemeinsamer Posteingang.",
+              "displayName": "iMail Secure Pro (monatlich)",
+              "locale": "de_DE"
             },
             {
-              "description" : "Multiple accounts, all folders and a unified inbox.",
-              "displayName" : "iMail Secure Pro (monthly)",
-              "locale" : "en_US"
+              "description": "Multiple accounts, all folders and a unified inbox.",
+              "displayName": "iMail Secure Pro (monthly)",
+              "locale": "en_US"
+            },
+            {
+              "description": "Varias cuentas, todas las carpetas y una bandeja de entrada unificada.",
+              "displayName": "iMail Secure Pro (mensual)",
+              "locale": "es_ES"
+            },
+            {
+              "description": "Plusieurs comptes, tous les dossiers et une boîte de réception unifiée.",
+              "displayName": "iMail Secure Pro (mensuel)",
+              "locale": "fr_FR"
+            },
+            {
+              "description": "Несколько учётных записей, все папки и общий почтовый ящик.",
+              "displayName": "iMail Secure Pro (ежемесячно)",
+              "locale": "ru"
+            },
+            {
+              "description": "Birden fazla hesap, tüm klasörler ve birleşik gelen kutusu.",
+              "displayName": "iMail Secure Pro (aylık)",
+              "locale": "tr"
             }
           ],
-          "productID" : "io.imailsecure.pro.monthly",
-          "recurringSubscriptionPeriod" : "P1M",
-          "referenceName" : "Pro monatlich",
-          "subscriptionGroupID" : "2A7C5E10",
-          "type" : "RecurringSubscription"
+          "productID": "io.imailsecure.pro.monthly",
+          "recurringSubscriptionPeriod": "P1M",
+          "referenceName": "Pro monatlich",
+          "subscriptionGroupID": "2A7C5E10",
+          "type": "RecurringSubscription"
         },
         {
-          "adHocOffers" : [
-
-          ],
-          "codeOffers" : [
-
-          ],
-          "displayPrice" : "24.99",
-          "familyShareable" : true,
-          "groupNumber" : 1,
-          "internalID" : "5C9E3A72",
-          "introductoryOffer" : {
-            "internalID" : "8D4F0B53",
-            "paymentMode" : "free",
-            "subscriptionPeriod" : "P1W"
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "24.99",
+          "familyShareable": true,
+          "groupNumber": 1,
+          "internalID": "5C9E3A72",
+          "introductoryOffer": {
+            "internalID": "8D4F0B53",
+            "paymentMode": "free",
+            "subscriptionPeriod": "P1W"
           },
-          "localizations" : [
+          "localizations": [
             {
-              "description" : "Mehrere Konten, alle Ordner und gemeinsamer Posteingang.",
-              "displayName" : "iMail Secure Pro (jährlich)",
-              "locale" : "de_DE"
+              "description": "Mehrere Konten, alle Ordner und gemeinsamer Posteingang.",
+              "displayName": "iMail Secure Pro (jährlich)",
+              "locale": "de_DE"
             },
             {
-              "description" : "Multiple accounts, all folders and a unified inbox.",
-              "displayName" : "iMail Secure Pro (yearly)",
-              "locale" : "en_US"
+              "description": "Multiple accounts, all folders and a unified inbox.",
+              "displayName": "iMail Secure Pro (yearly)",
+              "locale": "en_US"
+            },
+            {
+              "description": "Varias cuentas, todas las carpetas y una bandeja de entrada unificada.",
+              "displayName": "iMail Secure Pro (anual)",
+              "locale": "es_ES"
+            },
+            {
+              "description": "Plusieurs comptes, tous les dossiers et une boîte de réception unifiée.",
+              "displayName": "iMail Secure Pro (annuel)",
+              "locale": "fr_FR"
+            },
+            {
+              "description": "Несколько учётных записей, все папки и общий почтовый ящик.",
+              "displayName": "iMail Secure Pro (ежегодно)",
+              "locale": "ru"
+            },
+            {
+              "description": "Birden fazla hesap, tüm klasörler ve birleşik gelen kutusu.",
+              "displayName": "iMail Secure Pro (yıllık)",
+              "locale": "tr"
             }
           ],
-          "productID" : "io.imailsecure.pro.yearly",
-          "recurringSubscriptionPeriod" : "P1Y",
-          "referenceName" : "Pro jährlich",
-          "subscriptionGroupID" : "2A7C5E10",
-          "type" : "RecurringSubscription"
+          "productID": "io.imailsecure.pro.yearly",
+          "recurringSubscriptionPeriod": "P1Y",
+          "referenceName": "Pro jährlich",
+          "subscriptionGroupID": "2A7C5E10",
+          "type": "RecurringSubscription"
         }
       ]
     }
   ],
-  "version" : {
-    "major" : 3,
-    "minor" : 0
+  "version": {
+    "major": 3,
+    "minor": 0
   }
 }

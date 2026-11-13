@@ -24,8 +24,22 @@ final class EntitlementTests: XCTestCase {
 
     func testBothSubscriptionsMeanPro() {
         XCTAssertEqual(
-            Entitlement.tier(forActiveProductIDs: SubscriptionProduct.allIDs),
+            Entitlement.tier(forActiveProductIDs: SubscriptionProduct.subscriptionIDs),
             .pro)
+    }
+
+    func testLifetimeMeansLifetimeTier() {
+        XCTAssertEqual(
+            Entitlement.tier(forActiveProductIDs: [SubscriptionProduct.lifetime]),
+            .lifetime)
+    }
+
+    /// Lifetime ist ein Einmalkauf und schlägt ein parallel laufendes Abo.
+    func testLifetimeWinsOverSubscription() {
+        XCTAssertEqual(
+            Entitlement.tier(forActiveProductIDs: [SubscriptionProduct.monthly,
+                                                   SubscriptionProduct.lifetime]),
+            .lifetime)
     }
 
     /// Ein fremdes oder unbekanntes Produkt darf nichts freischalten.
@@ -50,6 +64,10 @@ final class EntitlementTests: XCTestCase {
 
     func testProTierHasNoAccountLimit() {
         XCTAssertNil(Entitlement.accountLimit(for: .pro))
+    }
+
+    func testLifetimeTierHasNoAccountLimit() {
+        XCTAssertNil(Entitlement.accountLimit(for: .lifetime))
     }
 
     // MARK: – Feature-Tabelle
@@ -80,6 +98,15 @@ final class EntitlementTests: XCTestCase {
         XCTAssertTrue(Tier.free < Tier.pro)
         XCTAssertFalse(Tier.pro < Tier.free)
         XCTAssertTrue(Tier.pro <= Tier.pro)
+        XCTAssertTrue(Tier.pro < Tier.lifetime)
+        XCTAssertTrue(Tier.lifetime.isEffectivelyPro)
+        XCTAssertFalse(Tier.free.isEffectivelyPro)
+    }
+
+    func testEveryFeatureIsAvailableInLifetime() {
+        for feature in Feature.allCases {
+            XCTAssertTrue(feature.isAvailable(in: .lifetime), "\(feature.rawValue)")
+        }
     }
 
     // MARK: – Manager-Abfragen
@@ -93,6 +120,18 @@ final class EntitlementTests: XCTestCase {
         XCTAssertTrue(manager.canAddAccount(currentCount: 0))
         XCTAssertFalse(manager.canAddAccount(currentCount: 1))
         XCTAssertFalse(manager.canUse(.multipleAccounts))
+    }
+
+    @MainActor
+    func testLifetimeManagerCountsAsPro() {
+        let manager = SubscriptionManager(previewTier: .lifetime)
+
+        XCTAssertTrue(manager.isPro)
+        XCTAssertNil(manager.accountLimit)
+        XCTAssertTrue(manager.canAddAccount(currentCount: 3))
+        XCTAssertTrue(manager.canUse(.multipleAccounts))
+        XCTAssertTrue(manager.canUse(.folderManagement))
+        XCTAssertTrue(manager.canUse(.unifiedInbox))
     }
 
     @MainActor

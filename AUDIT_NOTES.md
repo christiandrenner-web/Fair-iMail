@@ -442,7 +442,7 @@ Konzept gut, Umsetzung unvollständig. Viele Schutzfunktionen existieren als UI-
 
 - **`terms.html` veröffentlicht** (Repo `imailsecure-site`, Commit `e559165`):
   Nutzungsbedingungen mit Geltungsbereich, Free/Pro-Abgrenzung, 7-Tage-Testphase
-  über Apples Introductory Offer, Preisen (1,99 €/Monat, 17,99 €/Jahr),
+  über Apples Introductory Offer, Preisen (2,99 €/Monat, 24,99 €/Jahr, 39,99 € Lifetime),
   automatischer Verlängerung, Kündigung über die Apple-ID, Widerrufsrecht für
   digitale Inhalte (§ 356 Abs. 5 BGB), Quellcode-Lizenz (PolyForm
   Noncommercial, ausdrücklich kein Open Source), Nutzerpflichten, Verfügbarkeit,

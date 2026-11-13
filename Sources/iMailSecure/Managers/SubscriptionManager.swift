@@ -74,7 +74,10 @@ final class SubscriptionManager: ObservableObject {
 
     // MARK: – Abfragen
 
-    var isPro: Bool { tier == .pro }
+    /// Pro und Lifetime schalten dieselben Funktionen frei. Wer Lifetime
+    /// gekauft hat, darf nicht als „kein Pro" gelten — sonst bliebe die
+    /// Paywall offen und alle Gates gesperrt.
+    var isPro: Bool { tier.isEffectivelyPro }
 
     var accountLimit: Int? { Entitlement.accountLimit(for: tier) }
 
@@ -140,7 +143,7 @@ final class SubscriptionManager: ObservableObject {
                 ? String(localized: "subscription.message.restored",
                          defaultValue: "Kauf wiederhergestellt.")
                 : String(localized: "subscription.message.none",
-                         defaultValue: "Kein aktives Abo gefunden.")
+                         defaultValue: "Kein aktiver Kauf gefunden.")
         } catch {
             message = String(localized: "subscription.error.restore",
                              defaultValue: "Wiederherstellen fehlgeschlagen.")

@@ -139,7 +139,8 @@ enum Entitlement {
     static let freeAccountCount = 1
 
     static func accountLimit(for tier: Tier) -> Int? {
-        tier == .pro ? nil : freeAccountCount
+        // Lifetime ist kein Abo, schaltet aber dieselben Funktionen frei.
+        tier.isEffectivelyPro ? nil : freeAccountCount
     }
 
     /// Welche Stufe ergibt sich aus den aktiven, nicht widerrufenen
