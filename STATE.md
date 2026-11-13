@@ -1,5 +1,5 @@
 # STATE — iMail Secure
-Stand: 2026-11-13 · Branch: `main` · Build: **SUCCEEDED** · Tests: **126 grün**
+Stand: 2026-11-13 · Branch: `main` · Letzter Commit: `e42560b` · Build: **SUCCEEDED** · Tests: **126 grün**
 
 ## Ziel
 App-Store-fähige Version: echte IMAP-Ordner, Datenschutz nach D2, Free/Pro ohne
