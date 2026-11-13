@@ -54,6 +54,7 @@ struct WelcomeView: View {
             }
             .padding(.horizontal)
             .padding(.bottom, 32)
+            .accessibilityIdentifier("welcome.addAccount")
         }
     }
 

@@ -1,0 +1,43 @@
+default_platform(:ios)
+
+# Fastlane führt Lanes im Verzeichnis `fastlane/` aus. Alle Pfade zum Projekt
+# werden deshalb absolut gebildet.
+ROOT = File.expand_path("..", __dir__)
+
+# Sprachen, für die App-Store-Einträge existieren (siehe fastlane/metadata).
+SCREENSHOT_LANGUAGES = %w[de-DE en-US es-ES fr-FR ru tr].freeze
+
+platform :ios do
+  desc "Demo-Postfach für eine Sprache füllen (Tools/seed-demo-mail.py)"
+  lane :seed_demo do |options|
+    language = options[:language] || "de-DE"
+    sh("python3", File.join(ROOT, "Tools/seed-demo-mail.py"), language)
+  end
+
+  desc "App-Store-Screenshots für alle Sprachen und Geräteklassen erzeugen"
+  desc "Benötigt IMAIL_TEST_USER/IMAIL_TEST_PASS als TEST_RUNNER_-Variablen"
+  lane :screenshots do
+    output = File.join(ROOT, "fastlane", "screenshots")
+    FileUtils.rm_rf(output)
+
+    # Pro Sprache wird das Demo-Postfach neu gefüllt: Sonst zeigen die
+    # Screenshots deutschen Inhalt unter türkischer Oberfläche.
+    SCREENSHOT_LANGUAGES.each do |language|
+      sh("python3", File.join(ROOT, "Tools", "seed-demo-mail.py"), language)
+      snapshot(
+        languages: [language],
+        output_directory: output,
+        derived_data_path: "/tmp/imail-snapshot-dd"
+      )
+    end
+  end
+
+  desc "Store-Metadaten hochladen, ohne Binary und Screenshots"
+  lane :metadata do
+    deliver(
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      force: true
+    )
+  end
+end

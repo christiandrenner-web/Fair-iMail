@@ -58,11 +58,13 @@ struct AccountSetupView: View {
                 Section("Benutzerdaten") {
                     TextField("Anzeigename", text: $displayName)
                         .focused($focusedField, equals: .displayName)
+                        .accessibilityIdentifier("account.displayName")
                         .submitLabel(.next)
                         .onSubmit { focusedField = .email }
 
                     TextField("E-Mail-Adresse", text: $email)
                         .focused($focusedField, equals: .email)
+                        .accessibilityIdentifier("account.email")
                         .keyboardType(.emailAddress)
                         .autocorrectionDisabled()
                         .textInputAutocapitalization(.never)
@@ -81,6 +83,7 @@ struct AccountSetupView: View {
                             }
                         }
                         .focused($focusedField, equals: .password)
+                        .accessibilityIdentifier("account.password")
                         .autocorrectionDisabled()
                         .textInputAutocapitalization(.never)
                         .submitLabel(.next)
@@ -177,6 +180,7 @@ struct AccountSetupView: View {
                         }
                     }
                     .disabled(isSaving || !isValid)
+                    .accessibilityIdentifier("account.save")
                 }
             }
             .onAppear {

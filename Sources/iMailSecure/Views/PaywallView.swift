@@ -209,6 +209,7 @@ struct PaywallView: View {
             .opacity(isLifetime && isActiveLifetime ? 0.6 : 1.0)
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier("paywall.plan.\(product.id)")
         .disabled(subscription.isPurchasing || (isLifetime && isActiveLifetime))
     }
 

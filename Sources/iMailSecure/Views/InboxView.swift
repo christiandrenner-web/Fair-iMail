@@ -46,6 +46,7 @@ struct InboxView: View {
                     } label: {
                         Label("Ordner", systemImage: "folder")
                     }
+                    .accessibilityIdentifier("inbox.folders")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     refreshButton

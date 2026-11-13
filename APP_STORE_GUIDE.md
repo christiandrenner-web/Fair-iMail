@@ -55,6 +55,49 @@ App Store Connect benötigt Screenshots für:
 | iPad Pro 13"           | 2064 × 2752 px |
 | iPad Pro 11"           | 1668 × 2388 px |
 
+### Automatisch erzeugen (fastlane snapshot)
+
+```bash
+TEST_RUNNER_IMAIL_TEST_USER=<testkonto> \
+TEST_RUNNER_IMAIL_TEST_PASS=<app-passwort> \
+  fastlane screenshots
+```
+
+`fastlane/Snapfile` legt die Geräte (iPhone 17 Pro Max = 6.9", iPad Pro 13"
+= 13"), die sechs Sprachen und den Ausgabeordner `fastlane/screenshots/` fest.
+Pro Sprache und Gerät entstehen vier Motive:
+
+| Datei | Inhalt |
+|---|---|
+| `01_Posteingang` | Nachrichtenliste mit Demo-Mails |
+| `02_Nachricht` | HTML-Ansicht mit blockierten externen Inhalten |
+| `03_Ordner` | Ordnerliste inklusive eigener Ordner (Pro) |
+| `04_Einstellungen` | Datenschutzfunktionen, Lizenz, Quellcode-Link |
+
+Die Aufnahmen laufen über `Tests/iMailSecureUITests/ScreenshotUITests.swift`
+gegen die echte App im Simulator. Das Testkonto enthält ausschließlich
+Demo-Nachrichten (`example`-Absender), keine echten Daten.
+
+Vor jeder Sprache füllt `Tools/seed-demo-mail.py` den Posteingang mit
+Nachrichten in genau dieser Sprache — sonst stünde deutschen Inhalt unter
+türkischer Oberfläche. Das Skript leert den Posteingang, legt sechs kurze
+Nachrichten und einen HTML-Newsletter an und erstellt die Ordner
+`Rechnungen` und `Reisen`, falls sie fehlen. Zugangsdaten liest es aus
+`~/.config/imailsecure/gmail-test.env`.
+
+Einzelne Sprache zum Prüfen:
+
+```bash
+python3 Tools/seed-demo-mail.py tr
+fastlane snapshot --languages tr --devices "iPad Pro 13-inch (M5)"
+```
+
+**Hinweis:** Pro wird über das Debug-Startargument `-imaailTier pro` gesetzt.
+Der echte Kaufpfad lässt sich mit `xcodebuild` derzeit nicht automatisch
+testen, weil der iOS-26-Simulator die StoreKit-Testkonfiguration nicht an die
+App unter dem UI-Test übergibt. In Xcode (Run mit `iMailSecure.storekit`) und
+im Sandbox-Konto funktioniert er.
+
 Empfohlen: Simulator-Screenshots + [Previewed.app](https://previewed.app) für schöne Rahmengrafiken.
 
 ---
@@ -145,7 +188,7 @@ Je Sprache: `name.txt`, `subtitle.txt`, `keywords.txt`, `description.txt`,
 `marketing_url.txt`, `privacy_url.txt`. Upload mit fastlane (einmalig `brew install fastlane`):
 
 ```bash
-fastlane run deliver --skip_binary_upload --skip_screenshots
+fastlane metadata            # = fastlane run deliver --skip_binary_upload --skip_screenshots
 ```
 
 Ohne fastlane: Inhalte in App Store Connect → App-Informationen →

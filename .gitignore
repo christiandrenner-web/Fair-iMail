@@ -31,3 +31,9 @@ graphify-out/
 *.mobileprovision
 *.key
 incoming/
+
+# fastlane – Berichte nicht einchecken, Screenshots schon (Store-Material)
+fastlane/report.xml
+fastlane/README.md
+fastlane/screenshots/screenshots.html
+fastlane/test_output/

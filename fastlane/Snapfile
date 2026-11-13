@@ -1,0 +1,39 @@
+# Snapfile — App-Store-Screenshots für iMail Secure
+#
+# Aufruf (Zugangsdaten für das Testkonto kommen aus der Umgebung):
+#
+#   TEST_RUNNER_IMAIL_TEST_USER=… TEST_RUNNER_IMAIL_TEST_PASS=… \
+#     fastlane screenshots
+#
+# Einzelne Sprache/Gerät zum Prüfen:
+#   python3 Tools/seed-demo-mail.py tr
+#   fastlane snapshot --languages tr --devices "iPad Pro 13-inch (M5)"
+#
+# Ergebnis: fastlane/screenshots/<Sprache>/<Gerät>-<Name>.png
+
+devices([
+  "iPhone 17 Pro Max",
+  "iPad Pro 13-inch (M5)"
+])
+
+languages([
+  "de-DE",
+  "en-US",
+  "es-ES",
+  "fr-FR",
+  "ru",
+  "tr"
+])
+
+scheme("iMailSecure")
+
+output_directory("./fastlane/screenshots")
+
+# Die Lane `screenshots` leert den Ordner einmal zu Beginn und ruft snapshot
+# danach je Sprache auf. Würde snapshot selbst leeren, bliebe nur die letzte
+# Sprache übrig.
+clear_previous_screenshots(false)
+override_status_bar(true)
+
+# Nur die Screenshot-Klasse, nicht die Funktions- und Unit-Tests.
+only_testing(["iMailSecureUITests/ScreenshotUITests"])

@@ -287,6 +287,7 @@ struct MessageDetailView: View {
                             .font(.subheadline.bold())
                     }
                     .buttonStyle(.bordered)
+                    .accessibilityIdentifier("detail.showHTML")
 
                     Text("HTML wird erst auf Knopfdruck gerendert – ohne Netzwerkzugriff, ohne JavaScript.")
                         .font(.caption2)

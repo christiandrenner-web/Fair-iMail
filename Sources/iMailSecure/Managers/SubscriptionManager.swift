@@ -43,7 +43,23 @@ final class SubscriptionManager: ObservableObject {
            let tier = Tier(rawValue: cached) {
             self.tier = tier
         }
-        if startImmediately { start() }
+
+        // Nur Debug: Oberflächentests und Screenshots starten mit einer festen
+        // Stufe. Nötig, weil `xcodebuild` die StoreKit-Testkonfiguration im
+        // iOS-26-Simulator nicht an die App übergibt. Im Release-Build gibt es
+        // diesen Pfad nicht.
+        var overridden = false
+        #if DEBUG
+        let arguments = ProcessInfo.processInfo.arguments
+        if let index = arguments.firstIndex(of: "-imaailTier"),
+           index + 1 < arguments.count,
+           let tier = Tier(rawValue: arguments[index + 1]) {
+            self.tier = tier
+            overridden = true
+        }
+        #endif
+
+        if startImmediately && !overridden { start() }
     }
 
     /// Nur für Tests und SwiftUI-Previews: setzt die Stufe ohne StoreKit.

@@ -73,6 +73,7 @@ struct FolderListView: View {
                         )
                     }
                     .disabled(activeAccounts.isEmpty)
+                    .accessibilityIdentifier("folders.create")
                 }
             }
             .navigationTitle("Ordner")
@@ -80,6 +81,7 @@ struct FolderListView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Fertig") { dismiss() }
+                        .accessibilityIdentifier("folders.done")
                 }
             }
             .task { await mailStore.refreshFolders() }
@@ -197,6 +199,7 @@ struct FolderListView: View {
             }
         }
         .foregroundStyle(locked ? .secondary : .primary)
+        .accessibilityIdentifier("folder.row.\(folder.name)")
         .contextMenu {
             if folder.role == .custom {
                 Button {
@@ -290,6 +293,7 @@ struct CreateFolderView: View {
 
                 Section {
                     TextField("Ordnername", text: $name)
+                        .accessibilityIdentifier("folder.nameField")
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                 } footer: {
@@ -316,6 +320,7 @@ struct CreateFolderView: View {
                         Task { await save() }
                     }
                     .disabled(trimmedName.isEmpty || selectedAccount == nil || isSaving)
+                    .accessibilityIdentifier("folder.create.confirm")
                 }
             }
         }
@@ -365,6 +370,7 @@ struct RenameFolderView: View {
             Form {
                 Section {
                     TextField("Ordnername", text: $name)
+                        .accessibilityIdentifier("folder.renameField")
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                 } footer: {
@@ -389,6 +395,7 @@ struct RenameFolderView: View {
                         Task { await save() }
                     }
                     .disabled(trimmedName.isEmpty || isSaving)
+                    .accessibilityIdentifier("folder.rename.confirm")
                 }
             }
         }

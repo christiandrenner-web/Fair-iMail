@@ -1,5 +1,5 @@
 # STATE — iMail Secure
-Stand: 2026-11-13 · Branch: `main` · Letzter Code-Commit: `e42560b` · Build: **SUCCEEDED** · Tests: **126 grün**
+Stand: 2026-11-13 · Branch: `main` · Letzter Code-Commit: `53caba3` · Build: **SUCCEEDED** · Tests: **126 grün**, UI-Tests grün (Ordner, Free-Gate, Screenshots)
 
 ## Ziel
 App-Store-fähige Version: echte IMAP-Ordner, Datenschutz nach D2, Free/Pro ohne
@@ -8,17 +8,27 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 ## Offen (max. 5, nach Schwere)
 | # | Datei:Zeile | Symptom | Soll | Status |
 |---|---|---|---|---|
-| 1 | `Views/PaywallView.swift`, `FolderListView.swift` | Kauf und Ordner-anlegen sind im Simulator noch nicht durchgeklickt | mit `iMailSecure.storekit`: Pro kaufen, Ordner anlegen/umbenennen/löschen | offen |
+| 1 | `Tests/iMailSecureTests/StoreKitPurchaseTests.swift` | Kaufpfad im Simulator nicht automatisch prüfbar: `xcodebuild` übergibt die StoreKit-Testkonfiguration nicht, `storekitd` fragt die Produktions-API | einmal in Xcode (Run mit `iMailSecure.storekit`) oder im Sandbox-Konto kaufen; Tests sind bis dahin per `IMAIL_STOREKIT_TESTS=1` opt-in | blockiert (Umgebung) |
 | 2 | `imailsecure-site/terms.html` | Nutzungsbedingungen sind Entwurf, nicht anwaltlich geprüft; eigener EULA-Text für App Store Connect fehlt | juristisch prüfen, EULA erstellen, in Connect hinterlegen | Entwurf veröffentlicht |
 | 3 | App Store Connect | Produkte, Abo-Gruppe, 7-Tage-Offer und eigene EULA fehlen | mit Apple-Developer-Account anlegen | offen |
 | 4 | `imailsecure-site/*.html` | Website-Rechtstexte nur auf Deutsch | ES/FR/RU/TR ergänzen, wenn die Store-Einträge live gehen | offen |
-| 5 | `~/.config/opencode/opencode.jsonc` | OpenRouter-Guthaben 0 (Key-Limit 100 ist kein Guthaben) | aufladen oder DeepSeek-Ausfall akzeptieren | offen |
+| 5 | Screenshots | Lauf über alle sechs Sprachen und zwei Geräteklassen | Ergebnis sichten, Ausreißer nachbessern, in Connect hochladen | läuft |
 
 ## Offene Entscheidungen
 - S5 OAuth 2.0 · S6 Entwürfe speichern · C1 PGP/S-MIME
 - L1 Lizenz: entschieden (PolyForm Noncommercial 1.0.0), juristische Prüfung steht aus
 
 ## Zuletzt erledigt
+- 2026-11-13 Simulator-Durchklick: `FolderManagementUITests` bestehen —
+  Ordner anlegen, umbenennen, löschen (serverseitig geprüft) und Free-Gate
+  öffnet die Paywall. Neues UI-Test-Target `iMailSecureUITests`
+- 2026-11-13 Screenshot-Pipeline: `fastlane snapshot` (Snapfile: 6 Sprachen ×
+  iPhone 17 Pro Max / iPad Pro 13"), vier Motive je Sprache und Gerät,
+  Demo-Mails im Testkonto, Pro über `-imaailTier pro` (nur `#if DEBUG`)
+- 2026-11-13 Erkenntnis dokumentiert: `xcodebuild` schreibt
+  `StoreKitConfigurationFileReference` nicht in die Test-Action/den
+  `xctestrun`; `SKTestSession` liefert im iOS-26-Simulator `notEntitled`.
+  `StoreKitPurchaseTests` sind deshalb opt-in (`IMAIL_STOREKIT_TESTS=1`)
 - 2026-11-13 Lifetime-Produkt repariert: `isPro` und Kontolimit gelten jetzt auch für
   `Tier.lifetime` (`isEffectivelyPro`) — vorher blieb die Paywall offen und Pro war
   gesperrt. Tests für Lifetime ergänzt, 126 grün
@@ -58,11 +68,12 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 - 2026-11-02 `52f2d99` Free/Pro (StoreKit 2), Apple-Trial, Multi-Account-Fix
 
 ## Nächster Schritt
-1. Im Simulator mit `iMailSecure.storekit` durchklicken: Pro und Lifetime kaufen,
-   danach einen eigenen Ordner anlegen, umbenennen und löschen. Ergebnis hier notieren.
-2. `terms.html` juristisch prüfen lassen und die Entwurfs-Kennzeichnung entfernen;
+1. Screenshot-Lauf sichten (`fastlane/screenshots/`), Ausreißer nachbessern und
+   die Bilder in App Store Connect hochladen.
+2. Kaufpfad einmal in Xcode mit `iMailSecure.storekit` durchklicken (Pro, Lifetime,
+   Wiederherstellen) und das Ergebnis hier notieren; alternativ im Sandbox-Konto.
+3. `terms.html` juristisch prüfen lassen und die Entwurfs-Kennzeichnung entfernen;
    EULA-Text für App Store Connect erstellen lassen.
-3. App-Store-Produkte, Introductory Offer und EULA in App Store Connect anlegen;
+4. App-Store-Produkte, Introductory Offer und EULA in App Store Connect anlegen;
    danach die sechs lokalisierten Store-Einträge aus `fastlane/metadata/` übernehmen.
-4. Website-Rechtstexte ES/FR/RU/TR ergänzen (`imailsecure-site/*.html`).
-5. Screenshots je Sprache und Geräteklasse erstellen.
+5. Website-Rechtstexte ES/FR/RU/TR ergänzen (`imailsecure-site/*.html`).

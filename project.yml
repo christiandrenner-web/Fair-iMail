@@ -10,6 +10,10 @@ options:
   defaultConfig: Debug
   xcodeVersion: "16.0"
   generateEmptyDirectories: true
+  # XcodeGen schreibt storeKitConfiguration nur in die Launch-Action; das
+  # Skript ergänzt sie in der Test-Action, damit UI-Tests echte Testprodukte
+  # sehen (siehe Tools/patch-storekit-testaction.py).
+  postGenCommand: "python3 Tools/patch-storekit-testaction.py"
 
 settings:
   base:
@@ -39,6 +43,11 @@ targets:
       - path: Sources/iMailSecure
         excludes:
           - "**/.DS_Store"
+      # Nur für StoreKit-Tests im Simulator: Die App muss die Konfiguration
+      # im Bundle haben, damit SKTestSession sie dem UI-Test zuordnen kann.
+      # Der Post-Build-Schritt entfernt sie aus Release-Builds.
+      - path: iMailSecure.storekit
+        buildPhase: resources
     resources:
       - Sources/iMailSecure/Resources
     dependencies:
@@ -48,6 +57,12 @@ targets:
     settings:
       base:
         PRODUCT_NAME: iMailSecure
+    postBuildScripts:
+      - name: StoreKit-Testkonfiguration aus Release entfernen
+        script: |
+          if [ "$CONFIGURATION" = "Release" ]; then
+            rm -f "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iMailSecure.storekit"
+          fi
 
   iMailSecureTests:
     type: bundle.unit-test
@@ -60,6 +75,20 @@ targets:
       base:
         BUNDLE_LOADER: "$(TEST_HOST)"
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/iMailSecure.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iMailSecure"
+
+  iMailSecureUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: Tests/iMailSecureUITests
+      - path: iMailSecure.storekit
+        buildPhase: resources
+    dependencies:
+      - target: iMailSecure
+    settings:
+      base:
+        TEST_TARGET_NAME: iMailSecure
+        GENERATE_INFOPLIST_FILE: YES
 
 packages:
   SwiftMail:
@@ -81,8 +110,10 @@ schemes:
       storeKitConfiguration: iMailSecure.storekit
     test:
       config: Debug
+      storeKitConfiguration: iMailSecure.storekit
       targets:
         - iMailSecureTests
+        - iMailSecureUITests
     profile:
       config: Release
     archive:

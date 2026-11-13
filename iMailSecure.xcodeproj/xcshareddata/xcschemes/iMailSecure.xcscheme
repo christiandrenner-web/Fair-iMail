@@ -29,6 +29,9 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       onlyGenerateCoverageForSpecifiedTargets = "NO">
+      <StoreKitConfigurationFileReference
+         identifier = "../../../iMailSecure.storekit">
+      </StoreKitConfigurationFileReference>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -47,6 +50,17 @@
                BlueprintIdentifier = "D9001073440F6E8072DDE474"
                BuildableName = "iMailSecureTests.xctest"
                BlueprintName = "iMailSecureTests"
+               ReferencedContainer = "container:iMailSecure.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0B3D94262BA425875A5D6439"
+               BuildableName = "iMailSecureUITests.xctest"
+               BlueprintName = "iMailSecureUITests"
                ReferencedContainer = "container:iMailSecure.xcodeproj">
             </BuildableReference>
          </TestableReference>

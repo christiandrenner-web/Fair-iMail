@@ -57,5 +57,7 @@ struct MessageRowView: View {
             }
         }
         .padding(.vertical, 4)
+        // Stabiler Anker für die UI-Tests; die Beschriftung ist sprachabhängig.
+        .accessibilityIdentifier("message.row")
     }
 }
