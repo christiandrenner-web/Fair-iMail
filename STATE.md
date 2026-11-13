@@ -1,5 +1,5 @@
 # STATE — iMail Secure
-Stand: 2026-11-12 · Branch: `main` · Letzter Code-Commit: `d89c02d` · Build: **SUCCEEDED**
+Stand: 2026-11-13 · Branch: `main` · Letzter Code-Commit: `d89c02d` · Build: **SUCCEEDED**
 
 ## Ziel
 App-Store-fähige Version: echte IMAP-Ordner, Datenschutz nach D2, Free/Pro ohne
@@ -8,11 +8,11 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 ## Offen (max. 5, nach Schwere)
 | # | Datei:Zeile | Symptom | Soll | Status |
 |---|---|---|---|---|
-| 1 | `MailSyncEngine` | Gmail-Labels und Deduplizierung über `listID` noch nicht real geprüft | mit dem Testkonto Labels/MOVE verifizieren | offen |
+| 1 | `MailSyncEngine` | Gmail-Labels und Deduplizierung über `listID` noch nicht real geprüft | mit dem Testkonto Labels/MOVE verifizieren | ✅ erledigt (2026-11-13) |
 | 2 | `imailsecure-site/terms.html` | Nutzungsbedingungen sind Entwurf, nicht anwaltlich geprüft | juristisch prüfen lassen, dann Badge + Hinweiskasten entfernen | Entwurf veröffentlicht |
 | 3 | App Store Connect | Produkte, Abo-Gruppe, 7-Tage-Offer und eigene EULA fehlen | mit Apple-Developer-Account anlegen | offen |
-| 5 | `imailsecure-site/*.html` | Website-Rechtstexte nur auf Deutsch | ES/FR/RU/TR ergänzen, wenn die Store-Einträge live gehen | offen |
-| 4 | `~/.config/opencode/opencode.jsonc` | OpenRouter-Guthaben 0 (Key-Limit 100 ist kein Guthaben) | aufladen oder DeepSeek-Ausfall akzeptieren | offen |
+| 4 | `imailsecure-site/*.html` | Website-Rechtstexte nur auf Deutsch | ES/FR/RU/TR ergänzen, wenn die Store-Einträge live gehen | offen |
+| 5 | `~/.config/opencode/opencode.jsonc` | OpenRouter-Guthaben 0 (Key-Limit 100 ist kein Guthaben) | aufladen oder DeepSeek-Ausfall akzeptieren | offen |
 
 ## Offene Entscheidungen
 - S5 OAuth 2.0 · S6 Entwürfe speichern · C1 PGP/S-MIME
@@ -48,7 +48,7 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 - 2026-11-02 `52f2d99` Free/Pro (StoreKit 2), Apple-Trial, Multi-Account-Fix
 
 ## Nächster Schritt
-1. Gmail-Test mit App-Passwort wiederholen; SMTP-Versand real prüfen.
-2. `terms.html` juristisch prüfen lassen und die Entwurfs-Kennzeichnung entfernen.
-3. App-Store-Produkte, Introductory Offer und EULA in App Store Connect anlegen;
+1. `terms.html` juristisch prüfen lassen und die Entwurfs-Kennzeichnung entfernen.
+2. App-Store-Produkte, Introductory Offer und EULA in App Store Connect anlegen;
    danach die sechs lokalisierten Store-Einträge aus `fastlane/metadata/` übernehmen.
+3. Website-Rechtstexte ES/FR/RU/TR ergänzen (`imailsecure-site/*.html`).
