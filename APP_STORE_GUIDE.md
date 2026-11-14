@@ -85,12 +85,22 @@ Nachrichten und einen HTML-Newsletter an und erstellt die Ordner
 `Rechnungen` und `Reisen`, falls sie fehlen. Zugangsdaten liest es aus
 `~/.config/imailsecure/gmail-test.env`.
 
+Zusätzlich setzt die Lane die **Systemsprache** der beiden Simulatoren
+(`fastlane/Snapfile`-Geräte). Sie bestimmt, was nicht aus der App kommt —
+etwa das Datumsformat in der iPad-Statusleiste. Ohne diesen Schritt stünde
+dort in allen Sprachen dieselbe Sprache.
+
 Einzelne Sprache zum Prüfen:
 
 ```bash
 python3 Tools/seed-demo-mail.py tr
+fastlane localize language:tr
 fastlane snapshot --languages tr --devices "iPad Pro 13-inch (M5)"
 ```
+
+Die Bilder liegen anschließend unter
+`fastlane/screenshots/<Sprache>/<Gerät>-<Motive>.png` und werden mit
+`fastlane deliver` hochgeladen (`fastlane metadata` lädt nur die Texte).
 
 **Hinweis:** Pro wird über das Debug-Startargument `-imaailTier pro` gesetzt.
 Der echte Kaufpfad lässt sich mit `xcodebuild` derzeit nicht automatisch

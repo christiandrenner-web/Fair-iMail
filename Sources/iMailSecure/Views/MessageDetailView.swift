@@ -62,6 +62,10 @@ struct MessageDetailView: View {
             }
             .padding()
         }
+        // Stabiler Anker für die Oberflächentests: Erscheint nur, wenn die
+        // Detailansicht wirklich offen ist — unabhängig von der Sprache und
+        // davon, ob die Mail eine HTML-Fassung hat.
+        .accessibilityIdentifier("detail.root")
         .navigationTitle(message.subject)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { toolbarItems }

@@ -45,16 +45,17 @@ final class ScreenshotUITests: XCTestCase {
         snapshot("01_Posteingang")
 
         // Nachricht: HTML-Ansicht mit blockierten externen Inhalten.
-        if openNewestMessage(in: app) {
-            let showHTML = app.buttons["detail.showHTML"]
-            if showHTML.waitForExistence(timeout: 10) {
-                showHTML.tap()
-                sleep(2)
-            }
-            snapshot("02_Nachricht")
-            let back = app.navigationBars.buttons.element(boundBy: 0)
-            if back.exists { back.tap() }
+        XCTAssertTrue(
+            openNewestMessage(in: app),
+            "Nachricht ließ sich nicht öffnen — Screenshot 02 wäre sonst eine Dublette des Posteingangs"
+        )
+        if app.buttons["detail.showHTML"].waitForExistence(timeout: 10) {
+            app.buttons["detail.showHTML"].tap()
+            sleep(2)
         }
+        snapshot("02_Nachricht")
+        let back = app.navigationBars.buttons.element(boundBy: 0)
+        if back.exists { back.tap() }
 
         // Ordner: Systemordner und die eigenen Ordner (Pro).
         openFolderList(in: app)

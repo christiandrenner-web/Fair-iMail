@@ -1,3 +1,6 @@
+require 'plist'
+require 'json'
+
 default_platform(:ios)
 
 # Fastlane führt Lanes im Verzeichnis `fastlane/` aus. Alle Pfade zum Projekt
@@ -7,11 +10,44 @@ ROOT = File.expand_path("..", __dir__)
 # Sprachen, für die App-Store-Einträge existieren (siehe fastlane/metadata).
 SCREENSHOT_LANGUAGES = %w[de-DE en-US es-ES fr-FR ru tr].freeze
 
+# Geräte aus fastlane/Snapfile. Achtung: Namen enthalten Leerzeichen, deshalb
+# keine %w-Schreibweise.
+SCREENSHOT_DEVICES = ["iPhone 17 Pro Max", "iPad Pro 13-inch (M5)"].freeze
+
+# Setzt die Systemsprache der Simulatoren. Sie bestimmt Dinge, die nicht aus
+# der App kommen — etwa das Datumsformat in der Statusleiste auf dem iPad.
+# Snapshot selbst macht das nur mit `localize_simulator`, das alle Simulatoren
+# herunterfährt; hier passiert es gezielt vor dem jeweiligen Lauf.
+def localize_devices(language)
+  # Erst herunterfahren: sonst überschreibt cfprefsd die Datei beim Beenden.
+  system("xcrun simctl shutdown all 2>/dev/null")
+  locale = language.include?("-") ? language.sub("-", "_") : "#{language}_#{language.upcase}"
+  udids = JSON.parse(`xcrun simctl list devices available --json`)["devices"]
+            .values.flatten
+            .select { |d| SCREENSHOT_DEVICES.include?(d["name"]) }
+            .map { |d| d["udid"] }
+
+  UI.message("Systemsprache #{locale} für #{udids.size} Simulator(en)")
+
+  udids.each do |udid|
+    path = File.join(Dir.home, "Library/Developer/CoreSimulator/Devices", udid,
+                     "data/Library/Preferences/.GlobalPreferences.plist")
+    next unless File.exist?(File.dirname(path))
+
+    File.write(path, Plist::Emit.dump({ AppleLocale: locale, AppleLanguages: [language] }))
+  end
+end
+
 platform :ios do
   desc "Demo-Postfach für eine Sprache füllen (Tools/seed-demo-mail.py)"
   lane :seed_demo do |options|
     language = options[:language] || "de-DE"
     sh("python3", File.join(ROOT, "Tools/seed-demo-mail.py"), language)
+  end
+
+  desc "Systemsprache der Screenshot-Simulatoren setzen"
+  lane :localize do |options|
+    localize_devices(options[:language] || "de-DE")
   end
 
   desc "App-Store-Screenshots für alle Sprachen und Geräteklassen erzeugen"
@@ -24,6 +60,7 @@ platform :ios do
     # Screenshots deutschen Inhalt unter türkischer Oberfläche.
     SCREENSHOT_LANGUAGES.each do |language|
       sh("python3", File.join(ROOT, "Tools", "seed-demo-mail.py"), language)
+      localize_devices(language)
       snapshot(
         languages: [language],
         output_directory: output,

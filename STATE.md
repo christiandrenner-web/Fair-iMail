@@ -12,13 +12,26 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 | 2 | `imailsecure-site/terms.html` | Nutzungsbedingungen sind Entwurf, nicht anwaltlich geprüft; eigener EULA-Text für App Store Connect fehlt | juristisch prüfen, EULA erstellen, in Connect hinterlegen | Entwurf veröffentlicht |
 | 3 | App Store Connect | Produkte, Abo-Gruppe, 7-Tage-Offer und eigene EULA fehlen | mit Apple-Developer-Account anlegen | offen |
 | 4 | `imailsecure-site/*.html` | Website-Rechtstexte nur auf Deutsch | ES/FR/RU/TR ergänzen, wenn die Store-Einträge live gehen | offen |
-| 5 | Screenshots | Lauf über alle sechs Sprachen und zwei Geräteklassen | Ergebnis sichten, Ausreißer nachbessern, in Connect hochladen | läuft |
+| 5 | App Store Connect | Screenshots liegen in `fastlane/screenshots/` (6 Sprachen × 2 Geräte × 4 Motive) | mit `fastlane deliver` hochladen, sobald der Account steht | fertig |
 
 ## Offene Entscheidungen
 - S5 OAuth 2.0 · S6 Entwürfe speichern · C1 PGP/S-MIME
 - L1 Lizenz: entschieden (PolyForm Noncommercial 1.0.0), juristische Prüfung steht aus
 
 ## Zuletzt erledigt
+- 2026-11-14 Screenshot-Satz geprüft: In `es-ES` und `tr` war das iPhone-Motiv
+  „Nachricht“ pixelgleich mit dem Posteingang — der Tipp auf die Zeile hatte
+  nicht navigiert, der Test fotografierte stillschweigend weiter. Behoben:
+  Detailansicht hat den Anker `detail.root`, `openNewestMessage` tippt bei
+  Bedarf erneut, und der Screenshot-Test schlägt fehl, statt eine Dublette
+  abzulegen. Beide Sprachen neu aufgenommen, alle 48 Bilder unterscheiden
+  sich jetzt paarweise (geprüft über Helligkeit und Pixelvergleich)
+- 2026-11-13 Screenshots für sechs Sprachen und zwei Geräteklassen erzeugt
+  (`fastlane screenshots`, 48 Bilder). Demo-Postfach und eigene Ordner werden
+  je Sprache neu angelegt; Systemsprache der Simulatoren wird mitgesetzt,
+  damit das iPad-Datum zur Sprache passt
+- 2026-11-13 Schreib-Knopf erscheint nur noch im Posteingang — in den
+  Einstellungen verdeckte er Formulare und Fußnoten
 - 2026-11-13 Simulator-Durchklick: `FolderManagementUITests` bestehen —
   Ordner anlegen, umbenennen, löschen (serverseitig geprüft) und Free-Gate
   öffnet die Paywall. Neues UI-Test-Target `iMailSecureUITests`

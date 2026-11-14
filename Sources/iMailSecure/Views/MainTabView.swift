@@ -19,8 +19,12 @@ struct MainTabView: View {
                 .tabItem { Label("Einstellungen", systemImage: "gearshape.fill") }
                 .tag(1)
         }
+        // Nur im Posteingang: In den Einstellungen würde der Knopf Formulare
+        // und Fußnoten überdecken.
         .overlay(alignment: .bottomTrailing) {
-            composeButton
+            if selectedTab == 0 {
+                composeButton
+            }
         }
     }
 

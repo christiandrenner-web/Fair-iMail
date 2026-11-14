@@ -114,16 +114,31 @@ extension XCTestCase {
             dumpUI(app, "liste-ohne-nachrichten")
             return false
         }
-        row.tap()
 
-        let detail = app.buttons["detail.showHTML"]
-        let back = app.navigationBars.firstMatch
-        let deadline = Date().addingTimeInterval(20)
-        while Date() < deadline {
-            if detail.exists || back.exists { return true }
-            usleep(300_000)
+        // `message.row` ist ein Container, nicht zwingend ein Knopf. Der Tipp
+        // geht deshalb auf den ersten antippbaren Nachfahren. Klappt er nicht
+        // (in zwei Sprachläufen blieb die Liste stehen), wird er wiederholt.
+        let detail = app.descendants(matching: .any)
+            .matching(identifier: "detail.root")
+            .firstMatch
+
+        for attempt in 1...3 {
+            let target = row.isHittable ? row : row.descendants(matching: .any)
+                .matching(NSPredicate(format: "isHittable == true"))
+                .firstMatch
+            if target.exists {
+                target.tap()
+            } else {
+                row.tap()
+            }
+
+            if detail.waitForExistence(timeout: 10) { return true }
+            // Fallback für ältere Builds ohne `detail.root`: die HTML-Schaltfläche
+            // gibt es nur in der Detailansicht.
+            if app.buttons["detail.showHTML"].exists { return true }
+
+            dumpUI(app, "detailansicht-fehlt-\(attempt)")
         }
-        dumpUI(app, "detailansicht-fehlt")
         return false
     }
 
