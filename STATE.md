@@ -23,7 +23,11 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
   und 3 UI-Tests (`FolderManagementUITests` ×2, `ScreenshotUITests`) auf dem
   iPad-Simulator. Vorher fielen drei Unit-Tests auf Türkisch um, weil der
   Screenshot-Lauf die Systemsprache des Simulators umstellt — die Test-Action
-  pinnt jetzt `de`/`DE` (`project.yml`), unabhängig von der Gerätesprache
+  pinnt jetzt `de`/`DE` (`project.yml`), unabhängig von der Gerätesprache.
+  Ein UI-Lauf direkt nach dem Sprachwechsel scheiterte einmal mit „Ordner
+  wurden nicht geladen“/leerem Posteingang; die beiden Läufe danach waren grün.
+  Beobachten, ob das wieder auftritt (verdächtig: Zustand direkt nach
+  Simulator-Neustart, nicht der Code)
 - 2026-11-14 Screenshot-Satz geprüft: In `es-ES` und `tr` war das iPhone-Motiv
   „Nachricht“ pixelgleich mit dem Posteingang — der Tipp auf die Zeile hatte
   nicht navigiert, der Test fotografierte stillschweigend weiter. Behoben:
