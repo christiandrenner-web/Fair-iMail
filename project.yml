@@ -111,6 +111,11 @@ schemes:
     test:
       config: Debug
       storeKitConfiguration: iMailSecure.storekit
+      # Sprache der Testhülle festnageln: Sonst hängen Unit-Tests, die deutsche
+      # Beschriftungen prüfen, von der Systemsprache des Simulators ab — nach
+      # einem Screenshot-Lauf steht die schon mal auf Türkisch.
+      language: de
+      region: DE
       targets:
         - iMailSecureTests
         - iMailSecureUITests

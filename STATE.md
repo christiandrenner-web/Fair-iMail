@@ -1,5 +1,5 @@
 # STATE — iMail Secure
-Stand: 2026-11-13 · Branch: `main` · Letzter Code-Commit: `53caba3` · Build: **SUCCEEDED** · Tests: **126 grün**, UI-Tests grün (Ordner, Free-Gate, Screenshots)
+Stand: 2026-11-14 · Branch: `main` · Letzter Code-Commit: `e870002` · Build: **SUCCEEDED** · Tests: **130 Unit-Tests (4 übersprungen) + 3 UI-Tests grün**
 
 ## Ziel
 App-Store-fähige Version: echte IMAP-Ordner, Datenschutz nach D2, Free/Pro ohne
@@ -19,6 +19,11 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 - L1 Lizenz: entschieden (PolyForm Noncommercial 1.0.0), juristische Prüfung steht aus
 
 ## Zuletzt erledigt
+- 2026-11-14 Gesamtlauf grün: 130 Unit-Tests (4 StoreKit-Tests opt-in, übersprungen)
+  und 3 UI-Tests (`FolderManagementUITests` ×2, `ScreenshotUITests`) auf dem
+  iPad-Simulator. Vorher fielen drei Unit-Tests auf Türkisch um, weil der
+  Screenshot-Lauf die Systemsprache des Simulators umstellt — die Test-Action
+  pinnt jetzt `de`/`DE` (`project.yml`), unabhängig von der Gerätesprache
 - 2026-11-14 Screenshot-Satz geprüft: In `es-ES` und `tr` war das iPhone-Motiv
   „Nachricht“ pixelgleich mit dem Posteingang — der Tipp auf die Zeile hatte
   nicht navigiert, der Test fotografierte stillschweigend weiter. Behoben:
@@ -81,8 +86,8 @@ beschnittene Schutzfunktionen. Keine offenen Code-Fehler bekannt.
 - 2026-11-02 `52f2d99` Free/Pro (StoreKit 2), Apple-Trial, Multi-Account-Fix
 
 ## Nächster Schritt
-1. Screenshot-Lauf sichten (`fastlane/screenshots/`), Ausreißer nachbessern und
-   die Bilder in App Store Connect hochladen.
+1. Screenshots in App Store Connect hochladen (`fastlane deliver`), sobald der
+   Developer-Account steht — die 48 Bilder sind fertig und geprüft.
 2. Kaufpfad einmal in Xcode mit `iMailSecure.storekit` durchklicken (Pro, Lifetime,
    Wiederherstellen) und das Ergebnis hier notieren; alternativ im Sandbox-Konto.
 3. `terms.html` juristisch prüfen lassen und die Entwurfs-Kennzeichnung entfernen;
